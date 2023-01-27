@@ -1,22 +1,35 @@
-SRCS =	main.cpp
+SRCS =	main.c parse.c display.c hook.c error.c
 
-OBJS = $(SRCS:%cpp=%o)
+OBJS = $(SRCS:%c=%o)
 
 NAME = cub3d
 
-CFLAGS = -Wall -Wextra -Werror 
+# CFLAGS = -Wall -Wextra -Werror
 
-CC = cc
+CC = gcc
+
+MAKELIB = cd lib/libft && make -s
+
+LIB = lib/libft/libft.a
+
+MAKELIBX = cd lib/mlx && make -s
+
+LIBX = lib/mlx/libmlx.a
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	$(MAKELIB)
+	$(MAKELIBX)
+	$(CC) $(OBJS) $(LIB) $(LIBX) -framework OpenGL -framework AppKit -o $(NAME)
 
 clean:
-	rm -rf $(OBJS)
+	cd lib/libft && make clean -s
+	$(RM) $(OBJS)
 
 fclean: clean
-	rm -rf $(NAME)
+	cd lib/libft && make fclean -s
+# cd lib/mlx/ && make clean   // commented out for now cuz the mlx compilation is slow
+	$(RM) $(NAME) -s
 
 re: fclean all
