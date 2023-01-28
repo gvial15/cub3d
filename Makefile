@@ -1,4 +1,4 @@
-SRCS =	main.c parse.c display.c hook.c error.c
+SRCS =	main.c parse.c parse_texture.c display.c hook.c error.c
 
 OBJS = $(SRCS:%c=%o)
 
@@ -29,7 +29,7 @@ clean:
 
 fclean: clean
 	cd lib/libft && make fclean -s
-# cd lib/mlx/ && make clean   // commented out for now cuz the mlx compilation is slow
+	cd lib/mlx/ && make clean
 	$(RM) $(NAME) -s
 
 re: fclean all
