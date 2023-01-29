@@ -24,11 +24,11 @@ typedef struct Display
 {
 	void	*mlx;
 	void	*mlx_win;
-	int		img_width;
 	void	*n_texture;
 	void	*s_texture;
 	void	*e_texture;
 	void	*w_texture;
+	int		img_width;
 	int		img_height;
 }	t_display;
 
@@ -39,7 +39,7 @@ typedef	struct s_cub3d {
 	t_display	display;
 }	t_cub3d;
 
-t_cub3d	*parse(char *arg);
+void	parse(t_cub3d *cub3d, char *arg);
 void	parse_texture(t_cub3d *cub3d);
 
 

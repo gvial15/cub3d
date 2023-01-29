@@ -40,13 +40,11 @@ static void	get_colors(t_cub3d *cub3d)
 	}
 }
 
-t_cub3d	*parse(char *arg)
+void	parse(t_cub3d *cub3d, char *arg)
 {
-	t_cub3d	*cub3d;
 
 	if (!arg)
 		arg_error(cub3d);
-	cub3d = malloc(sizeof(t_cub3d));
 	cub3d->map_fd = open(arg, O_RDONLY);
 
 	// mlx_xpm_file_to_image(); segfault
@@ -58,5 +56,4 @@ t_cub3d	*parse(char *arg)
 	// todo: parse the map into an int**
 
 	close(cub3d->map_fd);
-	return (cub3d);
 }
