@@ -1,17 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   print_nbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 10:22:56 by gvial             #+#    #+#             */
-/*   Updated: 2022/03/28 10:23:34 by gvial            ###   ########.fr       */
+/*   Created: 2022/04/09 18:50:57 by gvial             #+#    #+#             */
+/*   Updated: 2022/04/09 18:50:59 by gvial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-int	ft_isalpha(int c)
+
+#include "../libft.h"
+
+int	print_nbr(int n)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-		return (1);
-	return (0);
+	int		len;
+	char	*nbr;
+
+	nbr = ft_ltoa(n);
+	len = ft_strlen(nbr);
+	write(1, nbr, len);
+	free (nbr);
+	return (len);
 }
