@@ -1,10 +1,11 @@
 #include "cub3d.h"
-#include "lib/mlx/mlx.h"
 
 // function that display all the data from all the structs for debugging
 static void	display_data(t_cub3d *cub3d)
 {
 	printf("map_path: %s\n", cub3d->map_path);
+	printf("map_width: %i\n", cub3d->map.width);
+	printf("map_height: %i\n", cub3d->map.height);
 	printf("c_color: %i,%i,%i\n", cub3d->map.c_color[0], cub3d->map.c_color[1], cub3d->map.c_color[2]);
 	printf("f_color: %i,%i,%i\n", cub3d->map.f_color[0], cub3d->map.f_color[1], cub3d->map.f_color[2]);
 }
@@ -18,7 +19,9 @@ static void	init(t_cub3d *cub3d, char *map_path)
 	cub3d->map.f_color[0] = 0;
 	cub3d->map.f_color[1] = 0;
 	cub3d->map.f_color[2] = 0;
-	cub3d->map.worldMap = NULL;
+	cub3d->map.map = NULL;
+	cub3d->map.height = 0;
+	cub3d->map.width = 0;
 	cub3d->display.mlx = mlx_init();
 	cub3d->display.mlx_win = NULL;
 	cub3d->display.img_width = 0;

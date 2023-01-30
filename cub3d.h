@@ -15,7 +15,9 @@ typedef	struct s_player {
 }	t_player;
 
 typedef	struct s_map {
-	int	**worldMap;
+	int	**map;
+	int	width;
+	int	height;
 	int	f_color[3];
 	int	c_color[3];
 }	t_map;
@@ -41,8 +43,9 @@ typedef	struct s_cub3d {
 
 // parsing
 void	parse(t_cub3d *cub3d);
-void	parse_texture(t_cub3d *cub3d);
+void	parse_map(t_cub3d *cub3d);
 void	get_colors(t_cub3d *cub3d);
+void	parse_texture(t_cub3d *cub3d);
 
 // displaying
 void	display_window(t_cub3d *cub3d);
