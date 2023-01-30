@@ -16,6 +16,7 @@ static int	skip_to_map(t_cub3d *cub3d)
 		if (line[0] == 'N' || line[0] == 'E' || line[0] == 'S'
 			|| line[0] == 'W' || line[0] == 'C' || line[0] == 'F')
 			count++;
+		free(line);
 	}
 	return (map_fd);
 }
@@ -32,12 +33,16 @@ static void	alloc_map(t_cub3d *cub3d)
 	x = 0;
 	line = get_next_line(map_fd);
 	while (line[0] == '\n')
+	{
+		free(line);
 		line = get_next_line(map_fd);
+	}
 	while (line && line[0] != '\n')
 	{
 		y++;
 		if (ft_strlen_gnl(line) - 1 > x)
 			x = ft_strlen_gnl(line) - 1;
+		free(line);
 		line = get_next_line(map_fd);
 	}
 	cub3d->map.map = ft_calloc(y, sizeof(int*));
@@ -57,7 +62,7 @@ static void	fill_map(t_cub3d *cub3d, char *line, int y)
 		cub3d->map.map[y][i] = line[i] - 48;
 	if (i < cub3d->map.width)
 		while (i < cub3d->map.width)
-			cub3d->map.map[y][i++] = 2;
+			cub3d->map.map[y][i++] = -16;
 }
 
 static void	log_map(t_cub3d *cub3d)
@@ -70,13 +75,18 @@ static void	log_map(t_cub3d *cub3d)
 	map_fd = skip_to_map(cub3d);
 	line = get_next_line(map_fd);
 	while (line[0] == '\n')
+	{
+		free(line);
 		line = get_next_line(map_fd);
+	}
 	while (line && line[0] != '\n')
 	{
 		fill_map(cub3d, line, y);
+		free(line);
 		line = get_next_line(map_fd);
 		y++;
 	}
+	close(map_fd);
 }
 
 // parse the map into cub3d->map.map and player x/y and orientation
