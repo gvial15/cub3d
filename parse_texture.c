@@ -13,12 +13,14 @@ static char	*get_file_path(char *line)
 // parsing the texture in the .cub file and storing the img pointer to cub3d->display.<n/s/e/w>_texture
 void	parse_texture(t_cub3d *cub3d)
 {
+	int		map_fd;
 	char	*line;
 	char	*file_path;
 
+	map_fd = open(cub3d->map_path, O_RDONLY);
 	while(1)
 	{
-		line = get_next_line(cub3d->map_fd);
+		line = get_next_line(map_fd);
 		file_path = get_file_path(line);
 		if (!line)
 			break;
@@ -37,6 +39,7 @@ void	parse_texture(t_cub3d *cub3d)
 		free(line);
 		free(file_path);
 	}
+	close(map_fd);
 	if (!cub3d->display.e_texture || !cub3d->display.s_texture || !cub3d->display.w_texture
 		|| !cub3d->display.n_texture)
 		texture_error(cub3d);

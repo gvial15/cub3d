@@ -4,14 +4,14 @@
 // function that display all the data from all the structs for debugging
 static void	display_data(t_cub3d *cub3d)
 {
-	printf("map_fd: %i\n", cub3d->map_fd);
+	printf("map_path: %s\n", cub3d->map_path);
 	printf("c_color: %i,%i,%i\n", cub3d->map.c_color[0], cub3d->map.c_color[1], cub3d->map.c_color[2]);
 	printf("f_color: %i,%i,%i\n", cub3d->map.f_color[0], cub3d->map.f_color[1], cub3d->map.f_color[2]);
 }
 
-static void	init(t_cub3d *cub3d)
+static void	init(t_cub3d *cub3d, char *map_path)
 {
-	cub3d->map_fd = 0;
+	cub3d->map_path = map_path;
 	cub3d->map.c_color[0] = 0;
 	cub3d->map.c_color[1] = 0;
 	cub3d->map.c_color[2] = 0;
@@ -19,9 +19,6 @@ static void	init(t_cub3d *cub3d)
 	cub3d->map.f_color[1] = 0;
 	cub3d->map.f_color[2] = 0;
 	cub3d->map.worldMap = NULL;
-	cub3d->player.x = 0;
-	cub3d->player.y = 0;
-	cub3d->player.orientation = 0;
 	cub3d->display.mlx = mlx_init();
 	cub3d->display.mlx_win = NULL;
 	cub3d->display.img_width = 0;
@@ -30,15 +27,20 @@ static void	init(t_cub3d *cub3d)
 	cub3d->display.w_texture = NULL;
 	cub3d->display.s_texture = NULL;
 	cub3d->display.n_texture = NULL;
+	cub3d->player.x = 0;
+	cub3d->player.y = 0;
+	cub3d->player.orientation = 0;
 }
 
 int	main(int argc, char **argv)
 {
 	t_cub3d	cub3d;
 
-	init(&cub3d);
-	// parse all the data needed
-	parse(&cub3d, argv[1]);
+	if (!argv[1])
+		arg_error(&cub3d);
+	init(&cub3d, argv[1]);
+	parse(&cub3d);
+
 	display_data(&cub3d);
 
 	// mlx hook and displaying window

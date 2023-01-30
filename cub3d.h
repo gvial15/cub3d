@@ -33,15 +33,16 @@ typedef struct Display
 }	t_display;
 
 typedef	struct s_cub3d {
-	int			map_fd;
+	char		*map_path;
 	t_map		map;
 	t_player	player;
 	t_display	display;
 }	t_cub3d;
 
-void	parse(t_cub3d *cub3d, char *arg);
+// parsing
+void	parse(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
-
+void	get_colors(t_cub3d *cub3d);
 
 // displaying
 void	display_window(t_cub3d *cub3d);
