@@ -18,5 +18,6 @@ void	print_int_tab(int *tab, int size)
 
 	i = -1;
 	while (++i < size)
-		ft_printf("%i\n", tab[i]);
+		ft_printf("%i", tab[i]);
+	ft_printf("\n");
 }
