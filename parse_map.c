@@ -46,13 +46,38 @@ static char	*fill_map(t_cub3d *cub3d)
 	return (map);
 }
 
+static void	verify_walls(char *map) // might have to verify once the map is in a int**
+{									// because i cant verify if empty spaces in
+	int	i;							// middle of map are surrounded by walls
+
+	if (map[0] != '1' && map[0] != ' ')
+		map_error(map);
+	i = 0;
+	while (map[++i])
+	{
+		if (map[i] != '1' && map[i] != ' ' && map[i] != '0' && map[i] != 'N'
+			&& map[i] != 'E' && map[i] != 'S' && map[i] != 'W' && map[i] != '\n')
+			map_error(map);
+		if (map[i - 1] == '\n' && map[i] != '1')
+			map_error(map);
+		if (map[i - 1] == ' ' && map[i] != '1')
+			map_error(map);
+		if (map[i + 1] == '\n' && map[i] != '1')
+			map_error(map);
+		if (map[i + 1] == ' ' && map[i] != '1')
+			map_error(map);
+	}
+}
+
 // parse the map into cub3d->map.map and player x/y and orientation
 void	parse_map(t_cub3d *cub3d)
 {
 	char	*map;
 
 	map = fill_map(cub3d);
+	verify_walls(map);
 	// log map into a int**
+	// log_map(cub3d->map.map);
 	// verify map has walls all around it
 	// get player's x and y position and orientation
 

@@ -55,9 +55,10 @@ int		close_x(t_cub3d *cub3d);
 int		key_hook(int keycode, t_cub3d *cub3d);
 
 // error
-void	arg_error(t_cub3d *cub3d);
-void	error_exit(t_cub3d *cub3d);
-void	color_error(t_cub3d *cub3d);
-void	texture_error(t_cub3d *cub3d);
+void	arg_error();
+void	error_exit();
+void	color_error();
+void	texture_error();
+void	map_error(char *map);
 
 #endif

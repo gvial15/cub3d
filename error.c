@@ -1,32 +1,29 @@
 #include "cub3d.h"
 
 // functions which exits in case of color error
-void	color_error(t_cub3d *cub3d)
+void	color_error()
 {
 	printf("there was a problem getting the floor and/or ceiling color\n");
-	error_exit(cub3d);
+	exit(1);
 }
 
 // functions which exits in case of a texture error
-void	texture_error(t_cub3d *cub3d)
+void	texture_error()
 {
-	printf("there was a problem loading the texture\n");
-	error_exit(cub3d);
+	printf("there was a problem loading the textures\n");
+	exit(1);
 }
 
 // functions which exits in case of an error in the map file
-void	arg_error(t_cub3d *cub3d)
+void	arg_error()
 {
 	printf("arguement invalid\n");
-	error_exit(cub3d);
+	exit(1);
 }
 
-// function that will be called at the end of each error msg functions to free and close fds
-void	error_exit(t_cub3d *cub3d)
+void	map_error(char *map)
 {
-	// free stuff
-
-	// close fds
-
+	printf("the map doesn't conform with the requirement");
+	free(map);
 	exit(1);
 }
