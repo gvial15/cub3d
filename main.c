@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 	t_cub3d	cub3d;
 
 	if (!argv[1])
-		arg_error(&cub3d);
+		arg_error();
 	init(&cub3d, argv[1]);
 	parse(&cub3d);
 
