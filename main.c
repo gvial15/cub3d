@@ -12,7 +12,7 @@ static void	display_data(t_cub3d *cub3d)
 	printf("c_color: %i,%i,%i\n", cub3d->map.c_color[0], cub3d->map.c_color[1], cub3d->map.c_color[2]);
 	printf("f_color: %i,%i,%i\n", cub3d->map.f_color[0], cub3d->map.f_color[1], cub3d->map.f_color[2]);
 	while (++i < cub3d->map.height)
-		print_int_tab(cub3d->map.map[i], 33);
+		print_int_tab(cub3d->map.map[i], cub3d->map.width);
 }
 
 // might not be necessary will see at the end

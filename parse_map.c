@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "lib/libft/get_next_line/get_next_line.h"
 
 static int	skip_to_map(t_cub3d *cub3d)
 {
@@ -21,79 +22,39 @@ static int	skip_to_map(t_cub3d *cub3d)
 	return (map_fd);
 }
 
-static void	alloc_map(t_cub3d *cub3d)
+static char	*fill_map(t_cub3d *cub3d)
 {
+	char	*map;
 	char	*line;
 	int		map_fd;
-	int		x;
-	int		y;
 
+	map = NULL;
 	map_fd = skip_to_map(cub3d);
-	y = 0;
-	x = 0;
 	line = get_next_line(map_fd);
-	while (line[0] == '\n')
+	while (line && line[0] == '\n')
 	{
 		free(line);
 		line = get_next_line(map_fd);
 	}
 	while (line && line[0] != '\n')
 	{
-		y++;
-		if (ft_strlen_gnl(line) - 1 > x)
-			x = ft_strlen_gnl(line) - 1;
+		map = ft_strjoin_gnl(map, line);
 		free(line);
 		line = get_next_line(map_fd);
-	}
-	cub3d->map.map = ft_calloc(y, sizeof(int*));
-	cub3d->map.height = y;
-	cub3d->map.width = x;
-	while (y >= 0)
-		cub3d->map.map[y--] = ft_calloc(x, sizeof(int));
-	close(map_fd);
-}
-
-static void	fill_map(t_cub3d *cub3d, char *line, int y)
-{
-	int	i;
-
-	i = -1;
-	while (line[++i] && line[i] != '\n') //  change this to 1 || 0 || ...
-		cub3d->map.map[y][i] = line[i] - 48;
-	if (i < cub3d->map.width)
-		while (i < cub3d->map.width)
-			cub3d->map.map[y][i++] = -16;
-}
-
-static void	log_map(t_cub3d *cub3d)
-{
-	char	*line;
-	int		map_fd;
-	int		y;
-
-	y = 0;
-	map_fd = skip_to_map(cub3d);
-	line = get_next_line(map_fd);
-	while (line[0] == '\n')
-	{
-		free(line);
-		line = get_next_line(map_fd);
-	}
-	while (line && line[0] != '\n')
-	{
-		fill_map(cub3d, line, y);
-		free(line);
-		line = get_next_line(map_fd);
-		y++;
 	}
 	close(map_fd);
+	return (map);
 }
 
 // parse the map into cub3d->map.map and player x/y and orientation
 void	parse_map(t_cub3d *cub3d)
 {
-	alloc_map(cub3d);
-	log_map(cub3d);
+	char	*map;
+
+	map = fill_map(cub3d);
+	// log map into a int**
 	// verify map has walls all around it
 	// get player's x and y position and orientation
+
+	free(map);
 }
