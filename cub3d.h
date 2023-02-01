@@ -10,7 +10,9 @@
 
 typedef	struct s_player {
 	int		x;
+	int		dx;
 	int		y;
+	int		dy;
 	char	orientation;
 }	t_player;
 
@@ -31,8 +33,11 @@ typedef struct Display
 	void	*s_texture;
 	void	*e_texture;
 	void	*w_texture;
+	int		win_width;
+	int		win_height;
 	int		img_width;
 	int		img_height;
+	int		pixels;
 }	t_display;
 
 typedef	struct s_cub3d {

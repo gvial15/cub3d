@@ -2,8 +2,13 @@
 
 void	display_window(t_cub3d *cub3d)
 {
+	int	width;
+	int	height;
+
+	width = cub3d->display.win_width;
+	height = cub3d->display.win_height;
 	cub3d->display.mlx_win = \
-	mlx_new_window(cub3d->display.mlx, 2560, 1395, "Cub3d");
+	mlx_new_window(cub3d->display.mlx, width, height, "Cub3d");
 	print_floor(cub3d);
 	print_ceiling(cub3d);
 
@@ -46,6 +51,8 @@ void	print_floor(t_cub3d *cub3d)
 		x++;
 	}
 }
+
+
 
 void	print_ceiling(t_cub3d *cub3d)
 {

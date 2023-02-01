@@ -1,4 +1,4 @@
-SRCS =	main.c parse.c parse_texture.c parse_color.c parse_map.c display.c hook.c error.c print.c
+SRCS =	main.c parse.c parse_texture.c parse_color.c parse_map.c display.c hook.c error.c print.c movement.c
 
 OBJS = $(SRCS:%c=%o)
 

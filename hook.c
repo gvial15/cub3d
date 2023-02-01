@@ -11,12 +11,15 @@ int	key_hook(int keycode, t_cub3d *cub3d)
 	if (keycode == 53)
 		exit(0); // will need a better exit function to free and close the needed stuff
 	if (keycode == 13)
-		printf("w");
+		dprintf(2, "w\n");
+		// go_forward(cub3d);
 	if (keycode == 1)
-		printf("s");
+		dprintf(2, "s\n");
+		// go_backward(cub3d);
 	if (keycode == 0)
-		printf("a");
+		dprintf(2, "a\n");
 	if (keycode == 2)
-		printf("d");
+		dprintf(2, "d\n");
+	print_minimap(cub3d);
 	return (0);
 }

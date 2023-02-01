@@ -28,8 +28,11 @@ static void	init(t_cub3d *cub3d, char *map_path)
 	cub3d->map.map = NULL;
 	cub3d->map.height = 0;
 	cub3d->map.width = 0;
+	cub3d->display.pixels = 12;
 	cub3d->display.mlx = mlx_init();
 	cub3d->display.mlx_win = NULL;
+	cub3d->display.win_width = 2560;
+	cub3d->display.win_height = 1395;
 	cub3d->display.img_width = 0;
 	cub3d->display.img_height = 0;
 	cub3d->display.e_texture = NULL;
@@ -37,7 +40,9 @@ static void	init(t_cub3d *cub3d, char *map_path)
 	cub3d->display.s_texture = NULL;
 	cub3d->display.n_texture = NULL;
 	cub3d->player.x = 0;
+	cub3d->player.dx = cub3d->display.pixels / 2;
 	cub3d->player.y = 0;
+	cub3d->player.dy = cub3d->display.pixels / 2;
 	cub3d->player.orientation = 0;
 }
 
