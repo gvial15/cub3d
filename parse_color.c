@@ -36,7 +36,7 @@ static void	fill_color(char *line, int	color[3], t_cub3d *cub3d)
 	if (split_len(split_comma) != 3)
 	{
 		free(split_comma);
-		color_error(cub3d);
+		color_error();
 	}
 	color[0] = ft_atoi(split_comma[0]);
 	color[1] = ft_atoi(split_comma[1]);
@@ -63,7 +63,7 @@ void	get_colors(t_cub3d *cub3d)
 			free(line);
 			close(map_fd);
 			free_split(split_space);
-			color_error(cub3d);
+			color_error();
 		}
 		if (line[0] == 'C')
 			fill_color(split_space[1], cub3d->map.c_color, cub3d);

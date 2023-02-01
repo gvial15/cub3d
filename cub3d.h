@@ -15,11 +15,12 @@ typedef	struct s_player {
 }	t_player;
 
 typedef	struct s_map {
-	int	**map;
-	int	width;
-	int	height;
-	int	f_color[3];
-	int	c_color[3];
+	int		**map;
+	char	*map_c;
+	int		width;
+	int		height;
+	int		f_color[3];
+	int		c_color[3];
 }	t_map;
 
 typedef struct Display

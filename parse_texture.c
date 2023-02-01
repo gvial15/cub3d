@@ -42,5 +42,5 @@ void	parse_texture(t_cub3d *cub3d)
 	close(map_fd);
 	if (!cub3d->display.e_texture || !cub3d->display.s_texture || !cub3d->display.w_texture
 		|| !cub3d->display.n_texture)
-		texture_error(cub3d);
+		texture_error();
 }

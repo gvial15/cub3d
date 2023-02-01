@@ -1,5 +1,4 @@
 #include "cub3d.h"
-#include "lib/libft/get_next_line/get_next_line.h"
 
 static int	skip_to_map(t_cub3d *cub3d)
 {
