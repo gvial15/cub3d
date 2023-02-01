@@ -37,6 +37,7 @@ typedef struct Display
 
 typedef	struct s_cub3d {
 	char		*map_path;
+	int			map_fd;
 	t_map		map;
 	t_player	player;
 	t_display	display;

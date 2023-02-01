@@ -6,6 +6,7 @@ static void	display_data(t_cub3d *cub3d)
 {
 	int	i = -1;
 
+	printf("map_c:\n\n%s\n\n", cub3d->map.map_c);
 	printf("map_path: %s\n", cub3d->map_path);
 	printf("map_width: %i\n", cub3d->map.width);
 	printf("map_height: %i\n", cub3d->map.height);
@@ -19,6 +20,7 @@ static void	display_data(t_cub3d *cub3d)
 static void	init(t_cub3d *cub3d, char *map_path)
 {
 	cub3d->map_path = map_path;
+	cub3d->map_fd = 0;
 	cub3d->map.c_color[0] = 0;
 	cub3d->map.c_color[1] = 0;
 	cub3d->map.c_color[2] = 0;
@@ -26,6 +28,7 @@ static void	init(t_cub3d *cub3d, char *map_path)
 	cub3d->map.f_color[1] = 0;
 	cub3d->map.f_color[2] = 0;
 	cub3d->map.map = NULL;
+	cub3d->map.map_c = NULL;
 	cub3d->map.height = 0;
 	cub3d->map.width = 0;
 	cub3d->display.mlx = mlx_init();
