@@ -49,6 +49,12 @@ void	parse_texture(t_cub3d *cub3d);
 
 // displaying
 void	display_window(t_cub3d *cub3d);
+void	print_ceiling(t_cub3d *cub3d);
+void	print_floor(t_cub3d *cub3d);
+int		rgb_to_int(int *color);
+
+// printing initial position
+void	print_minimap(t_cub3d *cub3d);
 
 // mlx hook
 int		close_x(t_cub3d *cub3d);
@@ -60,5 +66,8 @@ void	error_exit();
 void	color_error();
 void	texture_error();
 void	map_error(char *map);
+
+//temp
+void	print_info(t_cub3d *cub3d);
 
 #endif
