@@ -6,7 +6,7 @@ static void	display_data(t_cub3d *cub3d)
 {
 	int	i = -1;
 
-	printf("map_c:\n\n%s\n\n", cub3d->map.map_c);
+	// printf("map_c:\n\n%s\n\n", cub3d->map.map_c);
 	printf("map_path: %s\n", cub3d->map_path);
 	printf("map_width: %i\n", cub3d->map.width);
 	printf("map_height: %i\n", cub3d->map.height);
@@ -61,6 +61,6 @@ int	main(int argc, char **argv)
 	mlx_hook(cub3d.display.mlx_win, 17, 0, close_x, &cub3d);
 	mlx_loop(cub3d.display.mlx);
 
-	// free cub3d->map.worldMap and close all the fds in cub3d and cub3d->map and exit()
+	// free stuff and exit()
 
 }

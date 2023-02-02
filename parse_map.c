@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "lib/libft/libft.h"
 
 static int	skip_to_map(t_cub3d *cub3d)
 {
@@ -20,6 +21,7 @@ static int	skip_to_map(t_cub3d *cub3d)
 	}
 	return (map_fd);
 }
+
 
 static char	*fill_map(t_cub3d *cub3d)
 {
@@ -45,26 +47,52 @@ static char	*fill_map(t_cub3d *cub3d)
 	return (map);
 }
 
-static void	verify_walls(char *map) // might have to verify once the map is in a int**
-{									// because i cant verify if empty spaces in
-	int	i;							// middle of map are surrounded by walls
+static void	alloc_map(t_cub3d *cub3d, char *map)
+{
+	int		i;
+	int		x;
+	int		y;
+	char	**split;
 
-	if (map[0] != '1' && map[0] != ' ')
-		map_error(map);
-	i = 0;
-	while (map[++i])
+	split = ft_split(map, '\n');
+	y = split_len(split);
+	x = 0;
+	i = -1;
+	while (split[++i])
+		if (ft_strlen(split[i]) > x)
+			x = ft_strlen(split[i]);
+	cub3d->map.map = malloc(sizeof(int *) * y);
+	i = y;
+	while (--i >= 0)
+		cub3d->map.map[i] = ft_calloc(x, sizeof(int));
+	cub3d->map.height = y;
+	cub3d->map.width = x;
+	free(split);
+}
+
+static void	log_map(t_cub3d *cub3d, char *map)
+{
+	int		i;
+	int		x;
+	int		z;
+	char	**split;
+
+	split = ft_split(map, '\n');
+	i = -1;
+	z = 0;
+	x = -1;
+	while (split[++i])
 	{
-		if (map[i] != '1' && map[i] != ' ' && map[i] != '0' && map[i] != 'N'
-			&& map[i] != 'E' && map[i] != 'S' && map[i] != 'W' && map[i] != '\n')
-			map_error(map);
-		if (map[i - 1] == '\n' && map[i] != '1')
-			map_error(map);
-		if (map[i - 1] == ' ' && map[i] != '1')
-			map_error(map);
-		if (map[i + 1] == '\n' && map[i] != '1')
-			map_error(map);
-		if (map[i + 1] == ' ' && map[i] != '1')
-			map_error(map);
+		while (++x < cub3d->map.width)
+		{
+			if (split[i][z] && split[i][z] != ' ')
+				cub3d->map.map[i][x] = split[i][z] - 48;
+			else
+				cub3d->map.map[i][x] = -1;
+			z++;
+		}
+		x = -1;
+		z = 0;
 	}
 }
 
@@ -74,11 +102,11 @@ void	parse_map(t_cub3d *cub3d)
 	char	*map;
 
 	map = fill_map(cub3d);
-	verify_walls(map);
-	// log map into a int**
-	// log_map(cub3d->map.map);
-	// verify map has walls all around it
+	// verify_map(map); // verify if map is only 1 0 \n NSEW
+	alloc_map(cub3d, map);
+	log_map(cub3d, map);
+	// verify_walls(cub3d->map.map);
 	// get player's x and y position and orientation
-
+	// verify_player();
 	free(map);
 }
