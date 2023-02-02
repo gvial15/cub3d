@@ -45,6 +45,8 @@ static void	fill_color(char *line, int	color[3], t_cub3d *cub3d)
 
 static void	error(t_cub3d *cub3d, char **split_space, char *line)
 {
+	if (!line)
+		return ;
 	if ((split_len(split_space) != 2 && (line[0] == 'C' || line[0] == 'F')))
 	{
 		free(line);
@@ -60,6 +62,7 @@ void	get_colors(t_cub3d *cub3d)
 	char	*line;
 	char	**split_space;
 
+	line = NULL;
 	if (!f_c(cub3d))
 		error(cub3d, split_space, line);
 	cub3d->map_fd = open(cub3d->map_path, O_RDONLY);
