@@ -1,5 +1,4 @@
 #include "cub3d.h"
-#include "lib/libft/libft.h"
 
 static int	skip_to_map(t_cub3d *cub3d)
 {
@@ -47,53 +46,15 @@ static char	*fill_map(t_cub3d *cub3d)
 	return (map);
 }
 
-static void	alloc_map(t_cub3d *cub3d, char *map)
+static void	verify_map(char *map)
 {
-	int		i;
-	int		x;
-	int		y;
-	char	**split;
+	int	i;
 
-	split = ft_split(map, '\n');
-	y = split_len(split);
-	x = 0;
 	i = -1;
-	while (split[++i])
-		if (ft_strlen(split[i]) > x)
-			x = ft_strlen(split[i]);
-	cub3d->map.map = malloc(sizeof(int *) * y);
-	i = y;
-	while (--i >= 0)
-		cub3d->map.map[i] = ft_calloc(x, sizeof(int));
-	cub3d->map.height = y;
-	cub3d->map.width = x;
-	free(split);
-}
-
-static void	log_map(t_cub3d *cub3d, char *map)
-{
-	int		i;
-	int		x;
-	int		z;
-	char	**split;
-
-	split = ft_split(map, '\n');
-	i = -1;
-	z = 0;
-	x = -1;
-	while (split[++i])
-	{
-		while (++x < cub3d->map.width)
-		{
-			if (split[i][z] && split[i][z] != ' ')
-				cub3d->map.map[i][x] = split[i][z] - 48;
-			else
-				cub3d->map.map[i][x] = -1;
-			z++;
-		}
-		x = -1;
-		z = 0;
-	}
+	while (map[++i])
+		if (map[i] != '1' && map[i] != '0' && map[i] != ' ' && map[i] != '\n'
+			&& map[i] != 'N' && map[i] != 'S' && map[i] != 'W' && map[i] != 'E')
+			map_error(map);
 }
 
 // parse the map into cub3d->map.map and player x/y and orientation
@@ -102,7 +63,7 @@ void	parse_map(t_cub3d *cub3d)
 	char	*map;
 
 	map = fill_map(cub3d);
-	// verify_map(map); // verify if map is only 1 0 \n NSEW
+	verify_map(map);
 	alloc_map(cub3d, map);
 	log_map(cub3d, map);
 	// verify_walls(cub3d->map.map);

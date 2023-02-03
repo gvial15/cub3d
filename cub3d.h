@@ -48,6 +48,8 @@ void	parse(t_cub3d *cub3d);
 void	parse_map(t_cub3d *cub3d);
 void	get_colors(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
+void	log_map(t_cub3d *cub3d, char *map);
+void	alloc_map(t_cub3d *cub3d, char *map);
 
 // displaying
 void	display_window(t_cub3d *cub3d);
@@ -58,7 +60,6 @@ int		key_hook(int keycode, t_cub3d *cub3d);
 
 // error
 void	arg_error();
-void	error_exit();
 void	color_error();
 void	texture_error();
 void	map_error(char *map);
