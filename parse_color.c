@@ -1,5 +1,13 @@
 #include "cub3d.h"
 
+static void	error(t_cub3d *cub3d, char **split_space, char *line)
+{
+	free(line);
+	close(cub3d->map_fd);
+	free_split(split_space);
+	color_error();
+}
+
 static int	f_c(t_cub3d *cub3d)
 {
 	char	*line;
@@ -43,19 +51,6 @@ static void	fill_color(char *line, int	color[3], t_cub3d *cub3d)
 	free_split(split_comma);
 }
 
-static void	error(t_cub3d *cub3d, char **split_space, char *line)
-{
-	if (!line)
-		return ;
-	if ((split_len(split_space) != 2 && (line[0] == 'C' || line[0] == 'F')))
-	{
-		free(line);
-		close(cub3d->map_fd);
-		free_split(split_space);
-		color_error();
-	}
-}
-
 // parse ceilling and floor color into cub3d->map.<f/c>_color[3];
 void	get_colors(t_cub3d *cub3d)
 {
@@ -72,7 +67,8 @@ void	get_colors(t_cub3d *cub3d)
 		if (!line)
 			break;
 		split_space = ft_split(line, ' ');
-		error(cub3d, split_space, line);
+		if ((split_len(split_space) != 2 && (line[0] == 'C' || line[0] == 'F')))
+			error(cub3d, split_space, line);
 		if (line[0] == 'C')
 			fill_color(split_space[1], cub3d->map.c_color, cub3d);
 		if (line[0] == 'F')
