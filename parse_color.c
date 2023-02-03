@@ -4,7 +4,7 @@ static void	error(t_cub3d *cub3d, char **split_space, char *line)
 {
 	free(line);
 	close(cub3d->map_fd);
-	free_split(split_space);
+	free_split((void**)split_space, split_len(split_space));
 	color_error();
 }
 
@@ -48,7 +48,7 @@ static void	fill_color(char *line, int	color[3], t_cub3d *cub3d)
 	color[0] = ft_atoi(split_comma[0]);
 	color[1] = ft_atoi(split_comma[1]);
 	color[2] = ft_atoi(split_comma[2]);
-	free_split(split_comma);
+	free_split((void**)split_comma, split_len(split_comma));
 }
 
 // parse ceilling and floor color into cub3d->map.<f/c>_color[3];
@@ -73,7 +73,7 @@ void	get_colors(t_cub3d *cub3d)
 			fill_color(split_space[1], cub3d->map.c_color, cub3d);
 		if (line[0] == 'F')
 			fill_color(split_space[1], cub3d->map.f_color, cub3d);
-		free_split(split_space);
+		free_split((void**)split_space, split_len(split_space));
 		free(line);
 	}
 	close(cub3d->map_fd);

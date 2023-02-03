@@ -20,7 +20,7 @@ void	alloc_map(t_cub3d *cub3d, char *map)
 		cub3d->map.map[i] = ft_calloc(x, sizeof(int));
 	cub3d->map.height = y;
 	cub3d->map.width = x;
-	free(split);
+	free_split((void**)split, split_len(split));
 }
 
 void	log_map(t_cub3d *cub3d, char *map)

@@ -22,6 +22,6 @@ char	*split_to_str(char **split, int free)
 	while (split[++i])
 		str = ft_strjoin_gnl(str, split[i]);
 	if (free == 1)
-		free_split(split);
+		free_split((void**)split, split_len(split));
 	return (str);
 }

@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "lib/libft/libft.h"
 
 // functions which exits in case of color error
 void	color_error()
@@ -21,9 +22,12 @@ void	arg_error()
 	exit(1);
 }
 
-void	map_error(char *map)
+void	map_error(t_cub3d *cub3d, char *map)
 {
 	printf("the map doesn't conform with the requirement");
-	free(map);
+	if (cub3d->map.map)
+		free_split((void**)cub3d->map.map, cub3d->map.height);
+	if (!map)
+		free(map);
 	exit(1);
 }
