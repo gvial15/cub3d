@@ -62,6 +62,7 @@ int		key_hook(int keycode, t_cub3d *cub3d);
 void	arg_error();
 void	color_error();
 void	texture_error();
+void	player_error(char *map);
 void	map_error(t_cub3d *cub3d, char *map);
 
 #endif

@@ -6,7 +6,9 @@ static void	display_data(t_cub3d *cub3d)
 {
 	int	i = -1;
 
-	// printf("map_c:\n\n%s\n\n", cub3d->map.map_c);
+	printf("player_x: %i\n", cub3d->player.x);
+	printf("player_y: %i\n", cub3d->player.y);
+	printf("player_orientation: %c\n", cub3d->player.orientation);
 	printf("map_path: %s\n", cub3d->map_path);
 	printf("map_width: %i\n", cub3d->map.width);
 	printf("map_height: %i\n", cub3d->map.height);

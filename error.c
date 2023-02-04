@@ -22,9 +22,16 @@ void	arg_error()
 	exit(1);
 }
 
+void	player_error(char *map)
+{
+	printf("player error\n");
+	free(map);
+	exit(1);
+}
+
 void	map_error(t_cub3d *cub3d, char *map)
 {
-	printf("the map doesn't conform with the requirement");
+	printf("the map doesn't conform with the requirement\n");
 	if (cub3d->map.map)
 		free_split((void**)cub3d->map.map, cub3d->map.height);
 	if (!map)

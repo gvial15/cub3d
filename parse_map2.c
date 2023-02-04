@@ -38,7 +38,7 @@ void	log_map(t_cub3d *cub3d, char *map)
 	{
 		while (++x < cub3d->map.width)
 		{
-			if (split[i][z] && split[i][z] != ' ')
+			if (z < ft_strlen(split[i]) && split[i][z] != ' ')
 				cub3d->map.map[i][x] = split[i][z] - 48;
 			else
 				cub3d->map.map[i][x] = -1;
