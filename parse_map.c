@@ -88,7 +88,8 @@ static void	get_player(t_cub3d *cub3d, char *map)
 	{
 		while (++x < cub3d->map.width)
 		{
-			if (cub3d->map.map[y][x] == 'N' - 48 || cub3d->map.map[y][x] == 'S' - 48 || cub3d->map.map[y][x] == 'E' - 48 || cub3d->map.map[y][x] == 'W' - 48)
+			if (cub3d->map.map[y][x] == 'N' - 48 || cub3d->map.map[y][x] == 'S' - 48
+				|| cub3d->map.map[y][x] == 'E' - 48 || cub3d->map.map[y][x] == 'W' - 48)
 			{
 				if (p == 1)
 					player_error(map);
