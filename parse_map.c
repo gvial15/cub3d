@@ -57,7 +57,7 @@ static void	verify_map(t_cub3d *cub3d, char *map)
 			map_error(cub3d, map);
 }
 
-static void	verify_walls(t_cub3d *cub3d, int height, int **map)
+static void	verify_walls(t_cub3d *cub3d, int height, int **map, char *map_c)
 {
 	int	x;
 	int	y;
@@ -69,7 +69,7 @@ static void	verify_walls(t_cub3d *cub3d, int height, int **map)
 		while (map[y][++x])
 		{
 			if ( ((y == 0 || y == height - 1) && (map[y][x] != '1' || map[x][y] != ' ')) )
-				map_error(cub3d, NULL);
+				map_error(cub3d, map_c);
 		}
 		x = -1;
 	}
@@ -84,7 +84,7 @@ void	parse_map(t_cub3d *cub3d)
 	verify_map(cub3d, map);
 	alloc_map(cub3d, map);
 	log_map(cub3d, map);
-	verify_walls(cub3d, cub3d->map.height, cub3d->map.map);
+	verify_walls(cub3d, cub3d->map.height, cub3d->map.map, map);
 	// get player's x and y position and orientation
 	// verify_player();
 	free(map);
