@@ -113,7 +113,5 @@ void	parse_map(t_cub3d *cub3d)
 	log_map(cub3d, map);
 	get_player(cub3d, map);
 	// verify_walls(cub3d, cub3d->map.map, map);
-	// get player's x and y position and orientation
-
 	free(map);
 }
