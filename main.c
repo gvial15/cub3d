@@ -22,6 +22,7 @@ static void	display_data(t_cub3d *cub3d)
 static void	init(t_cub3d *cub3d, char *map_path)
 {
 	cub3d->map_path = map_path;
+	cub3d->norm_bs = 0;
 	cub3d->map_fd = 0;
 	cub3d->map.c_color[0] = 0;
 	cub3d->map.c_color[1] = 0;

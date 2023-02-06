@@ -1,4 +1,62 @@
 #include "cub3d.h"
+#include "lib/libft/libft.h"
+
+int	skip_to_map(t_cub3d *cub3d)
+{
+	int		count;
+	int		map_fd;
+	char	*line;
+
+	map_fd = open(cub3d->map_path, O_RDONLY);
+	count = 0;
+	while (count != 6)
+	{
+		line = get_next_line(map_fd);
+		if (!line)
+			break;
+		if (line[0] == 'N' || line[0] == 'E' || line[0] == 'S'
+			|| line[0] == 'W' || line[0] == 'C' || line[0] == 'F')
+			count++;
+		free(line);
+	}
+	return (map_fd);
+}
+
+
+char	*fill_map(t_cub3d *cub3d)
+{
+	char	*map;
+	char	*line;
+	int		map_fd;
+
+	map = NULL;
+	map_fd = skip_to_map(cub3d);
+	line = get_next_line(map_fd);
+	while (line && line[0] == '\n')
+	{
+		free(line);
+		line = get_next_line(map_fd);
+	}
+	while (line && line[0] != '\n')
+	{
+		map = ft_strjoin_gnl(map, line);
+		free(line);
+		line = get_next_line(map_fd);
+	}
+	close(map_fd);
+	return (map);
+}
+
+void	verify_map(t_cub3d *cub3d, char *map)
+{
+	int	i;
+
+	i = -1;
+	while (map[++i])
+		if (map[i] != '1' && map[i] != '0' && map[i] != ' ' && map[i] != '\n'
+			&& map[i] != 'N' && map[i] != 'S' && map[i] != 'W' && map[i] != 'E')
+			map_error(cub3d, map);
+}
 
 void	alloc_map(t_cub3d *cub3d, char *map)
 {
@@ -47,4 +105,5 @@ void	log_map(t_cub3d *cub3d, char *map)
 		x = -1;
 		z = 0;
 	}
+	free_split((void**)split, split_len(split));
 }

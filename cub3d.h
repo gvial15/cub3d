@@ -38,6 +38,7 @@ typedef struct Display
 typedef	struct s_cub3d {
 	char		*map_path;
 	int			map_fd;
+	int			norm_bs;
 	t_map		map;
 	t_player	player;
 	t_display	display;
@@ -45,11 +46,14 @@ typedef	struct s_cub3d {
 
 // parsing
 void	parse(t_cub3d *cub3d);
+char	*fill_map(t_cub3d *cub3d);
 void	parse_map(t_cub3d *cub3d);
 void	get_colors(t_cub3d *cub3d);
+int		skip_to_map(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
 void	log_map(t_cub3d *cub3d, char *map);
 void	alloc_map(t_cub3d *cub3d, char *map);
+void	verify_map(t_cub3d *cub3d, char *map);
 
 // displaying
 void	display_window(t_cub3d *cub3d);
