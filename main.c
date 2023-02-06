@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 16:29:39 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/06 16:29:40 by gvial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-#include "lib/libft/libft.h"
 
 // function that display all the data from all the structs for debugging
 static void	display_data(t_cub3d *cub3d)
@@ -55,15 +66,11 @@ int	main(int argc, char **argv)
 		arg_error();
 	init(&cub3d, argv[1]);
 	parse(&cub3d);
-
 	display_data(&cub3d);
-
 	// mlx hook and displaying window
 	display_window(&cub3d);
 	mlx_key_hook(cub3d.display.mlx_win, key_hook, &cub3d);
 	mlx_hook(cub3d.display.mlx_win, 17, 0, close_x, &cub3d);
 	mlx_loop(cub3d.display.mlx);
-
 	// free stuff and exit()
-
 }

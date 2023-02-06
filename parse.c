@@ -1,20 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 16:30:08 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/06 16:30:09 by gvial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-
-// put map file into a char*
-// void	get_map(t_cub3d *cub3d)
-// {
-// 	char	*line;
-
-// 	cub3d->map_fd = open(cub3d->map_path, O_RDONLY);
-// 	line = get_next_line(cub3d->map_fd);
-// 	while (line)
-// 	{
-// 		cub3d->map.map_c = ft_strjoin_gnl(cub3d->map.map_c, line);
-// 		free(line);
-// 		line = get_next_line(cub3d->map_fd);
-// 	}
-// 	close(cub3d->map_fd);
-// }
 
 void	parse(t_cub3d *cub3d)
 {

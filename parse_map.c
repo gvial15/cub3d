@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 16:33:52 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/06 16:33:54 by gvial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	verify_walls(t_cub3d *cub3d, int **map, char *map_c)
@@ -11,7 +23,8 @@ static void	verify_walls(t_cub3d *cub3d, int **map, char *map_c)
 	{
 		while (++x < cub3d->map.width)
 		{
-			if ((y == 0 || y == cub3d->map.height - 1) && (map[y][x] != 1 && map[y][x] != -1))
+			if ((y == 0 || y == cub3d->map.height - 1) && (map[y][x] != 1
+				&& map[y][x] != -1))
 				map_error(cub3d, map_c);
 		}
 		x = -1;

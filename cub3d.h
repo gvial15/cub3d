@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/06 16:25:30 by gvial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -8,13 +20,13 @@
 # include "lib/mlx/mlx.h"
 # include "lib/libft/libft.h"
 
-typedef	struct s_player {
+typedef struct s_player {
 	int		x;
 	int		y;
 	char	orientation;
 }	t_player;
 
-typedef	struct s_map {
+typedef struct s_map {
 	int		**map;
 	char	*map_c;
 	int		width;
@@ -23,8 +35,7 @@ typedef	struct s_map {
 	int		c_color[3];
 }	t_map;
 
-typedef struct Display
-{
+typedef struct s_display {
 	void	*mlx;
 	void	*mlx_win;
 	void	*n_texture;
@@ -35,7 +46,7 @@ typedef struct Display
 	int		img_height;
 }	t_display;
 
-typedef	struct s_cub3d {
+typedef struct s_cub3d {
 	char		*map_path;
 	int			map_fd;
 	int			norm_bs;
@@ -63,9 +74,9 @@ int		close_x(t_cub3d *cub3d);
 int		key_hook(int keycode, t_cub3d *cub3d);
 
 // error
-void	arg_error();
-void	color_error();
-void	texture_error();
+void	arg_error(void);
+void	color_error(void);
+void	texture_error(void);
 void	player_error(char *map);
 void	map_error(t_cub3d *cub3d, char *map);
 

@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 16:27:05 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/06 16:27:06 by gvial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	display_window(t_cub3d *cub3d)
 {
-	cub3d->display.mlx_win = mlx_new_window(cub3d->display.mlx, 500, 500, "cub3d");
+	cub3d->display.mlx_win = \
+		mlx_new_window(cub3d->display.mlx, 500, 500, "cub3d");
 }

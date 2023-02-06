@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 16:35:04 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/06 16:35:05 by gvial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-#include "lib/libft/libft.h"
 
 int	skip_to_map(t_cub3d *cub3d)
 {
@@ -13,7 +24,7 @@ int	skip_to_map(t_cub3d *cub3d)
 	{
 		line = get_next_line(map_fd);
 		if (!line)
-			break;
+			break ;
 		if (line[0] == 'N' || line[0] == 'E' || line[0] == 'S'
 			|| line[0] == 'W' || line[0] == 'C' || line[0] == 'F')
 			count++;
@@ -21,7 +32,6 @@ int	skip_to_map(t_cub3d *cub3d)
 	}
 	return (map_fd);
 }
-
 
 char	*fill_map(t_cub3d *cub3d)
 {
@@ -78,7 +88,7 @@ void	alloc_map(t_cub3d *cub3d, char *map)
 		cub3d->map.map[i] = ft_calloc(x, sizeof(int));
 	cub3d->map.height = y;
 	cub3d->map.width = x;
-	free_split((void**)split, split_len(split));
+	free_split((void **)split, split_len(split));
 }
 
 void	log_map(t_cub3d *cub3d, char *map)
@@ -105,5 +115,5 @@ void	log_map(t_cub3d *cub3d, char *map)
 		x = -1;
 		z = 0;
 	}
-	free_split((void**)split, split_len(split));
+	free_split((void **)split, split_len(split));
 }
