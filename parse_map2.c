@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "lib/libft/libft.h"
 
 int	skip_to_map(t_cub3d *cub3d)
 {
@@ -106,10 +107,21 @@ void	log_map(t_cub3d *cub3d, char *map)
 	{
 		while (++x < cub3d->map.width)
 		{
-			if (z < ft_strlen(split[i]) && split[i][z] != ' ')
-				cub3d->map.map[i][x] = split[i][z] - 48;
-			else
+
+			if (z < ft_strlen(split[i]) && split[i][z] == ' ')
 				cub3d->map.map[i][x] = -1;
+			else if (split[i][z] == 'E')
+				cub3d->map.map[i][x] = 2;
+			else if (split[i][z] == 'N')
+				cub3d->map.map[i][x] = 3;
+			else if (split[i][z] == 'W')
+				cub3d->map.map[i][x] = 4;
+			else if (split[i][z] == 'S')
+				cub3d->map.map[i][x] = 5;
+			else if (z < ft_strlen(split[i]))
+			 	cub3d->map.map[i][x] = split[i][z] - 48;
+			else
+			 	cub3d->map.map[i][x] = -1;
 			z++;
 		}
 		x = -1;
