@@ -1,19 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 16:27:05 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/09 17:16:07 by marie-solei      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	display_window(t_cub3d *cub3d)
 {
-	int	width;
-	int	height;
-
-	width = cub3d->display.win_width;
-	height = cub3d->display.win_height;
 	cub3d->display.mlx_win = \
-	mlx_new_window(cub3d->display.mlx, width, height, "Cub3d");
+	mlx_new_window(cub3d->display.mlx, WIDTH, HEIGHT, "Cub3d");
 	print_floor(cub3d);
 	print_ceiling(cub3d);
-
 	// print_info(cub3d);
-
 	print_minimap(cub3d);
 	// print_layout(cub3d);
 }
@@ -39,10 +44,10 @@ void	print_floor(t_cub3d *cub3d)
 	y = 0;
 	x = 0;
 	color = rgb_to_int(cub3d->map.f_color);
-	while (x < 1395)
+	while (x < HEIGHT)
 	{
 		y = 0;
-		while (y < 2560)
+		while (y < WIDTH)
 		{
 			mlx_pixel_put(cub3d->display.mlx, \
 			cub3d->display.mlx_win, y, x, color);
@@ -51,8 +56,6 @@ void	print_floor(t_cub3d *cub3d)
 		x++;
 	}
 }
-
-
 
 void	print_ceiling(t_cub3d *cub3d)
 {
@@ -63,10 +66,10 @@ void	print_ceiling(t_cub3d *cub3d)
 	y = 0;
 	x = 0;
 	color = rgb_to_int(cub3d->map.c_color);
-	while (x < 1395 / 2)
+	while (x < HEIGHT / 2)
 	{
 		y = 0;
-		while (y < 2560)
+		while (y < WIDTH)
 		{
 			mlx_pixel_put(cub3d->display.mlx, \
 			cub3d->display.mlx_win, y, x, color);
@@ -75,4 +78,3 @@ void	print_ceiling(t_cub3d *cub3d)
 		x++;
 	}
 }
-

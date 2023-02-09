@@ -1,5 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/09 17:18:44 by marie-solei      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
-#define CUB3D_H
+# define CUB3D_H
+# define WIDTH 1000
+# define HEIGHT 700
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -8,15 +22,18 @@
 # include "lib/mlx/mlx.h"
 # include "lib/libft/libft.h"
 
-typedef	struct s_player {
-	int		x;
-	int		dx;
-	int		y;
-	int		dy;
-	char	orientation;
+typedef struct s_player {
+	int			x;
+	float		cx;
+	float		dx;
+	int			y;
+	float		cy;
+	float		dy;
+	char		orientation;
+	float		degrees;
 }	t_player;
 
-typedef	struct s_map {
+typedef struct s_map {
 	int		**map;
 	char	*map_c;
 	int		width;
@@ -25,8 +42,7 @@ typedef	struct s_map {
 	int		c_color[3];
 }	t_map;
 
-typedef struct Display
-{
+typedef struct s_display {
 	void	*mlx;
 	void	*mlx_win;
 	void	*n_texture;
@@ -40,8 +56,10 @@ typedef struct Display
 	int		pixels;
 }	t_display;
 
-typedef	struct s_cub3d {
+typedef struct s_cub3d {
 	char		*map_path;
+	int			map_fd;
+	int			norm_bs;
 	t_map		map;
 	t_player	player;
 	t_display	display;
@@ -49,9 +67,14 @@ typedef	struct s_cub3d {
 
 // parsing
 void	parse(t_cub3d *cub3d);
+char	*fill_map(t_cub3d *cub3d);
 void	parse_map(t_cub3d *cub3d);
 void	get_colors(t_cub3d *cub3d);
+int		skip_to_map(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
+void	log_map(t_cub3d *cub3d, char *map);
+void	alloc_map(t_cub3d *cub3d, char *map);
+void	verify_map(t_cub3d *cub3d, char *map);
 
 // displaying
 void	display_window(t_cub3d *cub3d);
@@ -67,11 +90,11 @@ int		close_x(t_cub3d *cub3d);
 int		key_hook(int keycode, t_cub3d *cub3d);
 
 // error
-void	arg_error();
-void	error_exit();
-void	color_error();
-void	texture_error();
-void	map_error(char *map);
+void	arg_error(void);
+void	color_error(void);
+void	texture_error(void);
+void	player_error(char *map);
+void	map_error(t_cub3d *cub3d, char *map);
 
 //temp
 void	print_info(t_cub3d *cub3d);

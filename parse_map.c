@@ -1,71 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/06 16:33:52 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/06 16:33:54 by gvial            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static int	skip_to_map(t_cub3d *cub3d)
+static void	verify_walls(t_cub3d *cub3d, int **map, char *map_c)
 {
-	int		count;
-	int		map_fd;
-	char	*line;
+	int	x;
+	int	y;
 
-	map_fd = open(cub3d->map_path, O_RDONLY);
-	count = 0;
-	while (count != 6)
+	y = -1;
+	x = -1;
+	while (++y < cub3d->map.height)
 	{
-		line = get_next_line(map_fd);
-		if (!line)
-			break;
-		if (line[0] == 'N' || line[0] == 'E' || line[0] == 'S'
-			|| line[0] == 'W' || line[0] == 'C' || line[0] == 'F')
-			count++;
-		free(line);
+		while (++x < cub3d->map.width)
+		{
+			if ((y == 0 || y == cub3d->map.height - 1) && (map[y][x] != 1
+				&& map[y][x] != -1))
+				map_error(cub3d, map_c);
+		}
+		x = -1;
 	}
-	return (map_fd);
 }
 
-static char	*fill_map(t_cub3d *cub3d)
+static int	get_player_norm(t_cub3d *cub3d, int x, int y)
 {
-	char	*map;
-	char	*line;
-	int		map_fd;
-
-	map = NULL;
-	map_fd = skip_to_map(cub3d);
-	line = get_next_line(map_fd);
-	while (line && line[0] == '\n')
-	{
-		free(line);
-		line = get_next_line(map_fd);
-	}
-	while (line && line[0] != '\n')
-	{
-		map = ft_strjoin_gnl(map, line);
-		free(line);
-		line = get_next_line(map_fd);
-	}
-	close(map_fd);
-	return (map);
+	if (cub3d->map.map[y][x] == 'N' - 48 || cub3d->map.map[y][x] == 'S' - 48
+		|| cub3d->map.map[y][x] == 'E' - 48 || cub3d->map.map[y][x] == 'W' - 48)
+		return (1);
+	return (0);
 }
 
-static void	verify_walls(char *map) // might have to verify once the map is in a int**
-{									// because i cant verify if empty spaces in
-	int	i;							// middle of map are surrounded by walls
+static void	get_player(t_cub3d *cub3d, char *map)
+{
+	int	y;
+	int	x;
 
-	if (map[0] != '1' && map[0] != ' ')
-		map_error(map);
-	i = 0;
-	while (map[++i])
+	x = -1;
+	y = -1;
+	while (++y < cub3d->map.height)
 	{
-		if (map[i] != '1' && map[i] != ' ' && map[i] != '0' && map[i] != 'N'
-			&& map[i] != 'E' && map[i] != 'S' && map[i] != 'W' && map[i] != '\n')
-			map_error(map);
-		if (map[i - 1] == '\n' && map[i] != '1')
-			map_error(map);
-		if (map[i - 1] == ' ' && map[i] != '1')
-			map_error(map);
-		if (map[i + 1] == '\n' && map[i] != '1')
-			map_error(map);
-		if (map[i + 1] == ' ' && map[i] != '1')
-			map_error(map);
+		while (++x < cub3d->map.width)
+		{
+			if (get_player_norm(cub3d, x, y))
+			{
+				if (cub3d->norm_bs == 1)
+					player_error(map);
+				cub3d->norm_bs = 1;
+				cub3d->player.orientation = cub3d->map.map[y][x] + 48;
+				cub3d->player.x = x;
+				cub3d->player.y = y;
+			}
+		}
+		x = -1;
 	}
+	if (cub3d->norm_bs != 1)
+		player_error(map);
 }
 
 // parse the map into cub3d->map.map and player x/y and orientation
@@ -74,11 +72,10 @@ void	parse_map(t_cub3d *cub3d)
 	char	*map;
 
 	map = fill_map(cub3d);
-	verify_walls(map);
-	// log map into a int**
-	// log_map(cub3d->map.map);
-	// verify map has walls all around it
-	// get player's x and y position and orientation
-
+	verify_map(cub3d, map);
+	alloc_map(cub3d, map);
+	log_map(cub3d, map);
+	get_player(cub3d, map);
+	// verify_walls(cub3d, cub3d->map.map, map);
 	free(map);
 }

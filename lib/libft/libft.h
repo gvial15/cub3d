@@ -50,7 +50,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void	ft_putchar(char c);
 void	ft_putstr(char *str);
-void	free_split(char **split);
+void	free_split(void **split, int split_length);
 void	print_split(char **split);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_bzero(void *s, size_t n);
