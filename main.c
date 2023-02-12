@@ -6,7 +6,7 @@
 /*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:29:39 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/09 17:17:07 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/02/09 18:12:07 by marie-solei      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static void	init(t_cub3d *cub3d, char *map_path)
 	cub3d->map.map_c = NULL;
 	cub3d->map.height = 0;
 	cub3d->map.width = 0;
-	cub3d->display.pixels = 12;
 	cub3d->display.mlx = mlx_init();
 	cub3d->display.mlx_win = NULL;
 	cub3d->display.img_width = 0;
@@ -55,9 +54,9 @@ static void	init(t_cub3d *cub3d, char *map_path)
 	cub3d->display.s_texture = NULL;
 	cub3d->display.n_texture = NULL;
 	cub3d->player.x = 0;
-	cub3d->player.dx = cub3d->display.pixels / 2;
+	cub3d->player.dx = PIXELS / 2;
 	cub3d->player.y = 0;
-	cub3d->player.dy = cub3d->display.pixels / 2;
+	cub3d->player.dy = PIXELS / 2;
 	cub3d->player.orientation = 0;
 }
 

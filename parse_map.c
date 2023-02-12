@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:33:52 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/06 16:33:54 by gvial            ###   ########.fr       */
+/*   Updated: 2023/02/09 18:20:12 by marie-solei      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ void	parse_map(t_cub3d *cub3d)
 	alloc_map(cub3d, map);
 	log_map(cub3d, map);
 	get_player(cub3d, map);
+	cub3d->player.cx = (cub3d->player.x * PIXELS) + cub3d->player.dx;
+	cub3d->player.cy = (cub3d->player.y * PIXELS) + cub3d->player.dy;
+	//cx & cy are the exacy positions of the player in pixels, not in coordinates
 	// verify_walls(cub3d, cub3d->map.map, map);
 	free(map);
 }

@@ -6,14 +6,16 @@
 /*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/09 17:18:44 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/02/09 18:10:50 by marie-solei      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
 # define WIDTH 1000
 # define HEIGHT 700
+# define PIXELS 20
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -53,7 +55,6 @@ typedef struct s_display {
 	int		win_height;
 	int		img_width;
 	int		img_height;
-	int		pixels;
 }	t_display;
 
 typedef struct s_cub3d {
