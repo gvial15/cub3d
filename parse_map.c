@@ -12,29 +12,28 @@
 
 #include "cub3d.h"
 
-static void	verify_walls(t_cub3d *cub3d, int **map, char *map_c)
-{
-	int	x;
-	int	y;
+// static void	verify_walls(t_cub3d *cub3d, int **map, char *map_c)
+// {
+// 	int	x;
+// 	int	y;
 
-	y = -1;
-	x = -1;
-	while (++y < cub3d->map.height)
-	{
-		while (++x < cub3d->map.width)
-		{
-			if ((y == 0 || y == cub3d->map.height - 1) && (map[y][x] != 1
-				&& map[y][x] != -1))
-				map_error(cub3d, map_c);
-		}
-		x = -1;
-	}
-}
+// 	y = -1;
+// 	x = -1;
+// 	while (++y < cub3d->map.height)
+// 	{
+// 		while (++x < cub3d->map.width)
+// 		{
+// 			// if (map[y][x] == 0 && map[y][x + 1] != 0)
+// 			// 	map_error(cub3d, map_c);
+// 		}
+// 		x = -1;
+// 	}
+// }
 
 static int	get_player_norm(t_cub3d *cub3d, int x, int y)
 {
-	if (cub3d->map.map[y][x] == 'N' - 48 || cub3d->map.map[y][x] == 'S' - 48
-		|| cub3d->map.map[y][x] == 'E' - 48 || cub3d->map.map[y][x] == 'W' - 48)
+	if (cub3d->map.map[y][x] == 2 || cub3d->map.map[y][x] == 3
+		|| cub3d->map.map[y][x] == 4 || cub3d->map.map[y][x] == 5)
 		return (1);
 	return (0);
 }
