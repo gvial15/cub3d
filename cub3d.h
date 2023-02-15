@@ -64,7 +64,6 @@ int		skip_to_map(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
 void	log_map(t_cub3d *cub3d, char *map);
 void	alloc_map(t_cub3d *cub3d, char *map);
-void	verify_map(t_cub3d *cub3d, char *map);
 
 // displaying
 void	display_window(t_cub3d *cub3d);
@@ -78,6 +77,6 @@ void	arg_error(void);
 void	color_error(void);
 void	texture_error(void);
 void	player_error(char *map);
-void	map_error(t_cub3d *cub3d, char *map);
+void	map_error(t_cub3d *cub3d, char **map_d, char *map);
 
 #endif

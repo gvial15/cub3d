@@ -12,9 +12,18 @@
 
 #include "cub3d.h"
 
-static void	verify_walls(t_cub3d *cub3d, int **map, char *map_c)
+static void	verify_walls(t_cub3d *cub3d, char **map, char *map_c, int x, int y)
 {
-
+	if (y >= cub3d->map.height || x >= ft_strlen(map[y]) || map[y][x] == ' ')
+		map_error(cub3d, map, map_c);
+	if (map[y][x] == '0')
+	{
+		map[y][x] = '=';
+		verify_walls(cub3d, map, map_c, x + 1, y);
+		verify_walls(cub3d, map, map_c, x - 1, y);
+		verify_walls(cub3d, map, map_c, x, y + 1);
+		verify_walls(cub3d, map, map_c, x, y - 1);
+	}
 }
 
 static int	parse_player_norm(t_cub3d *cub3d, int x, int y)
@@ -53,7 +62,7 @@ static void	parse_player(t_cub3d *cub3d, char *map)
 		player_error(map);
 }
 
-void	verify_map(t_cub3d *cub3d, char *map)
+static void	verify_map(t_cub3d *cub3d, char *map)
 {
 	int	i;
 
@@ -61,7 +70,7 @@ void	verify_map(t_cub3d *cub3d, char *map)
 	while (map[++i])
 		if (map[i] != '1' && map[i] != '0' && map[i] != ' ' && map[i] != '\n'
 			&& map[i] != 'N' && map[i] != 'S' && map[i] != 'W' && map[i] != 'E')
-			map_error(cub3d, map);
+			map_error(cub3d, NULL, map);
 }
 
 // parse the map into cub3d->map.map and player x/y and orientation..
@@ -69,12 +78,16 @@ void	verify_map(t_cub3d *cub3d, char *map)
 void	parse_map(t_cub3d *cub3d)
 {
 	char	*map;
+	char	**map_d;
 
 	map = fill_map(cub3d);
+	map_d = ft_split(map, '\n');
 	verify_map(cub3d, map);
 	alloc_map(cub3d, map);
 	log_map(cub3d, map);
 	parse_player(cub3d, map);
-	verify_walls(cub3d, cub3d->map.map, map);
+	map_d[cub3d->player.y][cub3d->player.x] = '0';
+	verify_walls(cub3d, map_d, map, cub3d->player.x, cub3d->player.y);
 	free(map);
+	free_split((void **)map_d, split_len(map_d));
 }
