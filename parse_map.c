@@ -14,7 +14,8 @@
 
 static void	verify_walls(t_cub3d *cub3d, int x, int y)
 {
-	if (y >= cub3d->map.height || x >= ft_strlen(cub3d->map.map_d[y]) || cub3d->map.map_d[y][x] == ' ')
+	if (y >= cub3d->map.height || x >= ft_strlen(cub3d->map.map_d[y])
+		|| cub3d->map.map_d[y][x] == ' ')
 		map_error(cub3d);
 	if (cub3d->map.map_d[y][x] == '0')
 	{
@@ -79,7 +80,6 @@ static void	verify_map(t_cub3d *cub3d)
 // could put it in parse.c if i need more space here.
 void	parse_map(t_cub3d *cub3d)
 {
-
 	cub3d->map.map_c = fill_map(cub3d);
 	cub3d->map.map_d = ft_split(cub3d->map.map_c, '\n');
 	verify_map(cub3d);
