@@ -29,10 +29,11 @@ typedef struct s_player {
 typedef struct s_map {
 	int		**map;
 	char	*map_c;
-	int		width;
-	int		height;
+	char	**map_d;
 	int		f_color[3];
 	int		c_color[3];
+	int		width;
+	int		height;
 }	t_map;
 
 typedef struct s_display {
@@ -62,8 +63,8 @@ void	parse_map(t_cub3d *cub3d);
 void	get_colors(t_cub3d *cub3d);
 int		skip_to_map(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
-void	log_map(t_cub3d *cub3d, char *map);
-void	alloc_map(t_cub3d *cub3d, char *map);
+void	log_map(t_cub3d *cub3d);
+void	alloc_map(t_cub3d *cub3d);
 
 // displaying
 void	display_window(t_cub3d *cub3d);
@@ -76,7 +77,7 @@ int		key_hook(int keycode, t_cub3d *cub3d);
 void	arg_error(void);
 void	color_error(void);
 void	texture_error(void);
-void	player_error(char *map);
-void	map_error(t_cub3d *cub3d, char **map_d, char *map);
+void	player_error(t_cub3d *cub3d);
+void	map_error(t_cub3d *cub3d);
 
 #endif
