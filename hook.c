@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:28:14 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/06 16:28:15 by gvial            ###   ########.fr       */
+/*   Updated: 2023/02/22 14:52:07 by marie-solei      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,13 @@ int	key_hook(int keycode, t_cub3d *cub3d)
 	if (keycode == 53)
 		exit(0);
 	if (keycode == 13)
-		dprintf(2, "w\n");
-		// go_forward(cub3d);
+		go_forward(cub3d);
 	if (keycode == 1)
-		dprintf(2, "s\n");
-		// go_backward(cub3d);
+		go_backward(cub3d);
 	if (keycode == 0)
-		dprintf(2, "a\n");
+		turn_left(cub3d);
 	if (keycode == 2)
-		dprintf(2, "d\n");
+		turn_right(cub3d);
 	print_minimap(cub3d);
 	return (0);
 }

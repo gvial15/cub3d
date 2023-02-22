@@ -6,7 +6,7 @@
 /*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:29:39 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/09 18:12:07 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/02/22 15:06:12 by marie-solei      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 	init(&cub3d, argv[1]);
 	parse(&cub3d);
 	display_window(&cub3d);
-	mlx_key_hook(cub3d.display.mlx_win, key_hook, &cub3d);
+	mlx_hook(cub3d.display.mlx_win, 2, 0, key_hook, &cub3d);
 	mlx_hook(cub3d.display.mlx_win, 17, 0, close_x, &cub3d);
 	mlx_loop(cub3d.display.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:33:52 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/22 13:04:51 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/02/22 14:37:01 by marie-solei      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static void	parse_player(t_cub3d *cub3d)
 				if (cub3d->norm_bs == 1)
 					player_error(cub3d);
 				cub3d->norm_bs = 1;
-				cub3d->player.orientation = cub3d->map.map[y][x] + 48;
+				cub3d->player.orientation = cub3d->map.map[y][x];
+				set_orientation(cub3d, cub3d->player.orientation);
 				cub3d->player.x = x;
 				cub3d->player.y = y;
 			}

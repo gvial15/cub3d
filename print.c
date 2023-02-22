@@ -5,7 +5,8 @@ void	print_info(t_cub3d *cub3d) // temp function to know what values we have ini
 	dprintf(2, "texture dimensions?: \nx: %d\ny: %d\n", cub3d->display.img_height, cub3d->display.img_width);
 	dprintf(2, "map dimensions: \nx: %d\ny: %d\n", cub3d->map.height, cub3d->map.width);
 	dprintf(2, "player position: \nx: %d\ny: %d\n", cub3d->player.x, cub3d->player.y);
-	// dprintf(2, "player orientation: %c\n", cub3d->player.orientation);
+	dprintf(2, "total player position: \ncx: %f\ncy: %f\n", cub3d->player.cx, cub3d->player.cy);
+	dprintf(2, "player angle: %f\n", cub3d->player.degrees);
 	// while (*cub3d->map.map)
 	// 	dprintf(2, "map content: %d\n", **(cub3d->map.map++));
 }
@@ -14,38 +15,40 @@ void	put_cube(t_cub3d *cub3d, int x, int y, int color)
 {
 	int	i;
 	int	j;
-	int pixels;
 
 	i = 0;
-	pixels = 12;
-	while (i <= pixels) //# pixels
+	while (i <= PIXELS)
 	{
 		j = 0;
-		while (j <= pixels)
+		while (j <= PIXELS)
 		{
-			if (i % pixels != 0 || j % pixels != 0)
-				mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, ((y * pixels) + i), ((x * pixels) + j), color);
-			if (i % pixels == 0 || j % pixels == 0)
-				mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, ((y * pixels) + i), ((x * pixels) + j), 0xFFFFFF);
+			if (i % PIXELS != 0 || j % PIXELS != 0)
+				mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, \
+				((y * PIXELS) + i), ((x * PIXELS) + j), color);
+			if (i % PIXELS == 0 || j % PIXELS == 0)
+				mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, \
+				((y * PIXELS) + i), ((x * PIXELS) + j), 0xFFFFFF);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	print_player(t_cub3d *cub3d, int cx, int cy) //to switch for cx = x * PIXELS + dx 
+void	print_player(t_cub3d *cub3d, int cx, int cy)
 {
 	int	i;
 	int	j;
+	int	size;
 
-	i = cub3d->player.dx - 2;
-	while (i <= cub3d->player.dx + 2)
+	size = 2;
+	i = cx - size;
+	while (i < cx + size)
 	{
-		j = cub3d->player.dy - 2;
-		while (j <= cub3d->player.dy + 2)
+		j = cy - size;
+		while (j < cy + size)
 		{
 			mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, \
-			cy, cx, 0xFF0000);
+			i, j, 0x0000FF);
 			j++;
 		}
 		i++;
@@ -55,31 +58,19 @@ void	print_player(t_cub3d *cub3d, int cx, int cy) //to switch for cx = x * PIXEL
 void	print_minimap(t_cub3d *cub3d)
 {
 	int	x;
-	int y;
-	// int tmap[11][10] = {
-	// {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	// {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-	// {1, 0, 1, 1, 1, 1, 1, 0, 1, 1},
-	// {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-	// {1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-	// {1, 0, 0, 0, 1, 0, 0, 0, 1, 1},
-	// {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-	// {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-	// {1, 0, 0, 0, 1, 0, 0, 0, 0, 1},
-	// {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-	// {1, 1, 1, -1, -1, -1, -1, 1, 1, -1}
-	// };
+	int	y;
 
+	print_info(cub3d);
 	x = 0;
-	while (x < cub3d->map.height) // mapsize x / maxwidth?
+	while (x < cub3d->map.height)
 	{
 		y = 0;
-		while (y < cub3d->map.width) // mapsize y / maxlength?
+		while (y < cub3d->map.width)
 		{
 			if (cub3d->map.map[x][y] == 1)
-				put_cube(cub3d, x, y, 0);	//black
+				put_cube(cub3d, x, y, 0);
 			else if (cub3d->map.map[x][y] >= 0)
-				put_cube(cub3d, x, y, 0x0199120);  //green
+				put_cube(cub3d, x, y, 0x0199120);
 			y++;
 		}
 		x++;

@@ -6,21 +6,24 @@
 /*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/09 18:10:50 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/02/22 14:55:12 by marie-solei      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 1000
-# define HEIGHT 700
-# define PIXELS 20
+# define WIDTH 1000 //WINDOW WIDTH
+# define HEIGHT 700 //WINDOW HEIGHT
+# define PIXELS 20 //NUMBER OF PIXELS PER SQUARE
+#define FOV_ANGLE 60 * (M_PI / 180) // Field of view angle in radians
+#define NUM_RAYS 120 // Number of rays to cast
 
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <math.h>
 # include "lib/mlx/mlx.h"
 # include "lib/libft/libft.h"
 
@@ -69,6 +72,7 @@ typedef struct s_cub3d {
 
 // parsing
 void	parse(t_cub3d *cub3d);
+void	set_orientation(t_cub3d *cub3d, char c);
 char	*fill_map(t_cub3d *cub3d);
 void	parse_map(t_cub3d *cub3d);
 void	get_colors(t_cub3d *cub3d);
@@ -89,6 +93,12 @@ void	print_minimap(t_cub3d *cub3d);
 // mlx hook
 int		close_x(t_cub3d *cub3d);
 int		key_hook(int keycode, t_cub3d *cub3d);
+
+//movement
+void	go_forward(t_cub3d *cub3d);
+void	go_backward(t_cub3d *cub3d);
+void	turn_left(t_cub3d *cub3d);
+void	turn_right(t_cub3d *cub3d);
 
 // error
 void	arg_error(void);
