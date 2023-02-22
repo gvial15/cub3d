@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "lib/libft/libft.h"
 
 int	skip_to_map(t_cub3d *cub3d)
 {
@@ -58,74 +57,61 @@ char	*fill_map(t_cub3d *cub3d)
 	return (map);
 }
 
-void	verify_map(t_cub3d *cub3d, char *map)
-{
-	int	i;
-
-	i = -1;
-	while (map[++i])
-		if (map[i] != '1' && map[i] != '0' && map[i] != ' ' && map[i] != '\n'
-			&& map[i] != 'N' && map[i] != 'S' && map[i] != 'W' && map[i] != 'E')
-			map_error(cub3d, map);
-}
-
-void	alloc_map(t_cub3d *cub3d, char *map)
+void	alloc_map(t_cub3d *cub3d)
 {
 	int		i;
 	int		x;
 	int		y;
-	char	**split;
 
-	split = ft_split(map, '\n');
-	y = split_len(split);
+	y = split_len(cub3d->map.map_d);
 	x = 0;
 	i = -1;
-	while (split[++i])
-		if (ft_strlen(split[i]) > x)
-			x = ft_strlen(split[i]);
+	while (cub3d->map.map_d[++i])
+		if (ft_strlen(cub3d->map.map_d[i]) > x)
+			x = ft_strlen(cub3d->map.map_d[i]);
 	cub3d->map.map = malloc(sizeof(int *) * y);
 	i = y;
 	while (--i >= 0)
 		cub3d->map.map[i] = ft_calloc(x, sizeof(int));
 	cub3d->map.height = y;
 	cub3d->map.width = x;
-	free_split((void **)split, split_len(split));
 }
 
-void	log_map(t_cub3d *cub3d, char *map)
+static void	log_map_norm(t_cub3d *cub3d, int i, int x, int z)
+{
+	if (z < ft_strlen(cub3d->map.map_d[i]) && cub3d->map.map_d[i][z] == ' ')
+		cub3d->map.map[i][x] = -1;
+	else if (cub3d->map.map_d[i][z] == 'E')
+		cub3d->map.map[i][x] = 2;
+	else if (cub3d->map.map_d[i][z] == 'N')
+		cub3d->map.map[i][x] = 3;
+	else if (cub3d->map.map_d[i][z] == 'W')
+		cub3d->map.map[i][x] = 4;
+	else if (cub3d->map.map_d[i][z] == 'S')
+		cub3d->map.map[i][x] = 5;
+	else if (z < ft_strlen(cub3d->map.map_d[i]))
+		cub3d->map.map[i][x] = cub3d->map.map_d[i][z] - 48;
+	else
+		cub3d->map.map[i][x] = -1;
+}
+
+void	log_map(t_cub3d *cub3d)
 {
 	int		i;
 	int		x;
 	int		z;
-	char	**split;
 
-	split = ft_split(map, '\n');
 	i = -1;
 	z = 0;
 	x = -1;
-	while (split[++i])
+	while (cub3d->map.map_d[++i])
 	{
 		while (++x < cub3d->map.width)
 		{
-
-			if (z < ft_strlen(split[i]) && split[i][z] == ' ')
-				cub3d->map.map[i][x] = -1;
-			else if (split[i][z] == 'E')
-				cub3d->map.map[i][x] = 2;
-			else if (split[i][z] == 'N')
-				cub3d->map.map[i][x] = 3;
-			else if (split[i][z] == 'W')
-				cub3d->map.map[i][x] = 4;
-			else if (split[i][z] == 'S')
-				cub3d->map.map[i][x] = 5;
-			else if (z < ft_strlen(split[i]))
-			 	cub3d->map.map[i][x] = split[i][z] - 48;
-			else
-			 	cub3d->map.map[i][x] = -1;
+			log_map_norm(cub3d, i, x, z);
 			z++;
 		}
 		x = -1;
 		z = 0;
 	}
-	free_split((void **)split, split_len(split));
 }
