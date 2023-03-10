@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:27:05 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/09 17:16:07 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/03/10 13:53:44 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	display_window(t_cub3d *cub3d)
 	print_ceiling(cub3d);
 	// print_info(cub3d);
 	print_minimap(cub3d);
+	cast_rays(cub3d);
 	// print_layout(cub3d);
 }
 

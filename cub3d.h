@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/22 14:55:12 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/03/10 13:36:04 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define WIDTH 1000 //WINDOW WIDTH
 # define HEIGHT 700 //WINDOW HEIGHT
 # define PIXELS 20 //NUMBER OF PIXELS PER SQUARE
-#define FOV_ANGLE 60 * (M_PI / 180) // Field of view angle in radians
-#define NUM_RAYS 120 // Number of rays to cast
+#define FOV 60
+#define NUM_RAYS 120
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -61,6 +61,13 @@ typedef struct s_display {
 	int		img_height;
 }	t_display;
 
+typedef struct s_rays {
+	float	angle;
+	float	x;
+	float	y;
+	int		id;
+}	t_rays;
+
 typedef struct s_cub3d {
 	char		*map_path;
 	int			map_fd;
@@ -68,6 +75,7 @@ typedef struct s_cub3d {
 	t_map		map;
 	t_player	player;
 	t_display	display;
+	t_rays		*rays;
 }	t_cub3d;
 
 // parsing
@@ -99,6 +107,11 @@ void	go_forward(t_cub3d *cub3d);
 void	go_backward(t_cub3d *cub3d);
 void	turn_left(t_cub3d *cub3d);
 void	turn_right(t_cub3d *cub3d);
+float	deg_to_rad(float degrees);
+
+//raycasting
+void	create_rays(t_cub3d *cub3d);
+void	cast_rays(t_cub3d *cub3d);
 
 // error
 void	arg_error(void);
