@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/03/10 13:36:04 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/03/13 12:46:38 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ typedef struct s_rays {
 	float	angle;
 	float	x;
 	float	y;
+	float	wall[2];
 	int		id;
+	int		h_wall_found;
+	int		v_wall_found;
 }	t_rays;
 
 typedef struct s_cub3d {

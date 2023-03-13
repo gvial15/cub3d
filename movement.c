@@ -25,7 +25,7 @@ void	go_backward(t_cub3d *cub3d)
 	cub3d->player.dy = (int)cub3d->player.cy % PIXELS;
 	cub3d->player.x = (int)cub3d->player.cx / PIXELS;
 	cub3d->player.y = (int)cub3d->player.cy / PIXELS;
-		dprintf(2, "dx: %f\ndy: %f\n", cub3d->player.cx, cub3d->player.cy);
+	dprintf(2, "dx: %f\ndy: %f\n", cub3d->player.cx, cub3d->player.cy);
 
 	cast_rays(cub3d);
 }
