@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/03/13 12:46:38 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/03/13 16:46:32 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ typedef struct s_rays {
 	float	x;
 	float	y;
 	float	wall[2];
+	float	h_check[2];
+	float	v_check[2];
+	float	dist;
 	int		id;
 	int		h_wall_found;
 	int		v_wall_found;
