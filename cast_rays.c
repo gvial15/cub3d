@@ -6,7 +6,7 @@ void	create_rays(t_cub3d *cub3d)
 
 	i = -1;
 	cub3d->rays = malloc(sizeof(t_rays) * NUM_RAYS);
-	while (++i < NUM_RAYS)
+	while (++i <= NUM_RAYS)
 	{
 		cub3d->rays[i].angle = (cub3d->player.degrees - (FOV/2)) + (i * ((float)FOV / (float)NUM_RAYS));
 		cub3d->rays[i].x = 0;
@@ -137,8 +137,31 @@ int	horiz_wall(t_cub3d *cub3d, t_rays *ray)
 
 void	fix_fisheye(t_cub3d *cub3d, t_rays *ray)
 {
-	dprintf(2, "distance finale = %f\n", ray->dist);
 	ray->dist = ray->dist * cosf(deg_to_rad(ray->angle - cub3d->player.degrees));
+	dprintf(2, "distance finale = %f\n", ray->dist);
+}
+
+//print_walls change color for texture
+void	print_wall(t_cub3d *cub3d, t_rays *ray, int color)
+{
+	int	wall_height;
+	int	wall_width;
+	int	i;
+	int	x;
+
+	wall_height = (1 / ray->dist) * HEIGHT;
+	dprintf(2, "WALL HEIGHT : %d\n", wall_height);
+	wall_width = WIDTH / NUM_RAYS;
+	x = ray->id * wall_width;
+	while (x < wall_width * (ray->id + 1))
+	{
+		i = (HEIGHT / 2) - wall_height;
+		while (i <= (HEIGHT / 2) + wall_height)
+		{
+			mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, x, i++, color);
+		}
+		x++;
+	}
 }
 
 void	cast_rays(t_cub3d *cub3d)
@@ -158,18 +181,18 @@ void	cast_rays(t_cub3d *cub3d)
 		if (cub3d->rays[i].h_wall_found && horiz_wall(cub3d, &cub3d->rays[i]))
 		{
 			fix_fisheye(cub3d, &cub3d->rays[i]);
-			// if (cub3d->rays[i].angle > 0 && cub3d->rays[i].angle < 180)
-			// 	north_wall(cub3d, &cub3d->rays[i]);
-			// else
-			// 	south_wall(cub3d, &cub3d->rays[i]);
+			if (cub3d->rays[i].angle > 0 && cub3d->rays[i].angle < 180)
+				print_wall(cub3d, &cub3d->rays[i], 0xD3D3D3); //north
+			else
+				print_wall(cub3d, &cub3d->rays[i], 0x5A5A5A); //south
 		}
 		else
 		{
 			fix_fisheye(cub3d, &cub3d->rays[i]);
-			// if (cub3d->rays[i].angle > 90 && cub3d->rays[i].angle < 270)
-			// 	west_wall(cub3d, &cub3d->rays[i]);
-			// else
-			// 	east_wall(cub3d, &cub3d->rays[i]);
+			if (cub3d->rays[i].angle > 90 && cub3d->rays[i].angle < 270)
+				print_wall(cub3d, &cub3d->rays[i], 0xCBC3E3); //west
+			else
+				print_wall(cub3d, &cub3d->rays[i], 0x301934); //east
 		}
 	}
 }
