@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/03/13 16:46:32 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/03/15 12:58:01 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_player {
 	float		dy;
 	char		orientation;
 	float		degrees;
+	float		rad;
 }	t_player;
 
 typedef struct s_map {
@@ -47,6 +48,14 @@ typedef struct s_map {
 	int		width;
 	int		height;
 }	t_map;
+
+typedef struct	s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
 
 typedef struct s_display {
 	void	*mlx;
@@ -78,6 +87,9 @@ typedef struct s_cub3d {
 	char		*map_path;
 	int			map_fd;
 	int			norm_bs;
+	float		ang_incr;
+	t_data		img;
+	t_data		tmp;
 	t_map		map;
 	t_player	player;
 	t_display	display;
@@ -100,6 +112,7 @@ void	display_window(t_cub3d *cub3d);
 void	print_ceiling(t_cub3d *cub3d);
 void	print_floor(t_cub3d *cub3d);
 int		rgb_to_int(int *color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // printing initial position
 void	print_minimap(t_cub3d *cub3d);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:28:14 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/22 14:52:07 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/03/15 11:53:30 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ int	key_hook(int keycode, t_cub3d *cub3d)
 		turn_left(cub3d);
 	if (keycode == 2)
 		turn_right(cub3d);
-	print_minimap(cub3d);
+	// print_minimaap(cub3d);
 	return (0);
 }

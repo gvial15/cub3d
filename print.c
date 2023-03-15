@@ -23,11 +23,9 @@ void	put_cube(t_cub3d *cub3d, int x, int y, int color)
 		while (j <= PIXELS)
 		{
 			if (i % PIXELS != 0 || j % PIXELS != 0)
-				mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, \
-				((y * PIXELS) + i), ((x * PIXELS) + j), color);
+				my_mlx_pixel_put(&cub3d->img, ((y * PIXELS) + i), ((x * PIXELS) + j), color);
 			if (i % PIXELS == 0 || j % PIXELS == 0)
-				mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, \
-				((y * PIXELS) + i), ((x * PIXELS) + j), 0xFFFFFF);
+				my_mlx_pixel_put(&cub3d->img, ((y * PIXELS) + i), ((x * PIXELS) + j), 0xFFFFFF);
 			j++;
 		}
 		i++;
@@ -47,8 +45,9 @@ void	print_player(t_cub3d *cub3d, int cx, int cy)
 		j = cy - size;
 		while (j < cy + size)
 		{
-			mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, \
-			i, j, 0x0000FF);
+			my_mlx_pixel_put(&cub3d->img, i, j, 0x0000FF);
+			// mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, \
+			// i, j, 0x0000FF);
 			j++;
 		}
 		i++;
