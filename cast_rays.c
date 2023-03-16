@@ -6,7 +6,7 @@ void	create_rays(t_cub3d *cub3d)
 
 	i = -1;
 	cub3d->rays = malloc(sizeof(t_rays) * NUM_RAYS);
-	while (++i <= NUM_RAYS)
+	while (++i < NUM_RAYS)
 	{
 		cub3d->rays[i].angle = (cub3d->player.degrees - (FOV/2)) + (i * (cub3d->ang_incr));
 		if (cub3d->rays[i].angle >= 360)
@@ -134,7 +134,7 @@ int	horiz_wall(t_cub3d *cub3d, t_rays *ray)
 
 	h_dist = sqrtf(powf(ray->h_check[1] - cub3d->player.cy, 2) + powf(ray->h_check[0] - cub3d->player.cx, 2));
 	v_dist = sqrtf(powf(ray->v_check[1] - cub3d->player.cy, 2) + powf(ray->v_check[0] - cub3d->player.cx, 2));
-	if (!ray->v_wall_found || h_dist <= v_dist) //if == , corner??
+	if (!ray->v_wall_found || h_dist < v_dist) //if == , corner??
 	{
 		ray->dist = h_dist;
 		ray->wall[0] = ray->h_check[0];
@@ -144,8 +144,8 @@ int	horiz_wall(t_cub3d *cub3d, t_rays *ray)
 	ray->dist = v_dist;
 	ray->wall[0] = ray->v_check[0];
 	ray->wall[1] = ray->v_check[1];
-	dprintf(2, "distance = %f\n", ray->dist);
-	dprintf(2, "wall values at %f: (%f, %f)\n", ray->angle, ray->v_check[0], ray->v_check[1]);
+	// dprintf(2, "distance = %f\n", ray->dist);
+	// dprintf(2, "wall values at %f: (%f, %f)\n", ray->angle, ray->v_check[0], ray->v_check[1]);
 	return (0);
 }
 
@@ -164,23 +164,18 @@ void	print_wall(t_cub3d *cub3d, t_rays *ray, int color)
 
 	if (ray->dist <= 0.0001)
 		ray->dist = 0.0001;
-
-	wall_height = (2 / ray->dist) * HEIGHT;
-	if (wall_height > HEIGHT - 100)
-		wall_height = HEIGHT - 100;
-	// if (wall_height >= 350)
-	// 	wall_height = 350;
-	dprintf(2, "distance : %f WALL HEIGHT : %d\n", ray->dist, wall_height);
+	wall_height = (5 / ray->dist) * HEIGHT;
+	if (wall_height > HEIGHT)
+		wall_height = HEIGHT;
 	wall_width = WIDTH / NUM_RAYS;
 	x = ray->id * wall_width;
-	while (x <= wall_width * (ray->id + 1))
+	while (x < wall_width * (ray->id + 1) && x <= (WIDTH + 1))
 	{
 		i = (HEIGHT / 2) - (wall_height / 2);
 		while (i <= (HEIGHT / 2) + (wall_height / 2))
 		{
 			my_mlx_pixel_put(&cub3d->img, x, i, color);
 			i++;
-			// mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, x, i++, color);
 		}
 		x++;
 	}
@@ -190,18 +185,12 @@ void	cast_rays(t_cub3d *cub3d)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	create_rays(cub3d);
-	while (++i <= NUM_RAYS)
+	while (i < NUM_RAYS)
 	{
 		check_horizontal(cub3d, &cub3d->rays[i]);
 		check_vertical(cub3d, &cub3d->rays[i]);
-		//distance horizontal vs vertical
-		// if (cub3d->rays[i].h_wall_found == 1)
-		// 	dprintf(2, "horizontal wall found for %f degrees: (%f, %f)\n", cub3d->rays[i].angle, cub3d->rays[i].h_check[0], cub3d->rays[i].h_check[1]);
-		// if (cub3d->rays[i].v_wall_found == 1)
-		// 	dprintf(2, "vertical wall found for %f degrees: (%f, %f)\n", cub3d->rays[i].angle, cub3d->rays[i].v_check[0], cub3d->rays[i].v_check[1]);
-		// mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, (int)cub3d->rays[i].v_check[0], cub3d->rays[i].v_check[1], 0xFF00FF);
 		if (horiz_wall(cub3d, &cub3d->rays[i]) && cub3d->rays[i].h_wall_found)
 		{
 			fix_fisheye(cub3d, &cub3d->rays[i]);
@@ -218,5 +207,6 @@ void	cast_rays(t_cub3d *cub3d)
 			else
 				print_wall(cub3d, &cub3d->rays[i], 0x301934); //east
 		}
+		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/03/15 12:58:01 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/03/16 13:23:57 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define HEIGHT 700 //WINDOW HEIGHT
 # define PIXELS 20 //NUMBER OF PIXELS PER SQUARE
 #define FOV 60
-#define NUM_RAYS 120
+#define NUM_RAYS 240
 
 # include <stdio.h>
 # include <fcntl.h>
