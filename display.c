@@ -16,7 +16,6 @@ void	display_window(t_cub3d *cub3d)
 {
 	cub3d->display.mlx_win = \
 	mlx_new_window(cub3d->display.mlx, WIDTH, HEIGHT, "Cub3d");
-	// print_info(cub3d);
 	cub3d->img.img = mlx_new_image(cub3d->display.mlx, WIDTH, HEIGHT);
 	cub3d->img.addr = mlx_get_data_addr(cub3d->img.img, &cub3d->img.bits_per_pixel, &cub3d->img.line_length, &cub3d->img.endian);
 	cub3d->ang_incr = (float)FOV / (float)NUM_RAYS;
@@ -25,7 +24,6 @@ void	display_window(t_cub3d *cub3d)
 	print_minimap(cub3d);
 	cast_rays(cub3d);
 	mlx_put_image_to_window(cub3d->display.mlx, cub3d->display.mlx_win, cub3d->img.img, 0, 0);
-	// print_layout(cub3d);
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)

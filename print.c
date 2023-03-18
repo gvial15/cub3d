@@ -59,7 +59,6 @@ void	print_minimap(t_cub3d *cub3d)
 	int	x;
 	int	y;
 
-	print_info(cub3d);
 	x = 0;
 	while (x < cub3d->map.height)
 	{
