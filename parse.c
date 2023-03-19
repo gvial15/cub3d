@@ -11,7 +11,21 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "lib/libft/libft.h"
 
+
+// util for parse_texture.c
+char	*get_file_path(char *line)
+{
+	char	*file_path;
+
+	if (!line)
+		return (NULL);
+	file_path = ft_substr(line, 3, ft_strlen(line) - 4);
+	return (file_path);
+}
+
+// verify argument end in .cub
 static void	parse_arg(t_cub3d *cub3d, char *map_path)
 {
 	int		i;
@@ -32,7 +46,6 @@ static void	parse_arg(t_cub3d *cub3d, char *map_path)
 
 void	set_orientation(t_cub3d *cub3d, char c)
 {
-	// dprintf(2, "angle? %c\n", c);
 	if (c == 2)
 		cub3d->player.degrees = 0.0f;
 	else if (c == 3)
@@ -40,9 +53,7 @@ void	set_orientation(t_cub3d *cub3d, char c)
 	else if (c == 4)
 		cub3d->player.degrees = 180.0f;
 	else if (c == 5)
-		cub3d->player.degrees = 270.0f;
-	// dprintf(2, "angle? %f\n", cub3d->player.degrees);
-	
+		cub3d->player.degrees = 270.0f;	
 }
 
 void	parse(t_cub3d *cub3d)

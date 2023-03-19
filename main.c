@@ -51,10 +51,6 @@ static void	init(t_cub3d *cub3d, char *map_path)
 	cub3d->display.mlx_win = NULL;
 	cub3d->display.img_width = 0;
 	cub3d->display.img_height = 0;
-	cub3d->display.e_texture = NULL;
-	cub3d->display.w_texture = NULL;
-	cub3d->display.s_texture = NULL;
-	cub3d->display.n_texture = NULL;
 	cub3d->player.x = 0;
 	cub3d->player.dx = PIXELS / 2;
 	cub3d->player.y = 0;
