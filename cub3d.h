@@ -6,15 +6,15 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/03/16 13:23:57 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/03/16 13:58:05 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# define WIDTH 1000 //WINDOW WIDTH
-# define HEIGHT 700 //WINDOW HEIGHT
+# define WIDTH 1980 //WINDOW WIDTH
+# define HEIGHT 1080 //WINDOW HEIGHT
 # define PIXELS 20 //NUMBER OF PIXELS PER SQUARE
 #define FOV 60
 #define NUM_RAYS 240
