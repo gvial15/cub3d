@@ -39,7 +39,7 @@ void	get_texture(t_cub3d *cub3d, int index, int fd)
 	i = -1;
 	while (!ft_strnstr(line, "};", 12))
 	{
-		cub3d->textures[index].texture[++i] = ft_strtrim(line, "\","); // trimming only the start
+		cub3d->textures[index].texture[++i] = ft_strtrim(line, "\",\n");
 		free(line);
 		line = get_next_line(fd);
 	}
