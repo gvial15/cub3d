@@ -11,19 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "lib/libft/libft.h"
-
-
-// util for parse_texture.c
-char	*get_file_path(char *line)
-{
-	char	*file_path;
-
-	if (!line)
-		return (NULL);
-	file_path = ft_substr(line, 3, ft_strlen(line) - 4);
-	return (file_path);
-}
 
 // verify argument end in .cub
 static void	parse_arg(t_cub3d *cub3d, char *map_path)

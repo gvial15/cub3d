@@ -12,6 +12,18 @@
 
 #include "cub3d.h"
 
+// parse the file path
+static char	*get_file_path(char *line)
+{
+	char	*file_path;
+
+	if (!line)
+		return (NULL);
+	file_path = ft_substr(line, 3, ft_strlen(line) - 4);
+	return (file_path);
+}
+
+// alloc the char* to char** cub3d->texture[i].texture
 static void	alloc_texture(t_cub3d *cub3d, char *line, int index)
 {
 	int	i;
@@ -22,7 +34,8 @@ static void	alloc_texture(t_cub3d *cub3d, char *line, int index)
 	cub3d->textures[index].texture = ft_calloc(ft_atoi(&line[i + 1]), sizeof(char *));
 }
 
-void	get_texture(t_cub3d *cub3d, int index, int fd)
+// parse the texture into char** cub3d->texture[i].texture
+static void	get_texture(t_cub3d *cub3d, int index, int fd)
 {
 	char	*line;
 	int		i;
@@ -47,6 +60,7 @@ void	get_texture(t_cub3d *cub3d, int index, int fd)
 	close(fd);
 }
 
+// find the orientation of the texture to parse it into the right t_texture index
 static void	parse_xpm(t_cub3d *cub3d, char *file_path, char *line)
 {
 	int	fd;
@@ -74,7 +88,7 @@ static void	parse_xpm(t_cub3d *cub3d, char *file_path, char *line)
 	}
 }
 
-// parse textures and store images pointer to cub3d->display.<n/s/e/w>_texture
+// parse textures in char** and color in map {character: color}
 void	parse_texture(t_cub3d *cub3d)
 {
 	char	*line;

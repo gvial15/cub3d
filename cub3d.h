@@ -105,9 +105,7 @@ void	log_map(t_cub3d *cub3d);
 char	*fill_map(t_cub3d *cub3d);
 void	alloc_map(t_cub3d *cub3d);
 void	parse_map(t_cub3d *cub3d);
-char	*get_file_path(char *line);
 void	get_colors(t_cub3d *cub3d);
-int		skip_to_map(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
 void	set_orientation(t_cub3d *cub3d, char c);
 
