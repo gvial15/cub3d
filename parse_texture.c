@@ -68,22 +68,22 @@ static void	parse_xpm(t_cub3d *cub3d, char *file_path, char *line)
 	if (ft_strnstr(line, "NO ", 3))
 	{
 		get_texture(cub3d, 0, file_path);
-		get_texture_colors(cub3d, 0, file_path);
+		// get_texture_colors(cub3d, 0, file_path);
 	}
 	else if (ft_strnstr(line, "SO ", 3))
 	{
 		get_texture(cub3d, 1, file_path);
-		get_texture_colors(cub3d, 1, file_path);
+		// get_texture_colors(cub3d, 1, file_path);
 	}
 	else if (ft_strnstr(line, "WE ", 3))
 	{
 		get_texture(cub3d, 2, file_path);
-		get_texture_colors(cub3d, 2, file_path);
+		// get_texture_colors(cub3d, 2, file_path);
 	}
 	else if (ft_strnstr(line, "EA ", 3))
 	{
 		get_texture(cub3d, 3, file_path);
-		get_texture_colors(cub3d, 3, file_path);
+		// get_texture_colors(cub3d, 3, file_path);
 	}
 }
 
@@ -104,16 +104,16 @@ void	parse_texture(t_cub3d *cub3d)
 		free(line);
 		free(file_path);
 	}
-	// print_split(cub3d->textures[0].texture);
+	print_split(cub3d->textures[0].texture);
 	// print_split(cub3d->textures[0].colors);
-	// printf("\n\n");
-	// print_split(cub3d->textures[1].texture);
+	printf("\n\n");
+	print_split(cub3d->textures[1].texture);
 	// print_split(cub3d->textures[1].colors);
-	// printf("\n\n");
-	// print_split(cub3d->textures[2].texture);
+	printf("\n\n");
+	print_split(cub3d->textures[2].texture);
 	// print_split(cub3d->textures[2].colors);
-	// printf("\n\n");
-	// print_split(cub3d->textures[3].texture);
+	printf("\n\n");
+	print_split(cub3d->textures[3].texture);
 	// print_split(cub3d->textures[3].colors);
 	close(cub3d->map_fd);
 }

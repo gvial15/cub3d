@@ -62,6 +62,7 @@ void	get_texture_colors(t_cub3d *cub3d, int index, char *file_path)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	line = get_next_line(fd);
 	while (!ft_strnstr(line, "/* pixels */", 12))
 	{
@@ -69,6 +70,6 @@ void	get_texture_colors(t_cub3d *cub3d, int index, char *file_path)
 		free(line);
 		line = get_next_line(fd);
 	}
-	close(fd);
 	free(line);
+	close(fd);
 }
