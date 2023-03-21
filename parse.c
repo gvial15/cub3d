@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:30:08 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/22 14:40:06 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/03/21 11:35:50 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	parse_arg(t_cub3d *cub3d, char *map_path)
 
 void	set_orientation(t_cub3d *cub3d, char c)
 {
-	// dprintf(2, "angle? %c\n", c);
 	if (c == 2)
 		cub3d->player.degrees = 0.0f;
 	else if (c == 3)
@@ -41,7 +40,6 @@ void	set_orientation(t_cub3d *cub3d, char c)
 		cub3d->player.degrees = 180.0f;
 	else if (c == 5)
 		cub3d->player.degrees = 270.0f;
-	// dprintf(2, "angle? %f\n", cub3d->player.degrees);
 	
 }
 

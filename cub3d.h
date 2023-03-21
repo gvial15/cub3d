@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/03/20 14:42:07 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/03/21 12:13:46 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,6 @@ void	map_error(t_cub3d *cub3d);
 
 //temp
 void	print_info(t_cub3d *cub3d);
+void	draw_line(t_cub3d *cub3d, float x1, float y1, float x2, float y2);
 
 #endif

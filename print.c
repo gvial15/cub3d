@@ -7,8 +7,6 @@ void	print_info(t_cub3d *cub3d) // temp function to know what values we have ini
 	dprintf(2, "player position: \nx: %d\ny: %d\n", cub3d->player.x, cub3d->player.y);
 	dprintf(2, "total player position: \ncx: %f\ncy: %f\n", cub3d->player.cx, cub3d->player.cy);
 	dprintf(2, "player angle: %f\n", cub3d->player.degrees);
-	// while (*cub3d->map.map)
-	// 	dprintf(2, "map content: %d\n", **(cub3d->map.map++));
 }
 
 void	put_cube(t_cub3d *cub3d, int x, int y, int color)
@@ -46,8 +44,6 @@ void	print_player(t_cub3d *cub3d, int cx, int cy)
 		while (j < cy + size)
 		{
 			my_mlx_pixel_put(&cub3d->img, i, j, 0x0000FF);
-			// mlx_pixel_put(cub3d->display.mlx, cub3d->display.mlx_win, \
-			// i, j, 0x0000FF);
 			j++;
 		}
 		i++;
@@ -59,7 +55,6 @@ void	print_minimap(t_cub3d *cub3d)
 	int	x;
 	int	y;
 
-	print_info(cub3d);
 	x = 0;
 	while (x < cub3d->map.height)
 	{

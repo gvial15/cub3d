@@ -50,26 +50,26 @@ int	check(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking)
 
 	cx = (cub3d->player.cx + x) / PIXELS;
 	cy = (cub3d->player.cy + y) / PIXELS;
-	dprintf(2, "x : %f y : %f\n", (cub3d->player.cx + x), (cub3d->player.cy + y));
-	dprintf(2, "cx : %d cy : %d\n", cx, cy);
-	if (ray->angle >= 45 && ray->angle <= 135 && checking == 0)
+	// dprintf(2, "x : %f y : %f\n", (cub3d->player.cx + x), (cub3d->player.cy + y));
+	// dprintf(2, "cx : %d cy : %d\n", cx, cy);
+	if (ray->angle >= 0 && ray->angle <= 180 && checking == 0)
 		cy -= 1;
-	if (ray->angle >= 135 && ray->angle <= 225 && checking == 1)
+	if (ray->angle >= 90 && ray->angle <= 270 && checking == 1)
 		cx -= 1;
-	if (cx < 0 || cx >= cub3d->map.width)
+	if (cx < 0 || cx >= cub3d->map.width || cub3d->player.cx + x < 0)
 	{
-		dprintf(2, "here!\n");
+		// dprintf(2, "here!\n");
 		return (ret_zero(cub3d, ray));
 	}
-	if (cy < 0 || cy >= cub3d->map.height)
+	if (cy < 0 || cy >= cub3d->map.height || (cub3d->player.cy + y) < 0)
 	{
-		dprintf(2, "cx = %d map width = %d\n", cx, cub3d->map.width);
-		dprintf(2, "cy = %d map height = %d\n", cy, cub3d->map.height);
+		// dprintf(2, "cx = %d map width = %d\n", cx, cub3d->map.width);
+		// dprintf(2, "cy = %d map height = %d\n", cy, cub3d->map.height);
 		return (ret_zero(cub3d, ray));
 	}
 	ray->wall[0] = cub3d->player.cx + x;
 	ray->wall[1] = cub3d->player.cy + y;
-	dprintf(2, "checking [%d][%d]\n", cx, cy);
+	// dprintf(2, "checking [%d][%d]\n", cx, cy);
 	if (cub3d->map.map[cy][cx] == 1)
 		return (1);
 	return (0);
@@ -90,19 +90,19 @@ int	check_l(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking)
 		cx -= 1;
 	if (cx < 0 || cx >= cub3d->map.width)
 	{
-		dprintf(2, "cx = %d map width = %d\n", cx, cub3d->map.width);
-		dprintf(2, "cy = %d map height = %d\n", cy, cub3d->map.height);
+		// dprintf(2, "cx = %d map width = %d\n", cx, cub3d->map.width);
+		// dprintf(2, "cy = %d map height = %d\n", cy, cub3d->map.height);
 		return (ret_zero(cub3d, ray));
 	}
 	if (cy < 0 || cy >= cub3d->map.height)
 	{
-		dprintf(2, "cx = %d map width = %d\n", cx, cub3d->map.width);
-		dprintf(2, "cy = %d map height = %d\n", cy, cub3d->map.height);
+		// dprintf(2, "cx = %d map width = %d\n", cx, cub3d->map.width);
+		// dprintf(2, "cy = %d map height = %d\n", cy, cub3d->map.height);
 		return (ret_zero(cub3d, ray));
 	}
 	ray->wall[0] = x;
 	ray->wall[1] = y;
-	dprintf(2, "%f degrees : checking [%d][%d]\n", ray->angle, cx, cy);
+	// dprintf(2, "%f degrees : checking [%d][%d]\n", ray->angle, cx, cy);
 	if (cub3d->map.map[cy][cx] == 1)
 		return (1);
 	return (0);
@@ -113,10 +113,10 @@ void	loop_check_h(t_cub3d *cub3d, t_rays *ray, float theta)
 	ray->y = PIXELS;
 	ray->x = ray->y / tanf(deg_to_rad(theta));
 	fix_sign(ray);
-	dprintf(2, "%f degrees: horiz x-step = %f, horiz y_step = %f\n", ray->angle, ray->x, ray->y);
+	// dprintf(2, "%f degrees: horiz x-step = %f, horiz y_step = %f\n", ray->angle, ray->x, ray->y);
 	while (!ray->h_wall_found)
 	{
-		dprintf(2, "last checked position horiz: (%f, %f)\n", ray->h_check[0], ray->h_check[1]);
+		// dprintf(2, "last checked position horiz: (%f, %f)\n", ray->h_check[0], ray->h_check[1]);
 		ray->h_wall_found = check_l(cub3d, ray, ray->h_check[0] + ray->x, ray->h_check[1] + ray->y, 0);
 		// if (ray->wall[0] == 0 && ray->wall[1] == 0)
 		// 	return ;
@@ -124,8 +124,8 @@ void	loop_check_h(t_cub3d *cub3d, t_rays *ray, float theta)
 		ray->h_check[1] = ray->wall[1];
 		if (ray->h_check[0] == 0 && ray->h_check[1] == 0)
 			return ;
-		if (ray->h_wall_found == 1)
-			dprintf(2, "ray #%d: horizontal wall found at [%f][%f]\n", ray->id, ray->h_check[0], ray->h_check[1]);
+		// if (ray->h_wall_found == 1)
+			// dprintf(2, "ray #%d: horizontal wall found at [%f][%f]\n", ray->id, ray->h_check[0], ray->h_check[1]);
 	}
 }
 
@@ -134,10 +134,10 @@ void	loop_check_v(t_cub3d *cub3d, t_rays *ray, float theta)
 	ray->x = PIXELS;
 	ray->y = ray->x * tanf(deg_to_rad(theta));
 	fix_sign(ray);
-	dprintf(2, "%f degrees: vert x-step = %f, vert y_step = %f\n", ray->angle, ray->x, ray->y);
+	// dprintf(2, "%f degrees: vert x-step = %f, vert y_step = %f\n", ray->angle, ray->x, ray->y);
 	while (!ray->v_wall_found)
 	{
-		dprintf(2, "last checked position vert: (%f, %f)\n", ray->v_check[0], ray->v_check[1]);
+		// dprintf(2, "last checked position vert: (%f, %f)\n", ray->v_check[0], ray->v_check[1]);
 		ray->v_wall_found = check_l(cub3d, ray, ray->v_check[0] + ray->x, ray->v_check[1] + ray->y, 1);
 
 		// if (ray->wall[0] == 0 && ray->wall[1] == 0)
@@ -146,8 +146,8 @@ void	loop_check_v(t_cub3d *cub3d, t_rays *ray, float theta)
 		ray->v_check[1] = ray->wall[1];
 		if (ray->v_check[0] == 0 && ray->v_check[1] == 0)
 			return ;
-		if (ray->v_wall_found == 1)
-			dprintf(2, "ray #%d: vertical wall found at [%f][%f]\n", ray->id, ray->v_check[0], ray->v_check[1]);
+		// if (ray->v_wall_found == 1)
+			// dprintf(2, "ray #%d: vertical wall found at [%f][%f]\n", ray->id, ray->v_check[0], ray->v_check[1]);
 	}
 }
 
@@ -186,13 +186,13 @@ void	check_horizontal(t_cub3d *cub3d, t_rays *ray)
 	theta = ray->angle;
 	if (ray->angle > 90 && ray->angle < 180 || ray->angle > 270 && ray->angle < 360)
 		theta = 360 - ray->angle;
-	dprintf(2, "HORIZONTAL :::::: \n");
+	// dprintf(2, "HORIZONTAL :::::: \n");
 	first_check_h(cub3d, ray, theta);
 	// dprintf(2, "horizontal wall found? : %d\n", ray->h_wall_found);
 	if (!ray->h_wall_found)
 		loop_check_h(cub3d, ray, theta);
-	else
-		dprintf(2, "%f : horiz found on first check at [%f][%f]\n", ray->angle, ray->h_check[0], ray->h_check[1]);
+	// else
+		// dprintf(2, "%f : horiz found on first check at [%f][%f]\n", ray->angle, ray->h_check[0], ray->h_check[1]);
 }
 
 void	check_vertical(t_cub3d *cub3d, t_rays *ray)
@@ -202,13 +202,13 @@ void	check_vertical(t_cub3d *cub3d, t_rays *ray)
 	theta = ray->angle;
 	if ((ray->angle > 90 && ray->angle < 180) || (ray->angle > 270 && ray->angle < 360))
 		theta = 360 - ray->angle;
-	dprintf(2, "VERTICAL :::::: \n");
+	// dprintf(2, "VERTICAL :::::: \n");
 	first_check_v(cub3d, ray, theta);
 	// dprintf(2, "vertical wall found? : %d\n", ray->v_wall_found);
 	if (!ray->v_wall_found)
 		loop_check_v(cub3d, ray, theta);
-	else
-		dprintf(2, "%f : vert found on first check at [%f][%f]\n", ray->angle, ray->v_check[0], ray->v_check[1]);
+	// else
+		// dprintf(2, "%f : vert found on first check at [%f][%f]\n", ray->angle, ray->v_check[0], ray->v_check[1]);
 }
 
 int	horiz_wall(t_cub3d *cub3d, t_rays *ray)
@@ -218,7 +218,7 @@ int	horiz_wall(t_cub3d *cub3d, t_rays *ray)
 
 	h_dist = sqrtf(powf(ray->h_check[1] - cub3d->player.cy, 2) + powf(ray->h_check[0] - cub3d->player.cx, 2));
 	v_dist = sqrtf(powf(ray->v_check[1] - cub3d->player.cy, 2) + powf(ray->v_check[0] - cub3d->player.cx, 2));
-	if (!ray->v_wall_found || h_dist < v_dist)
+	if (!ray->v_wall_found || h_dist < v_dist && (ray->h_check[1] && ray->h_check[0]))
 	{
 		ray->dist = h_dist;
 		ray->wall[0] = ray->h_check[0];
@@ -234,6 +234,8 @@ int	horiz_wall(t_cub3d *cub3d, t_rays *ray)
 void	fix_fisheye(t_cub3d *cub3d, t_rays *ray)
 {
 	ray->dist = roundf((ray->dist * cosf(deg_to_rad(ray->angle - cub3d->player.degrees)) * 100000)) / 100000;
+	dprintf(2, "%f degrees : Wall distance = %f\n", ray->angle, ray->dist);
+	dprintf(2, "wall coordinates: (%f, %f)\n", ray->wall[0], ray->wall[1]);
 }
 
 void	print_wall(t_cub3d *cub3d, t_rays *ray, int color)
@@ -262,6 +264,32 @@ void	print_wall(t_cub3d *cub3d, t_rays *ray, int color)
 	}
 }
 
+void	draw_line(t_cub3d *cub3d, float x1, float y1, float x2, float y2)
+{
+	float	delta_x;
+	float	delta_y;
+	float	step;
+	float	x;
+	float	y;
+	int		i;
+
+	delta_x = x2 - x1;
+	delta_y = y2 - y1;
+	step = (fabs(delta_x) > fabs(delta_y)) ? fabs(delta_x) : fabs(delta_y);
+	delta_x /= step;
+	delta_y /= step;
+	x = x1;
+	y = y1;
+	i = 0;
+	while (i <= step)
+	{
+		my_mlx_pixel_put(&cub3d->img, x, y, 0x00FFFF);
+		x += delta_x;
+		y += delta_y;
+		i++;
+	}
+}
+
 //REMEMBER TO DESTROY IMAGES
 void	cast_rays(t_cub3d *cub3d)
 {
@@ -276,19 +304,20 @@ void	cast_rays(t_cub3d *cub3d)
 		if (horiz_wall(cub3d, &cub3d->rays[i]) && cub3d->rays[i].h_wall_found)
 		{
 			fix_fisheye(cub3d, &cub3d->rays[i]);
-			if (cub3d->rays[i].angle > 0 && cub3d->rays[i].angle < 180)
-				print_wall(cub3d, &cub3d->rays[i], 0xD3D3D3); //north
+			if (cub3d->rays[i].angle >= 0 && cub3d->rays[i].angle <= 180)
+				print_wall(cub3d, &cub3d->rays[i], 0xFF0000); //north
 			else
-				print_wall(cub3d, &cub3d->rays[i], 0x5A5A5A); //south
+				print_wall(cub3d, &cub3d->rays[i], 0x00FF00); //south
 		}
 		else if (cub3d->rays[i].v_wall_found == 1)
 		{
 			fix_fisheye(cub3d, &cub3d->rays[i]);
-			if (cub3d->rays[i].angle > 90 && cub3d->rays[i].angle < 270)
-				print_wall(cub3d, &cub3d->rays[i], 0xCBC3E3); //west
+			if (cub3d->rays[i].angle >= 90 && cub3d->rays[i].angle <= 270)
+				print_wall(cub3d, &cub3d->rays[i], 0x0000FF); //west
 			else
-				print_wall(cub3d, &cub3d->rays[i], 0x301934); //east
+				print_wall(cub3d, &cub3d->rays[i], 0x000000); //east
 		}
+		draw_line(cub3d, cub3d->player.cx, cub3d->player.cy, cub3d->rays[i].wall[0], cub3d->rays[i].wall[1]);
 		i++;
 	}
 	// mlx_destroy_image(cub3d->display.mlx, &cub3d->img);
