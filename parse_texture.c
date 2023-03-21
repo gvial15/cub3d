@@ -122,7 +122,6 @@ void	parse_texture(t_cub3d *cub3d)
 		free(file_path);
 		free_split((void **)file, split_len(file));
 	}
-	printf(">>>>>>\n");
 	print_split(cub3d->textures[0].texture);
 	print_split(cub3d->textures[0].colors);
 	printf("\n\n");

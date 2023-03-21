@@ -107,6 +107,7 @@ void	alloc_map(t_cub3d *cub3d);
 void	parse_map(t_cub3d *cub3d);
 void	get_colors(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
+void	free_textures(t_cub3d *cub3d);
 void	set_orientation(t_cub3d *cub3d, char c);
 void	get_texture_colors(t_cub3d *cub3d, int index, char **file);
 

@@ -70,4 +70,5 @@ int	main(int argc, char **argv)
 	mlx_hook(cub3d.display.mlx_win, 2, 0, key_hook, &cub3d);
 	mlx_hook(cub3d.display.mlx_win, 17, 0, close_x, &cub3d);
 	mlx_loop(cub3d.display.mlx);
+	free_textures(&cub3d);
 }
