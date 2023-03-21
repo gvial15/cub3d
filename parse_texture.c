@@ -12,78 +12,93 @@
 
 #include "cub3d.h"
 
-// parse the file path
-static char	*get_file_path(char *line)
+static char	**alloc_file(char *file_path)
 {
-	char	*file_path;
+	char	**file;
+	char	*line;
+	int		fd;
+	int		i;
 
-	if (!line)
+	fd = open(file_path, O_RDONLY);
+	if (fd == -1)
 		return (NULL);
-	file_path = ft_substr(line, 3, ft_strlen(line) - 4);
-	return (file_path);
+	line = get_next_line(fd);
+	i = 0;
+	while (line)
+	{
+		i++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	file = ft_calloc(i + 1, sizeof(char *));
+	return (file);
 }
 
-// alloc the char* to char** cub3d->texture[i].texture
-static void	alloc_texture(t_cub3d *cub3d, char *line, int index)
+// parse texture file into a char ** so i don't have to use gnl each time i want to read it after
+static char	**parse_file(char *file_path)
 {
-	int	i;
+	int		i;
+	int		fd;
+	char	*line;
+	char	**file;
 
+	file = alloc_file(file_path);
+	if (!file)
+		return (NULL);
+	fd = open(file_path, O_RDONLY);
 	i = 0;
-	while (ft_isdigit(line[++i]));
-	line[i] = 0;
-	cub3d->textures[index].texture = ft_calloc(ft_atoi(&line[i + 1]) + 1, sizeof(char *));
+	file[i] = get_next_line(fd);
+	while (file[i++])
+		file[i] = get_next_line(fd);
+	close(fd);
+	return (file);
 }
 
 // parse the texture into char** cub3d->texture[i].texture
-static void	get_texture(t_cub3d *cub3d, int index, char *file_path)
+static void	get_texture(t_cub3d *cub3d, int index, char **file)
 {
-	char	*line;
 	int		i;
-	int	fd;
+	int		ii;
 
-	fd = open(file_path, O_RDONLY);
-	line = get_next_line(fd);
-	while (!ft_strnstr(line, "/* pixels */", 12))
-	{
-		if (line[0] == '"' && ft_isdigit(line[1]))
-			alloc_texture(cub3d, line, index);
-		free(line);
-		line = get_next_line(fd);
-	}
-	line = get_next_line(fd);
 	i = -1;
-	while (!ft_strnstr(line, "};", 12))
+	ii = -1;
+	while (!ft_strnstr(file[++i], "/* pixels */", 12))
 	{
-		cub3d->textures[index].texture[++i] = ft_strtrim(line, "\",\n");
-		free(line);
-		line = get_next_line(fd);
+		if (file[i][0] == '"' && ft_isdigit(file[i][1]))
+		{
+			while (ft_isdigit(file[i][++ii]));
+			file[i][ii] = 0;
+			cub3d->textures[index].texture = ft_calloc(ft_atoi(&file[i][ii + 1]) + 1, sizeof(char *));
+		};
 	}
-	free(line);
-	close(fd);
+	ii = -1;
+	while (!ft_strnstr(file[++i], "};", 12))
+		cub3d->textures[index].texture[++ii] = ft_strtrim(file[i], "\",\n");
 }
 
 // find the orientation of the texture to parse it into the right t_texture index
-static void	parse_xpm(t_cub3d *cub3d, char *file_path, char *line)
+static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 {
 	if (ft_strnstr(line, "NO ", 3))
 	{
-		get_texture(cub3d, 0, file_path);
-		// get_texture_colors(cub3d, 0, file_path);
+		get_texture(cub3d, 0, file);
+		get_texture_colors(cub3d, 0, file);
 	}
 	else if (ft_strnstr(line, "SO ", 3))
 	{
-		get_texture(cub3d, 1, file_path);
-		// get_texture_colors(cub3d, 1, file_path);
+		get_texture(cub3d, 1, file);
+		get_texture_colors(cub3d, 1, file);
 	}
 	else if (ft_strnstr(line, "WE ", 3))
 	{
-		get_texture(cub3d, 2, file_path);
-		// get_texture_colors(cub3d, 2, file_path);
+		get_texture(cub3d, 2, file);
+		get_texture_colors(cub3d, 2, file);
 	}
 	else if (ft_strnstr(line, "EA ", 3))
 	{
-		get_texture(cub3d, 3, file_path);
-		// get_texture_colors(cub3d, 3, file_path);
+		get_texture(cub3d, 3, file);
+		get_texture_colors(cub3d, 3, file);
 	}
 }
 
@@ -91,29 +106,33 @@ static void	parse_xpm(t_cub3d *cub3d, char *file_path, char *line)
 void	parse_texture(t_cub3d *cub3d)
 {
 	char	*line;
+	char	**file;
 	char	*file_path;
 
 	cub3d->map_fd = open(cub3d->map_path, O_RDONLY);
 	while (1)
 	{
 		line = get_next_line(cub3d->map_fd);
-		file_path = get_file_path(line);
 		if (!line)
 			break ;
-		parse_xpm(cub3d, file_path, line);
+		file_path = ft_substr(line, 3, ft_strlen(line) - 4);
+		file = parse_file(file_path);
+		parse_xpm(cub3d, file, line);
 		free(line);
 		free(file_path);
+		free_split((void **)file, split_len(file));
 	}
+	printf(">>>>>>\n");
 	print_split(cub3d->textures[0].texture);
-	// print_split(cub3d->textures[0].colors);
+	print_split(cub3d->textures[0].colors);
 	printf("\n\n");
 	print_split(cub3d->textures[1].texture);
-	// print_split(cub3d->textures[1].colors);
+	print_split(cub3d->textures[1].colors);
 	printf("\n\n");
 	print_split(cub3d->textures[2].texture);
-	// print_split(cub3d->textures[2].colors);
+	print_split(cub3d->textures[2].colors);
 	printf("\n\n");
 	print_split(cub3d->textures[3].texture);
-	// print_split(cub3d->textures[3].colors);
+	print_split(cub3d->textures[3].colors);
 	close(cub3d->map_fd);
 }

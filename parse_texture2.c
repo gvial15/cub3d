@@ -12,64 +12,44 @@
 
 #include "cub3d.h"
 
-static int	nb_color(char *file_path)
+static int	nb_color(char **file)
 {
 	int		i;
-	int		fd;
-	char	*line;
+	int		n;
 
-	i = 0;
-	fd = open(file_path, O_RDONLY);
-	line = get_next_line(fd);
-	while (line[0] != '"' && !ft_isdigit(line[1]))
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	line = get_next_line(fd);
-	while (!ft_strnstr(line, "/* pixels */", 12))
-	{
-		i++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	return (i);
+	n = 0;
+	i = -1;
+	while (file[++i][0] != '"' && !ft_isdigit(file[i][1]));
+	while (!ft_strnstr(file[i++], "/* pixels */", 12))
+		n++;
+	return (n - 1);
 }
 
-void	parse_color(t_cub3d *cub3d, char *line, int index)
+void	parse_color(t_cub3d *cub3d, char *line, int index, int ii)
 {
-	char **split = ft_split(line, ' ');
-	// print_split(split);
-	// "char c color"
-	// ". c #3E2731"
+	char	**split;
+	
+	split = ft_split(line, ' ');
+	if (ft_strlen(split[0]) == 1)
+		cub3d->textures[index].colors[ii] = ft_strdup(" ");
+	else
+		cub3d->textures[index].colors[ii] = ft_strtrim(split[0], "\"\n");
+	cub3d->textures[index].colors[ii + 1] = ft_strtrim(split[2], "\"\n,");
 	free_split((void **)split, split_len(split));
 }
 
-void	get_texture_colors(t_cub3d *cub3d, int index, char *file_path)
+void	get_texture_colors(t_cub3d *cub3d, int index, char **file)
 {
-	int		fd;
-	char	*line;
+	int	i;
+	int	ii;
 
-	// nb_color() makes get_next_line() not begin by the start of file here after it returns
-	cub3d->textures[index].colors = ft_calloc((nb_color(file_path) * 2) + 1, sizeof(char *));
-	fd = open(file_path, O_RDONLY);
-	line = get_next_line(fd);
-	printf("%s\n", line);
-	while (line[0] != '"' && !ft_isdigit(line[1]))
+	cub3d->textures[index].colors = ft_calloc((nb_color(file) * 2) + 1, sizeof(char *));
+	ii = 0;
+	i = -1;
+	while (file[++i][0] != '"' && !ft_isdigit(file[i][1]));
+	while (!ft_strnstr(file[++i], "/* pixels */", 12))
 	{
-		free(line);
-		line = get_next_line(fd);
+		parse_color(cub3d, file[i], index, ii);
+		ii += 2;
 	}
-	free(line);
-	line = get_next_line(fd);
-	while (!ft_strnstr(line, "/* pixels */", 12))
-	{
-		parse_color(cub3d, line, index);
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
 }
