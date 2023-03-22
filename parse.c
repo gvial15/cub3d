@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:30:08 by gvial             #+#    #+#             */
-/*   Updated: 2023/03/21 11:35:50 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/03/22 14:13:26 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	set_orientation(t_cub3d *cub3d, char c)
 		cub3d->player.degrees = 180.0f;
 	else if (c == 5)
 		cub3d->player.degrees = 270.0f;
-	
 }
 
 void	parse(t_cub3d *cub3d)
