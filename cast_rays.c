@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cast_rays.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/22 14:15:01 by mjarry            #+#    #+#             */
+/*   Updated: 2023/03/22 14:26:36 by mjarry           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	create_rays(t_cub3d *cub3d)
@@ -286,7 +298,6 @@ void	cast_rays(t_cub3d *cub3d)
 			else
 				print_wall(cub3d, &cub3d->rays[i], 0x000000); //east
 		}
-		// draw_line(cub3d, cub3d->player.cx, cub3d->player.cy, cub3d->rays[i].wall[0], cub3d->rays[i].wall[1]);
 		i++;
 	}
 	// mlx_destroy_image(cub3d->display.mlx, &cub3d->img);
