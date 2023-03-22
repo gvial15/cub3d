@@ -122,16 +122,16 @@ void	parse_texture(t_cub3d *cub3d)
 		free(file_path);
 		free_split((void **)file, split_len(file));
 	}
-	print_split(cub3d->textures[0].texture);
-	print_split(cub3d->textures[0].colors);
-	printf("\n\n");
-	print_split(cub3d->textures[1].texture);
-	print_split(cub3d->textures[1].colors);
-	printf("\n\n");
-	print_split(cub3d->textures[2].texture);
-	print_split(cub3d->textures[2].colors);
-	printf("\n\n");
-	print_split(cub3d->textures[3].texture);
-	print_split(cub3d->textures[3].colors);
+	// print_split(cub3d->textures[0].texture);
+	// print_int_tab(cub3d->textures[0].colors, 10);
+	// printf("\n\n");
+	// print_split(cub3d->textures[1].texture);
+	// print_int_tab(cub3d->textures[1].colors, 10);
+	// printf("\n\n");
+	// print_split(cub3d->textures[2].texture);
+	// print_int_tab(cub3d->textures[2].colors, 10);
+	// printf("\n\n");
+	// print_split(cub3d->textures[3].texture);
+	// print_int_tab(cub3d->textures[3].colors, 10);
 	close(cub3d->map_fd);
 }

@@ -82,7 +82,7 @@ typedef struct s_rays {
 
 typedef struct s_texture {
 	char	**texture;
-	char	**colors;
+	int		*colors;
 }	t_texture;
 
 typedef struct s_cub3d {
@@ -100,6 +100,7 @@ typedef struct s_cub3d {
 }	t_cub3d;
 
 // parsing
+int		nb_color(char **file);
 void	parse(t_cub3d *cub3d);
 void	log_map(t_cub3d *cub3d);
 char	*fill_map(t_cub3d *cub3d);
