@@ -12,7 +12,8 @@
 
 #include "cub3d.h"
 
-int	skip_to_map(t_cub3d *cub3d)
+// get_next_line() until all the other stuff other than the map is skipped
+static int	skip_to_map(t_cub3d *cub3d)
 {
 	int		count;
 	int		map_fd;
@@ -33,6 +34,7 @@ int	skip_to_map(t_cub3d *cub3d)
 	return (map_fd);
 }
 
+// fill char* cub3d->map.map_c
 char	*fill_map(t_cub3d *cub3d)
 {
 	char	*map;
@@ -57,6 +59,7 @@ char	*fill_map(t_cub3d *cub3d)
 	return (map);
 }
 
+// alloc int** cub3d->map.map
 void	alloc_map(t_cub3d *cub3d)
 {
 	int		i;
@@ -95,6 +98,7 @@ static void	log_map_norm(t_cub3d *cub3d, int i, int x, int z)
 		cub3d->map.map[i][x] = -1;
 }
 
+// log map into int** cub3d->map.map
 void	log_map(t_cub3d *cub3d)
 {
 	int		i;

@@ -1,4 +1,4 @@
-SRCS = 	convert/ft_atoi.c  convert/ft_ltoa.c convert/ft_itoa.c convert/ft_itoa_base.c \
+SRCS = 	convert/ft_atoi.c  convert/ft_ltoa.c convert/ft_itoa.c convert/ft_itoa_base.c convert/ft_atoi_base.c \
 		convert/ft_ltox.c convert/ft_ultox.c convert/ft_split.c convert/ft_toupper.c convert/ft_tolower.c \
 		memory/ft_memset.c memory/ft_memcpy.c memory/ft_memmove.c memory/ft_memchr.c \
 		memory/ft_memcmp.c memory/ft_bzero.c memory/ft_calloc.c memory/free_split.c \

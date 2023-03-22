@@ -12,6 +12,7 @@
 
 #include "cub3d.h"
 
+// verify argument end in .cub
 static void	parse_arg(t_cub3d *cub3d, char *map_path)
 {
 	int		i;
@@ -45,7 +46,7 @@ void	set_orientation(t_cub3d *cub3d, char c)
 void	parse(t_cub3d *cub3d)
 {
 	parse_arg(cub3d, cub3d->map_path);
-	parse_texture(cub3d);
 	get_colors(cub3d);
 	parse_map(cub3d);
+	parse_texture(cub3d);
 }

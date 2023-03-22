@@ -20,6 +20,7 @@ static void	error(t_cub3d *cub3d, char **split_space, char *line)
 	color_error();
 }
 
+// verify if ceiling and floor colors are specified in the .cub file
 static int	f_c(t_cub3d *cub3d)
 {
 	char	*line;
@@ -47,6 +48,7 @@ static int	f_c(t_cub3d *cub3d)
 	return (1);
 }
 
+// fill the int[3] with the rgb values
 static void	fill_color(char *line, int color[3], t_cub3d *cub3d)
 {
 	char	**split_comma;

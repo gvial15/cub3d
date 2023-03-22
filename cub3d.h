@@ -60,15 +60,12 @@ typedef struct	s_data {
 typedef struct s_display {
 	void	*mlx;
 	void	*mlx_win;
-	void	*n_texture;
-	void	*s_texture;
-	void	*e_texture;
-	void	*w_texture;
 	int		win_width;
 	int		win_height;
 	int		img_width;
 	int		img_height;
 }	t_display;
+
 
 typedef struct s_rays {
 	float	angle;
@@ -83,6 +80,11 @@ typedef struct s_rays {
 	int		v_wall_found;
 }	t_rays;
 
+typedef struct s_texture {
+	char	**texture;
+	int		*colors;
+}	t_texture;
+
 typedef struct s_cub3d {
 	char		*map_path;
 	int			map_fd;
@@ -94,25 +96,29 @@ typedef struct s_cub3d {
 	t_player	player;
 	t_display	display;
 	t_rays		*rays;
+	t_texture	textures[4];
 }	t_cub3d;
 
 // parsing
+int		nb_color(char **file);
 void	parse(t_cub3d *cub3d);
-void	set_orientation(t_cub3d *cub3d, char c);
+void	log_map(t_cub3d *cub3d);
 char	*fill_map(t_cub3d *cub3d);
+void	alloc_map(t_cub3d *cub3d);
 void	parse_map(t_cub3d *cub3d);
 void	get_colors(t_cub3d *cub3d);
-int		skip_to_map(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
-void	log_map(t_cub3d *cub3d);
-void	alloc_map(t_cub3d *cub3d);
+void	free_textures(t_cub3d *cub3d);
+void	set_orientation(t_cub3d *cub3d, char c);
+void	get_texture_colors(t_cub3d *cub3d, int index, char **file);
 
 // displaying
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		display_texture(int orientation, t_rays *ray);
 void	display_window(t_cub3d *cub3d);
 void	print_ceiling(t_cub3d *cub3d);
 void	print_floor(t_cub3d *cub3d);
 int		rgb_to_int(int *color);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 // printing initial position
 void	print_minimap(t_cub3d *cub3d);
@@ -136,8 +142,8 @@ void	cast_rays(t_cub3d *cub3d);
 void	arg_error(void);
 void	color_error(void);
 void	texture_error(void);
-void	player_error(t_cub3d *cub3d);
 void	map_error(t_cub3d *cub3d);
+void	player_error(t_cub3d *cub3d);
 
 //temp
 void	print_info(t_cub3d *cub3d);

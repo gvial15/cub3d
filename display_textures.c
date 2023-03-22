@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_int_tab.c                                    :+:      :+:    :+:   */
+/*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/01 20:32:58 by gvial             #+#    #+#             */
-/*   Updated: 2022/08/01 20:33:52 by gvial            ###   ########.fr       */
+/*   Created: 2023/02/06 16:31:41 by gvial             #+#    #+#             */
+/*   Updated: 2023/02/06 16:31:42 by gvial            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "cub3d.h"
 
-void	print_int_tab(int *tab, int size)
+int	display_texture(int orientation, t_rays *ray)
 {
-	int	i;
+	int	color;
+	int	index;
 
-	i = -1;
-	while (++i < size)
-	{
-		ft_printf("%i", tab[i]);
-		ft_printf("\n");
-	}
-	ft_printf("\n");
+	index = ray->wall[0] - ((int)(ray->wall[0] / PIXELS) * PIXELS);
+
+	printf("%i\n", index);
+
+	return (color);
 }
