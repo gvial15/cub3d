@@ -103,6 +103,7 @@ typedef struct s_cub3d {
 int		nb_color(char **file);
 void	parse(t_cub3d *cub3d);
 void	log_map(t_cub3d *cub3d);
+void	free_map(t_cub3d *cub3d);
 char	*fill_map(t_cub3d *cub3d);
 void	alloc_map(t_cub3d *cub3d);
 void	parse_map(t_cub3d *cub3d);

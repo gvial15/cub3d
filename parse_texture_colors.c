@@ -12,21 +12,6 @@
 
 #include "cub3d.h"
 
-// use this whenever exiting the program
-void	free_textures(t_cub3d *cub3d)
-{
-	int	i;
-	int	len;
-
-	i = -1;
-	while (++i < 4)
-	{
-		len = split_len(cub3d->textures[i].texture);
-		free_split((void **)cub3d->textures[i].texture, len);
-	}
-	free(cub3d->textures->colors);
-}
-
 int	nb_color(char **file)
 {
 	int		i;
