@@ -23,8 +23,8 @@ void	free_textures(t_cub3d *cub3d)
 	{
 		len = split_len(cub3d->textures[i].texture);
 		free_split((void **)cub3d->textures[i].texture, len);
-		free(cub3d->textures->colors);
 	}
+	free(cub3d->textures->colors);
 }
 
 int	nb_color(char **file)
