@@ -48,7 +48,7 @@ static void	init(t_cub3d *cub3d, char *map_path)
 	cub3d->map.map_c = NULL;
 	cub3d->map.height = 0;
 	cub3d->map.width = 0;
-	cub3d->display.mlx = mlx_init();
+	// cub3d->display.mlx = mlx_init();
 	cub3d->display.mlx_win = NULL;
 	cub3d->display.img_width = 0;
 	cub3d->display.img_height = 0;
@@ -67,10 +67,10 @@ int	main(int argc, char **argv)
 		arg_error();
 	init(&cub3d, argv[1]);
 	parse(&cub3d);
-	display_window(&cub3d);
-	mlx_hook(cub3d.display.mlx_win, 2, 0, key_hook, &cub3d);
-	mlx_hook(cub3d.display.mlx_win, 17, 0, close_x, &cub3d);
-	mlx_loop(cub3d.display.mlx);
+	// display_window(&cub3d);
+	// mlx_hook(cub3d.display.mlx_win, 2, 0, key_hook, &cub3d);
+	// mlx_hook(cub3d.display.mlx_win, 17, 0, close_x, &cub3d);
+	// mlx_loop(cub3d.display.mlx);
 	free_textures(&cub3d);
 	free_map(&cub3d);
 }

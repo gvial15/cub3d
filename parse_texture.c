@@ -87,6 +87,7 @@ static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 	}
 	else if (ft_strnstr(line, "SO ", 3))
 	{
+		printf("test\n");
 		get_texture(cub3d, 1, file);
 		get_texture_colors(cub3d, 1, file);
 	}
@@ -102,6 +103,8 @@ static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 	}
 }
 
+
+// if the file specified after e.g NO in .cub isnt an existing file we segfault
 // parse textures in char** and color in map {character: color}
 void	parse_texture(t_cub3d *cub3d)
 {

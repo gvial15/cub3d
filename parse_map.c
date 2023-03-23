@@ -61,11 +61,11 @@ static void	parse_player(t_cub3d *cub3d)
 		}
 		x = -1;
 	}
+	// sometimes we get a player error for no reason here
 	if (cub3d->norm_bs != 1)
 		player_error(cub3d);
 }
 
-// verify if map is only composed of allowed characters
 static void	verify_map(t_cub3d *cub3d)
 {
 	int	i;
