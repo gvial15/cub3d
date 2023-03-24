@@ -104,8 +104,6 @@ static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 	}
 }
 
-
-// if the file specified after e.g NO in .cub isnt an existing file we segfault
 // parse textures in char** and color in map {character: color}
 void	parse_texture(t_cub3d *cub3d)
 {
