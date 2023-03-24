@@ -79,6 +79,7 @@ static void	get_texture(t_cub3d *cub3d, int index, char **file, char *line)
 		cub3d->textures[index].texture[++ii] = ft_strtrim(file[i], "\",\n");
 }
 
+// need to get_texture_color() before get_texture() so i can convert texture into int directly but it segfaults
 // find the orientation of the texture to parse it into the right t_texture index
 static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 {
