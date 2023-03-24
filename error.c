@@ -20,9 +20,11 @@ void	color_error(void)
 }
 
 // functions which exits in case of a texture error
-void	texture_error(void)
+void	texture_error(char *line, char **file)
 {
 	printf("there was a problem loading the textures\n");
+	free(line);
+	free_split((void **)file, split_len(file));
 	exit(1);
 }
 

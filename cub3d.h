@@ -142,9 +142,9 @@ void	cast_rays(t_cub3d *cub3d);
 // error
 void	arg_error(void);
 void	color_error(void);
-void	texture_error(void);
 void	map_error(t_cub3d *cub3d);
 void	player_error(t_cub3d *cub3d);
+void	texture_error(char *line, char **file);
 
 //temp
 void	print_info(t_cub3d *cub3d);

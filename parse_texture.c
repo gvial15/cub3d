@@ -56,13 +56,15 @@ static char	**parse_file(char *file_path)
 }
 
 // parse the texture into char** cub3d->texture[i].texture
-static void	get_texture(t_cub3d *cub3d, int index, char **file)
+static void	get_texture(t_cub3d *cub3d, int index, char **file, char *line)
 {
 	int		i;
 	int		ii;
 
 	i = -1;
 	ii = -1;
+	if (!file)
+		texture_error(line, file);
 	while (!ft_strnstr(file[++i], "/* pixels */", 12))
 	{
 		if (file[i][0] == '"' && ft_isdigit(file[i][1]))
@@ -82,23 +84,22 @@ static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 {
 	if (ft_strnstr(line, "NO ", 3))
 	{
-		get_texture(cub3d, 0, file);
+		get_texture(cub3d, 0, file, line);
 		get_texture_colors(cub3d, 0, file);
 	}
 	else if (ft_strnstr(line, "SO ", 3))
 	{
-		printf("test\n");
-		get_texture(cub3d, 1, file);
+		get_texture(cub3d, 1, file, line);
 		get_texture_colors(cub3d, 1, file);
 	}
 	else if (ft_strnstr(line, "WE ", 3))
 	{
-		get_texture(cub3d, 2, file);
+		get_texture(cub3d, 2, file, line);
 		get_texture_colors(cub3d, 2, file);
 	}
 	else if (ft_strnstr(line, "EA ", 3))
 	{
-		get_texture(cub3d, 3, file);
+		get_texture(cub3d, 3, file, line);
 		get_texture_colors(cub3d, 3, file);
 	}
 }
@@ -120,9 +121,9 @@ void	parse_texture(t_cub3d *cub3d)
 			break ;
 		file_path = ft_substr(line, 3, ft_strlen(line) - 4);
 		file = parse_file(file_path);
+		free(file_path);
 		parse_xpm(cub3d, file, line);
 		free(line);
-		free(file_path);
 		free_split((void **)file, split_len(file));
 	}
 	// print_split(cub3d->textures[0].texture);
