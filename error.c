@@ -23,8 +23,10 @@ void	color_error(void)
 void	texture_error(char *line, char **file)
 {
 	printf("there was a problem loading the textures\n");
-	free(line);
-	free_split((void **)file, split_len((void **)file));
+	if (line)
+		free(line);
+	if (file)
+		free_split((void **)file, split_len((void **)file));
 	exit(1);
 }
 

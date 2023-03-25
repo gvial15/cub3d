@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "lib/libft/libft.h"
 
 static char	**alloc_file(char *file_path)
 {
@@ -127,23 +126,10 @@ static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 	}
 }
 
-// testing...
-// void	print_int_tab2(int *tab, int size)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	while (++i < size)
-// 	{
-// 		ft_printf("%i", tab[i]);
-// 		ft_printf(" ");
-// 	}
-// 	ft_printf("\n");
-// }
-
 // parse textures in char** and color in map {character: color}
 void	parse_texture(t_cub3d *cub3d)
 {
+	int		i;
 	char	*line;
 	char	**file;
 	char	*file_path;
@@ -157,30 +143,14 @@ void	parse_texture(t_cub3d *cub3d)
 		file_path = ft_substr(line, 3, ft_strlen(line) - 4);
 		file = parse_file(file_path);
 		free(file_path);
-		parse_xpm(cub3d, file, line);
+		if (file)
+			parse_xpm(cub3d, file, line);
 		free(line);
 		free_split((void **)file, split_len((void **)file));
 	}
-	// testing...
-	// int	i;
-	// i = -1;
-	// while (++i < 16)
-	// 	print_int_tab2(cub3d->textures[0].texture[i], 16);
-	// print_int_tab(cub3d->textures[0].colors, 10);
-	// printf("\n\n");
-	// i = -1;
-	// while (++i < 16)
-	// 	print_int_tab2(cub3d->textures[1].texture[i], 16);
-	// print_int_tab(cub3d->textures[1].colors, 10);
-	// printf("\n\n");
-	// i = -1;
-	// while (++i < 16)
-	// 	print_int_tab2(cub3d->textures[2].texture[i], 16);
-	// print_int_tab(cub3d->textures[2].colors, 10);
-	// printf("\n\n");
-	// i = -1;
-	// while (++i < 16)
-	// 	print_int_tab2(cub3d->textures[3].texture[i], 16);
-	// print_int_tab(cub3d->textures[3].colors, 10);
+	i = -1;
+	while (++i < 4)
+		if (!cub3d->textures[i].texture)
+			texture_error(NULL, NULL);
 	close(cub3d->map_fd);
 }
