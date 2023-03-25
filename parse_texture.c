@@ -78,7 +78,7 @@ int	*get_texture_color(t_texture *texture, char *line)
 }
 
 // parse the texture into int** cub3d->texture[i].texture
-static void	get_texture(t_cub3d *cub3d, int index, char **file, char *line)
+static void	get_texture(t_texture *texture, char **file, char *line)
 {
 	int		i;
 	int		ii;
@@ -93,12 +93,13 @@ static void	get_texture(t_cub3d *cub3d, int index, char **file, char *line)
 		{
 			while (ft_isdigit(file[i][++ii]));
 			file[i][ii] = 0;
-			cub3d->textures[index].texture = ft_calloc(ft_atoi(&file[i][ii + 1]) + 1, sizeof(char *));
+			texture->texture = ft_calloc(ft_atoi(&file[i][ii + 1]) + 1 \
+			, sizeof(char *));
 		};
 	}
 	ii = -1;
 	while (!ft_strnstr(file[++i], "};", 12))
-		cub3d->textures[index].texture[++ii] = get_texture_color(&cub3d->textures[index], file[i]);
+		texture->texture[++ii] = get_texture_color(texture, file[i]);
 }
 
 // find the orientation of the texture to parse it into the right t_texture index
@@ -106,23 +107,23 @@ static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 {
 	if (ft_strnstr(line, "NO ", 3))
 	{
-		get_texture_colors(cub3d, 0, file);
-		get_texture(cub3d, 0, file, line);
+		get_texture_colors(&cub3d->textures[0], file);
+		get_texture(&cub3d->textures[0], file, line);
 	}
 	else if (ft_strnstr(line, "SO ", 3))
 	{
-		get_texture_colors(cub3d, 1, file);
-		get_texture(cub3d, 1, file, line);
+		get_texture_colors(&cub3d->textures[1], file);
+		get_texture(&cub3d->textures[1], file, line);
 	}
 	else if (ft_strnstr(line, "WE ", 3))
 	{
-		get_texture_colors(cub3d, 2, file);
-		get_texture(cub3d, 2, file, line);
+		get_texture_colors(&cub3d->textures[2], file);
+		get_texture(&cub3d->textures[2], file, line);
 	}
 	else if (ft_strnstr(line, "EA ", 3))
 	{
-		get_texture_colors(cub3d, 3, file);
-		get_texture(cub3d, 3, file, line);
+		get_texture_colors(&cub3d->textures[3], file);
+		get_texture(&cub3d->textures[3], file, line);
 	}
 }
 

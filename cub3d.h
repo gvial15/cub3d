@@ -111,7 +111,7 @@ void	get_colors(t_cub3d *cub3d);
 void	parse_texture(t_cub3d *cub3d);
 void	free_textures(t_cub3d *cub3d);
 void	set_orientation(t_cub3d *cub3d, char c);
-void	get_texture_colors(t_cub3d *cub3d, int index, char **file);
+void	get_texture_colors(t_texture *texture, char **file);
 
 // displaying
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);

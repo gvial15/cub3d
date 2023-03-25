@@ -25,7 +25,7 @@ int	nb_color(char **file)
 	return (n - 1);
 }
 
-void	parse_color(t_cub3d *cub3d, char *line, int index, int ii)
+static void	parse_color(t_texture *texture, char *line, int ii)
 {
 	char	**split;
 	int		color;
@@ -35,34 +35,34 @@ void	parse_color(t_cub3d *cub3d, char *line, int index, int ii)
 	if (ft_strlen(split[0]) == 1)
 	{
 		tmp = ft_strdup(" ");
-		cub3d->textures[index].colors[ii] = tmp[0];
+		texture->colors[ii] = tmp[0];
 		free(tmp);
 	}
 	else
 	{
 		tmp = ft_strtrim(split[0], "\"\n");
-		cub3d->textures[index].colors[ii] = tmp[0];
+		texture->colors[ii] = tmp[0];
 		free(tmp);
 	}
 	tmp = ft_strtrim(split[2], "#\"\n,");
 	color = ft_atoi_base(tmp, 16);
 	free(tmp);
-	cub3d->textures[index].colors[ii + 1] = color;
+	texture->colors[ii + 1] = color;
 	free_split((void **)split, split_len((void **)split));
 }
 
-void	get_texture_colors(t_cub3d *cub3d, int index, char **file)
+void	get_texture_colors(t_texture *texture, char **file)
 {
 	int	i;
 	int	ii;
 
-	cub3d->textures[index].colors = ft_calloc((nb_color(file) * 2) + 1, sizeof(int));
+	texture->colors = ft_calloc((nb_color(file) * 2) + 1, sizeof(int));
 	ii = 0;
 	i = -1;
 	while (file[++i][0] != '"' && !ft_isdigit(file[i][1]));
 	while (!ft_strnstr(file[++i], "/* pixels */", 12))
 	{
-		parse_color(cub3d, file[i], index, ii);
+		parse_color(texture, file[i], ii);
 		ii += 2;
 	}
 }
