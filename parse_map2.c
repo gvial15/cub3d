@@ -82,17 +82,20 @@ void	alloc_map(t_cub3d *cub3d)
 
 static void	log_map_norm(t_cub3d *cub3d, int i, int x, int z)
 {
-	if (z < ft_strlen(cub3d->map.map_d[i]) && cub3d->map.map_d[i][z] == ' ')
+	int	len;
+
+	len = ft_strlen(cub3d->map.map_d[i]);
+	if (z < len && cub3d->map.map_d[i][z] == ' ')
 		cub3d->map.map[i][x] = -1;
-	else if (cub3d->map.map_d[i][z] == 'E')
+	else if (z < len && cub3d->map.map_d[i][z] == 'E')
 		cub3d->map.map[i][x] = 2;
-	else if (cub3d->map.map_d[i][z] == 'N')
+	else if (z < len && cub3d->map.map_d[i][z] == 'N')
 		cub3d->map.map[i][x] = 3;
-	else if (cub3d->map.map_d[i][z] == 'W')
+	else if (z < len && cub3d->map.map_d[i][z] == 'W')
 		cub3d->map.map[i][x] = 4;
-	else if (cub3d->map.map_d[i][z] == 'S')
+	else if (z < len && cub3d->map.map_d[i][z] == 'S')
 		cub3d->map.map[i][x] = 5;
-	else if (z < ft_strlen(cub3d->map.map_d[i]))
+	else if (z < len)
 		cub3d->map.map[i][x] = cub3d->map.map_d[i][z] - 48;
 	else
 		cub3d->map.map[i][x] = -1;

@@ -44,6 +44,7 @@ static void	parse_player(t_cub3d *cub3d)
 
 	x = -1;
 	y = -1;
+
 	while (++y < cub3d->map.height)
 	{
 		while (++x < cub3d->map.width)
@@ -61,7 +62,6 @@ static void	parse_player(t_cub3d *cub3d)
 		}
 		x = -1;
 	}
-	// sometimes we get a player error for no reason here
 	if (cub3d->norm_bs != 1)
 		player_error(cub3d);
 }
