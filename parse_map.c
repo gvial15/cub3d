@@ -93,5 +93,5 @@ void	parse_map(t_cub3d *cub3d)
 	cub3d->map.map_d[cub3d->player.y][cub3d->player.x] = '0';
 	verify_walls(cub3d, cub3d->player.x, cub3d->player.y);
 	free(cub3d->map.map_c);
-	free_split((void **)cub3d->map.map_d, split_len(cub3d->map.map_d));
+	free_split((void **)cub3d->map.map_d, split_len((void **)cub3d->map.map_d));
 }

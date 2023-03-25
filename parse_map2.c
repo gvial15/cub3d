@@ -66,7 +66,7 @@ void	alloc_map(t_cub3d *cub3d)
 	int		x;
 	int		y;
 
-	y = split_len(cub3d->map.map_d);
+	y = split_len((void **)cub3d->map.map_d);
 	x = 0;
 	i = -1;
 	while (cub3d->map.map_d[++i])

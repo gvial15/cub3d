@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "lib/libft/libft.h"
 
 // // function that display all the data from all the structs for debugging
 // static void	display_data(t_cub3d *cub3d)

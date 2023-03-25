@@ -19,7 +19,7 @@ char	**splitdup(char **split)
 
 	if (!split)
 		return (NULL);
-	new_split = ft_calloc(split_len(split) + 1, sizeof(char *));
+	new_split = ft_calloc(split_len((void **)split) + 1, sizeof(char *));
 	i = -1;
 	while (split[++i])
 		new_split[i] = ft_strdup(split[i]);

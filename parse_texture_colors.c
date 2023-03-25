@@ -48,7 +48,7 @@ void	parse_color(t_cub3d *cub3d, char *line, int index, int ii)
 	color = ft_atoi_base(tmp, 16);
 	free(tmp);
 	cub3d->textures[index].colors[ii + 1] = color;
-	free_split((void **)split, split_len(split));
+	free_split((void **)split, split_len((void **)split));
 }
 
 void	get_texture_colors(t_cub3d *cub3d, int index, char **file)

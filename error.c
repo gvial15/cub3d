@@ -24,7 +24,7 @@ void	texture_error(char *line, char **file)
 {
 	printf("there was a problem loading the textures\n");
 	free(line);
-	free_split((void **)file, split_len(file));
+	free_split((void **)file, split_len((void **)file));
 	exit(1);
 }
 
@@ -55,6 +55,6 @@ void	map_error(t_cub3d *cub3d)
 	if (cub3d->map.map_c)
 		free(cub3d->map.map_c);
 	if (cub3d->map.map_d)
-		free_split((void **)cub3d->map.map_d, split_len(cub3d->map.map_d));
+		free_split((void **)cub3d->map.map_d, split_len((void **)cub3d->map.map_d));
 	exit(1);
 }

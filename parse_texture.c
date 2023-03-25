@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "lib/libft/libft.h"
 
 static char	**alloc_file(char *file_path)
 {
@@ -55,7 +56,29 @@ static char	**parse_file(char *file_path)
 	return (file);
 }
 
-// parse the texture into char** cub3d->texture[i].texture
+// convert characters into int (colors) and put it into the given cub3d->textures[index].texture[++ii]
+int	*get_texture_color(t_texture *texture, char *line)
+{
+	int		i;
+	int		ii;
+	int		*tab;
+	char	*new_line;
+
+	new_line = ft_strtrim(line, "\",\n");
+	tab = ft_calloc(ft_strlen(new_line) + 1, sizeof(int));
+	i = -1;
+	ii = 0;
+	while (new_line[++i])
+	{
+		while (texture->colors[ii++] != new_line[i]);
+		tab[i] = texture->colors[ii];
+		ii = 0;
+	}
+	free(new_line);
+	return (tab);
+}
+
+// parse the texture into int** cub3d->texture[i].texture
 static void	get_texture(t_cub3d *cub3d, int index, char **file, char *line)
 {
 	int		i;
@@ -76,34 +99,47 @@ static void	get_texture(t_cub3d *cub3d, int index, char **file, char *line)
 	}
 	ii = -1;
 	while (!ft_strnstr(file[++i], "};", 12))
-		cub3d->textures[index].texture[++ii] = ft_strtrim(file[i], "\",\n");
+		cub3d->textures[index].texture[++ii] = get_texture_color(&cub3d->textures[index], file[i]);
 }
 
-// need to get_texture_color() before get_texture() so i can convert texture into int directly but it segfaults
 // find the orientation of the texture to parse it into the right t_texture index
 static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 {
 	if (ft_strnstr(line, "NO ", 3))
 	{
-		get_texture(cub3d, 0, file, line);
 		get_texture_colors(cub3d, 0, file);
+		get_texture(cub3d, 0, file, line);
 	}
 	else if (ft_strnstr(line, "SO ", 3))
 	{
-		get_texture(cub3d, 1, file, line);
 		get_texture_colors(cub3d, 1, file);
+		get_texture(cub3d, 1, file, line);
 	}
 	else if (ft_strnstr(line, "WE ", 3))
 	{
-		get_texture(cub3d, 2, file, line);
 		get_texture_colors(cub3d, 2, file);
+		get_texture(cub3d, 2, file, line);
 	}
 	else if (ft_strnstr(line, "EA ", 3))
 	{
-		get_texture(cub3d, 3, file, line);
 		get_texture_colors(cub3d, 3, file);
+		get_texture(cub3d, 3, file, line);
 	}
 }
+
+// testing...
+// void	print_int_tab2(int *tab, int size)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while (++i < size)
+// 	{
+// 		ft_printf("%i", tab[i]);
+// 		ft_printf(" ");
+// 	}
+// 	ft_printf("\n");
+// }
 
 // parse textures in char** and color in map {character: color}
 void	parse_texture(t_cub3d *cub3d)
@@ -123,18 +159,28 @@ void	parse_texture(t_cub3d *cub3d)
 		free(file_path);
 		parse_xpm(cub3d, file, line);
 		free(line);
-		free_split((void **)file, split_len(file));
+		free_split((void **)file, split_len((void **)file));
 	}
-	// print_split(cub3d->textures[0].texture);
+	// testing...
+	// int	i;
+	// i = -1;
+	// while (++i < 16)
+	// 	print_int_tab2(cub3d->textures[0].texture[i], 16);
 	// print_int_tab(cub3d->textures[0].colors, 10);
 	// printf("\n\n");
-	// print_split(cub3d->textures[1].texture);
+	// i = -1;
+	// while (++i < 16)
+	// 	print_int_tab2(cub3d->textures[1].texture[i], 16);
 	// print_int_tab(cub3d->textures[1].colors, 10);
 	// printf("\n\n");
-	// print_split(cub3d->textures[2].texture);
+	// i = -1;
+	// while (++i < 16)
+	// 	print_int_tab2(cub3d->textures[2].texture[i], 16);
 	// print_int_tab(cub3d->textures[2].colors, 10);
 	// printf("\n\n");
-	// print_split(cub3d->textures[3].texture);
+	// i = -1;
+	// while (++i < 16)
+	// 	print_int_tab2(cub3d->textures[3].texture[i], 16);
 	// print_int_tab(cub3d->textures[3].colors, 10);
 	close(cub3d->map_fd);
 }

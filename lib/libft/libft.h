@@ -80,7 +80,7 @@ int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_isascii(char c);
 int		ft_isprint(char c);
-int		split_len(char **split);
+int		split_len(void **split);
 int		ft_lstsize(t_list *lst);
 int		ft_atoi(const char *str);
 int		ft_printf(const char *s, ...);
