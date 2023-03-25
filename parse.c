@@ -18,7 +18,6 @@ void	free_map(t_cub3d *cub3d)
 	free_split((void **)cub3d->map.map, split_len((void **)cub3d->map.map_d));
 }
 
-// use this whenever exiting the program
 void	free_textures(t_cub3d *cub3d)
 {
 	int	i;
