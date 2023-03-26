@@ -127,20 +127,6 @@ static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 	}
 }
 
-// testing...
-void	print_int_tab2(int *tab, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < size)
-	{
-		ft_printf("%i", tab[i]);
-		ft_printf(" ");
-	}
-	ft_printf("\n");
-}
-
 // parse textures in char** and color in map {character: color}
 void	parse_texture(t_cub3d *cub3d)
 {
@@ -167,25 +153,5 @@ void	parse_texture(t_cub3d *cub3d)
 	while (++i < 4)
 		if (!cub3d->textures[i].texture)
 			texture_error(NULL, NULL);
-	// testing...
-	i = -1;
-	while (++i < 16)
-		print_int_tab2(cub3d->textures[0].texture[i], 16);
-	print_int_tab(cub3d->textures[0].colors, 10);
-	printf("\n\n");
-	i = -1;
-	while (++i < 16)
-		print_int_tab2(cub3d->textures[1].texture[i], 16);
-	print_int_tab(cub3d->textures[1].colors, 10);
-	printf("\n\n");
-	i = -1;
-	while (++i < 16)
-		print_int_tab2(cub3d->textures[2].texture[i], 16);
-	print_int_tab(cub3d->textures[2].colors, 10);
-	printf("\n\n");
-	i = -1;
-	while (++i < 16)
-		print_int_tab2(cub3d->textures[3].texture[i], 16);
-	print_int_tab(cub3d->textures[3].colors, 10);
 	close(cub3d->map_fd);
 }
