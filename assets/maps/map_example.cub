@@ -3,7 +3,7 @@ EA ./assets/textures/E.xpm
 SO ./assets/textures/S.xpm
 WE ./assets/textures/W.xpm
 
-F 0,100,0
+ F 0,100,0
 C 0,110,170
 
 1111111111111111111111111

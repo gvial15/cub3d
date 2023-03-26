@@ -20,6 +20,15 @@ static void	error(t_cub3d *cub3d, char **split_space, char *line)
 	color_error();
 }
 
+int	get_index(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (!ft_isalpha(line[++i]));
+	return (i);
+}
+
 // verify if ceiling and floor colors are specified in the .cub file
 static int	f_c(t_cub3d *cub3d)
 {
@@ -35,9 +44,9 @@ static int	f_c(t_cub3d *cub3d)
 		line = get_next_line(cub3d->map_fd);
 		if (!line)
 			break ;
-		if (line[0] == 'C')
+		if (line[get_index(line)] == 'C')
 			c++;
-		if (line[0] == 'F')
+		if (line[get_index(line)] == 'F')
 			f++;
 		free(line);
 	}
@@ -81,11 +90,11 @@ void	get_colors(t_cub3d *cub3d)
 		if (!line)
 			break ;
 		split_space = ft_split(line, ' ');
-		if ((split_len((void **)split_space) != 2 && (line[0] == 'C' || line[0] == 'F')))
+		if ((split_len((void **)split_space) != 2 && (line[get_index(line)] == 'C' || line[get_index(line)] == 'F')))
 			error(cub3d, split_space, line);
-		if (line[0] == 'C')
+		if (line[get_index(line)] == 'C')
 			fill_color(split_space[1], cub3d->map.c_color, cub3d);
-		if (line[0] == 'F')
+		if (line[get_index(line)] == 'F')
 			fill_color(split_space[1], cub3d->map.f_color, cub3d);
 		free_split((void **)split_space, split_len((void **)split_space));
 		free(line);
