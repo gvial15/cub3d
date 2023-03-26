@@ -26,8 +26,9 @@ static int	skip_to_map(t_cub3d *cub3d)
 		line = get_next_line(map_fd);
 		if (!line)
 			break ;
-		if (line[0] == 'N' || line[0] == 'E' || line[0] == 'S'
-			|| line[0] == 'W' || line[0] == 'C' || line[0] == 'F')
+		if (line[get_index(line)] == 'N' || line[get_index(line)] == 'E'
+			|| line[get_index(line)] == 'S' || line[get_index(line)] == 'W'
+				|| line[get_index(line)] == 'C' || line[get_index(line)] == 'F')
 			count++;
 		free(line);
 	}

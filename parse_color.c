@@ -25,7 +25,7 @@ int	get_index(char *line)
 	int	i;
 
 	i = -1;
-	while (!ft_isalpha(line[++i]));
+	while (line[++i] && !ft_isalpha(line[i]));
 	return (i);
 }
 
