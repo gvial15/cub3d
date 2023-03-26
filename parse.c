@@ -14,8 +14,8 @@
 
 void	free_map(t_cub3d *cub3d)
 {
-	free(cub3d->map.map_c);
 	free_split((void **)cub3d->map.map, split_len((void **)cub3d->map.map_d));
+	free_split((void **)cub3d->map.map_d, split_len((void **)cub3d->map.map_d));
 }
 
 void	free_textures(t_cub3d *cub3d)
@@ -29,7 +29,9 @@ void	free_textures(t_cub3d *cub3d)
 		len = split_len((void **)cub3d->textures[i].texture);
 		free_split((void **)cub3d->textures[i].texture, len);
 	}
-	free(cub3d->textures->colors);
+	i = -1;
+	while (++i < 4)
+		free(cub3d->textures[i].colors);
 }
 
 // verify argument end in .cub
