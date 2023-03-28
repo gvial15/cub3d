@@ -83,6 +83,8 @@ typedef struct s_rays {
 typedef struct s_texture {
 	int	**texture;
 	int	*colors;
+	int	height;
+	int	width;
 }	t_texture;
 
 typedef struct s_cub3d {

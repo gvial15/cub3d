@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "lib/libft/libft.h"
 
 static char	**alloc_file(char *file_path)
 {
@@ -65,6 +66,7 @@ int	*get_texture_color(t_texture *texture, char *line)
 
 	new_line = ft_strtrim(line, "\",\n");
 	tab = ft_calloc(ft_strlen(new_line) + 1, sizeof(int));
+	texture->width = ft_strlen(new_line);
 	i = -1;
 	ii = 0;
 	while (new_line[++i])
@@ -95,6 +97,7 @@ static void	get_texture(t_texture *texture, char **file, char *line)
 			file[i][ii] = 0;
 			texture->texture = ft_calloc(ft_atoi(&file[i][ii + 1]) + 1 \
 			, sizeof(char *));
+			texture->height = ft_atoi(&file[i][ii + 1]);
 		};
 	}
 	ii = -1;
