@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 14:15:01 by mjarry            #+#    #+#             */
-/*   Updated: 2023/03/22 14:26:36 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/03/31 12:47:57 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	create_rays(t_cub3d *cub3d)
 		cub3d->rays[i].v_wall_found = 0;
 		cub3d->rays[i].wall[0] = 0;
 		cub3d->rays[i].wall[1] = 0;
+		cub3d->wall_i[0] = 0;
+		cub3d->wall_i[1] = 0;
+		cub3d->wall_i[2] = 0;
+		cub3d->wall_i[3] = 0;
 	}
 }
 
@@ -219,29 +223,67 @@ void	fix_fisheye(t_cub3d *cub3d, t_rays *ray)
 	// dprintf(2, "wall coordinates: (%f, %f)\n", ray->wall[0], ray->wall[1]);
 }
 
-void	print_wall(t_cub3d *cub3d, t_rays *ray, int color)
+// int	get_color(t_cub3d *cub3d, t_texture texture, float x, float i)
+// {
+// 	int j;
+// 	int y;
+
+// 	j = x - ((int)(x / PIXELS) * PIXELS);
+// 	y = (int)i % 16;
+// 	// if (y >= 16)
+// 	// 	y %= 16;
+// 	if (j >= 16)
+// 		j %= 16;
+// 	// y = (int)y % texture.height;
+// 	// j = (int)j % texture.width;
+// 	// dprintf(2, "%d, %d\n", (int)j, (int)y);
+// 	// return (0x00FF00);
+// 	return (texture.texture[j][y]);
+// }
+
+int get_color(t_cub3d *cub3d, int i)
+{
+   return(cub3d->textures->texture[cub3d->wall_i[i]][cub3d->wall_j]);
+}
+
+void	print_wall(t_cub3d *cub3d, t_rays *ray, t_texture texture, int i)
 {
 	float	wall_height;
 	float	wall_width;
-	float	i;
+	float	y;
 	float	x;
+	int		height_ratio;
+	int		color;
+	int		cnt;
 
+	cub3d->wall_j = 0;
 	if (ray->dist <= 0.0001)
 		ray->dist = 0.0001;
 	wall_height = (5 / ray->dist) * HEIGHT;
 	if (wall_height > HEIGHT)
 		wall_height = HEIGHT;
+	height_ratio = wall_height / 16;
 	wall_width = (float)WIDTH / (float)NUM_RAYS;
 	x = ray->id * wall_width;
 	while (x < wall_width * (ray->id + 1) && x <= (WIDTH + 1))
 	{
-		i = (HEIGHT / 2) - (wall_height / 2);
-		while (i <= (HEIGHT / 2) + (wall_height / 2))
+		y = (HEIGHT / 2) - (wall_height / 2);
+		while (y <= (HEIGHT / 2) + (wall_height / 2))
 		{
-			my_mlx_pixel_put(&cub3d->img, x, i, color);
-			i++;
+			cnt = 0;
+			while (cnt < height_ratio && y <= (HEIGHT / 2) + (wall_height / 2))
+			{
+				color = get_color(cub3d, i);
+				my_mlx_pixel_put(&cub3d->img, x, y, color);
+				y++;
+				cnt++;
+			}
+			cub3d->wall_j++;
 		}
 		x++;
+		cub3d->wall_i[i]++;
+		if (cub3d->wall_i[i] >= 16)
+			cub3d->wall_i[i] = 0;
 	}
 }
 
@@ -286,17 +328,17 @@ void	cast_rays(t_cub3d *cub3d)
 		{
 			fix_fisheye(cub3d, &cub3d->rays[i]);
 			if (cub3d->rays[i].angle >= 0 && cub3d->rays[i].angle <= 180)
-				print_wall(cub3d, &cub3d->rays[i], 0xFF0000); //north
+				print_wall(cub3d, &cub3d->rays[i], cub3d->textures[0], 0); //north
 			else
-				print_wall(cub3d, &cub3d->rays[i], 0x00FF00); //south
+				print_wall(cub3d, &cub3d->rays[i], cub3d->textures[1], 1); //south
 		}
 		else if (cub3d->rays[i].v_wall_found == 1)
 		{
 			fix_fisheye(cub3d, &cub3d->rays[i]);
 			if (cub3d->rays[i].angle >= 90 && cub3d->rays[i].angle <= 270)
-				print_wall(cub3d, &cub3d->rays[i], 0x0000FF); //west
+				print_wall(cub3d, &cub3d->rays[i], cub3d->textures[2], 2); //west
 			else
-				print_wall(cub3d, &cub3d->rays[i], 0x000000); //east
+				print_wall(cub3d, &cub3d->rays[i], cub3d->textures[3], 3); //east
 		}
 		i++;
 	}
