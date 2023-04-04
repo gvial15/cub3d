@@ -1,13 +1,18 @@
-NO ./assets/textures/N.xpm
-EA ./assets/textures/E.xpm
-SO ./assets/textures/S.xpm
-WE ./assets/textures/W.xpm
+NO ./assets/textures/colored_wall.xpm
+EA ./assets/textures/colored_wall.xpm
+SO ./assets/textures/colored_wall.xpm
+WE ./assets/textures/colored_wall.xpm
 
 F 0,100,0
 C 0,110,170
 
 11111
+10101
 10001
-10W01
+10001
+10001
+10001
+10001
+10N01
 10001
 11111
