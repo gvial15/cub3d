@@ -58,7 +58,7 @@ static int	f_c(t_cub3d *cub3d)
 }
 
 // fill the int[3] with the rgb values
-static void	fill_color(char *line, int color[3], t_cub3d *cub3d)
+static void	fill_color(char *line, int color[3])
 {
 	char	**split_comma;
 
@@ -80,6 +80,7 @@ void	get_colors(t_cub3d *cub3d)
 	char	*line;
 	char	**split_space;
 
+	split_space = NULL;
 	line = NULL;
 	if (!f_c(cub3d))
 		error(cub3d, split_space, line);
@@ -93,9 +94,9 @@ void	get_colors(t_cub3d *cub3d)
 		if ((split_len((void **)split_space) != 2 && (line[get_index(line)] == 'C' || line[get_index(line)] == 'F')))
 			error(cub3d, split_space, line);
 		if (line[get_index(line)] == 'C')
-			fill_color(split_space[1], cub3d->map.c_color, cub3d);
+			fill_color(split_space[1], cub3d->map.c_color);
 		if (line[get_index(line)] == 'F')
-			fill_color(split_space[1], cub3d->map.f_color, cub3d);
+			fill_color(split_space[1], cub3d->map.f_color);
 		free_split((void **)split_space, split_len((void **)split_space));
 		free(line);
 	}

@@ -41,6 +41,7 @@ static void	init(t_cub3d *cub3d, char *map_path)
 
 int	main(int argc, char **argv)
 {
+	(void)	argc;
 	t_cub3d	cub3d;
 
 	if (!argv[1])

@@ -15,7 +15,7 @@
 // flood fill to verify the map is closed by walls
 static void	verify_walls(t_cub3d *cub3d, int x, int y)
 {
-	if (y >= cub3d->map.height || x >= ft_strlen(cub3d->map.map_d[y])
+	if (y >= cub3d->map.height || x >= (int)ft_strlen(cub3d->map.map_d[y])
 		|| cub3d->map.map_d[y][x] == ' ')
 		map_error(cub3d);
 	if (cub3d->map.map_d[y][x] == '0')

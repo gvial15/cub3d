@@ -71,7 +71,7 @@ void	alloc_map(t_cub3d *cub3d)
 	x = 0;
 	i = -1;
 	while (cub3d->map.map_d[++i])
-		if (ft_strlen(cub3d->map.map_d[i]) > x)
+		if ((int)ft_strlen(cub3d->map.map_d[i]) > x)
 			x = ft_strlen(cub3d->map.map_d[i]);
 	cub3d->map.map = malloc(sizeof(int *) * y);
 	i = y;

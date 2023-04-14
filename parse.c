@@ -35,20 +35,20 @@ void	free_textures(t_cub3d *cub3d)
 }
 
 // verify argument end in .cub
-static void	parse_arg(t_cub3d *cub3d, char *map_path)
+static void	parse_arg(char *map_path)
 {
 	int		i;
 
 	i = ft_strlen(map_path);
 	while (map_path[--i])
 	{
-		if (i == ft_strlen(map_path) - 1 && map_path[i] != 'b')
+		if (i == (int)ft_strlen(map_path) - 1 && map_path[i] != 'b')
 			arg_error();
-		if (i == ft_strlen(map_path) - 2 && map_path[i] != 'u')
+		if (i == (int)ft_strlen(map_path) - 2 && map_path[i] != 'u')
 			arg_error();
-		if (i == ft_strlen(map_path) - 3 && map_path[i] != 'c')
+		if (i == (int)ft_strlen(map_path) - 3 && map_path[i] != 'c')
 			arg_error();
-		if (i == ft_strlen(map_path) - 4 && map_path[i] != '.')
+		if (i == (int)ft_strlen(map_path) - 4 && map_path[i] != '.')
 			arg_error();
 	}
 }
@@ -67,7 +67,7 @@ void	set_orientation(t_cub3d *cub3d, char c)
 
 void	parse(t_cub3d *cub3d)
 {
-	parse_arg(cub3d, cub3d->map_path);
+	parse_arg(cub3d->map_path);
 	get_colors(cub3d);
 	parse_map(cub3d);
 	parse_texture(cub3d);

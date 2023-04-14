@@ -52,7 +52,7 @@ void	fix_sign(t_rays *ray)
         ray->y = 0;
 }
 
-int	ret_zero(t_cub3d * cub3d, t_rays *ray)
+int	ret_zero(t_rays *ray)
 {
 	ray->wall[0] = 0;
 	ray->wall[1] = 0;
@@ -71,9 +71,9 @@ int	check(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking)
 	if (ray->angle >= 90 && ray->angle <= 270 && checking == 1)
 		cx -= 1;
 	if (cx < 0 || cx >= cub3d->map.width || cub3d->player.cx + x < 0)
-		return (ret_zero(cub3d, ray));
+		return (ret_zero(ray));
 	if (cy < 0 || cy >= cub3d->map.height || (cub3d->player.cy + y) < 0)
-		return (ret_zero(cub3d, ray));
+		return (ret_zero(ray));
 	ray->wall[0] = cub3d->player.cx + x;
 	ray->wall[1] = cub3d->player.cy + y;
 	if (cub3d->map.map[cy][cx] == 1)
@@ -87,7 +87,7 @@ int	check_l(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking)
 	int	cy;
 
 	if (x <= 0 || (x / PIXELS) >= cub3d->map.width || y <= 0 || (y / PIXELS) >= cub3d->map.height)
-		return (ret_zero(cub3d, ray));
+		return (ret_zero(ray));
 	cx = x / PIXELS;
 	cy = y / PIXELS;
 	if (ray->angle > 0 && ray->angle < 180 && checking == 0)
@@ -95,9 +95,9 @@ int	check_l(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking)
 	if (ray->angle > 90 && ray->angle < 270 && checking == 1)
 		cx -= 1;
 	if (cx < 0 || cx >= cub3d->map.width)
-		return (ret_zero(cub3d, ray));
+		return (ret_zero(ray));
 	if (cy < 0 || cy >= cub3d->map.height)
-		return (ret_zero(cub3d, ray));
+		return (ret_zero(ray));
 	ray->wall[0] = x;
 	ray->wall[1] = y;
 	if (cub3d->map.map[cy][cx] == 1)
@@ -176,7 +176,7 @@ void	check_horizontal(t_cub3d *cub3d, t_rays *ray)
 	float	theta;
 
 	theta = ray->angle;
-	if (ray->angle > 90 && ray->angle < 180 || ray->angle > 270 && ray->angle < 360)
+	if ((ray->angle > 90 && ray->angle < 180) || (ray->angle > 270 && ray->angle < 360))
 		theta = 360 - ray->angle;
 	first_check_h(cub3d, ray, theta);
 	if (!ray->h_wall_found && ray->h_check[0] != (float)0 && ray->h_check[1] != (float)0)
@@ -202,7 +202,7 @@ int	horiz_wall(t_cub3d *cub3d, t_rays *ray)
 
 	h_dist = sqrtf(powf(ray->h_check[1] - cub3d->player.cy, 2) + powf(ray->h_check[0] - cub3d->player.cx, 2));
 	v_dist = sqrtf(powf(ray->v_check[1] - cub3d->player.cy, 2) + powf(ray->v_check[0] - cub3d->player.cx, 2));
-	if (!ray->v_wall_found || h_dist < v_dist && (ray->h_check[1] && ray->h_check[0]))
+	if (!ray->v_wall_found || (h_dist < v_dist && (ray->h_check[1] && ray->h_check[0])))
 	{
 		ray->dist = h_dist;
 		ray->wall[0] = ray->h_check[0];
@@ -229,9 +229,8 @@ int get_color(t_texture *text, int y, int x)
    return(text->texture[y][x]);
 }
 
-void	draw_wall_texture(t_cub3d *cub3d, int x, float y_start, float y_end, int i, float texture_offset, float tex_step, float tex_step_x)
+void	draw_wall_texture(t_cub3d *cub3d, int x, float y_start, float y_end, int i, float texture_offset, float tex_step)
 {
-	int		color;
 	int		y;
 	float	tex_pos;
 
@@ -257,8 +256,8 @@ void	print_wall(t_cub3d *cub3d, t_rays *ray, int x, int texture_index)
     float 	wall_bottom_pixel;
     float 	texture_offset;
 	float	tex_step;
-	float	tex_step_x;
 
+	texture_offset = 0;
 	if (texture_index == 0 || texture_index == 1)
 		texture_offset = (int)ray->wall[0] - ((int)ray->wall[0] / PIXELS) * PIXELS;
 	else if (texture_index == 2 || texture_index == 3)
@@ -269,8 +268,7 @@ void	print_wall(t_cub3d *cub3d, t_rays *ray, int x, int texture_index)
     wall_top_pixel = ((float)HEIGHT - wall_height) / 2.0f;
     wall_bottom_pixel = wall_top_pixel + wall_height;
 	tex_step = (float)cub3d->textures[texture_index].height / wall_height;
-	tex_step_x = (float)cub3d->textures[texture_index].width / PIXELS;
-    draw_wall_texture(cub3d, x, wall_top_pixel, wall_bottom_pixel, texture_index, texture_offset, tex_step, tex_step_x);
+    draw_wall_texture(cub3d, x, wall_top_pixel, wall_bottom_pixel, texture_index, texture_offset, tex_step);
 }
 
 void	cast_rays(t_cub3d *cub3d)

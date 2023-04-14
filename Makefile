@@ -1,12 +1,12 @@
 SRCS =	main.c hook.c error.c \
 		parse.c parse_texture.c parse_texture_colors.c parse_color.c parse_map.c parse_map2.c \
-		display_textures.c print.c movement.c cast_rays.c display.c \
+		print.c movement.c cast_rays.c display.c \
 
 OBJS = $(SRCS:%c=%o)
 
 NAME = cub3d
 
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 CC = gcc
 

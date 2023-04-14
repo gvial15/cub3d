@@ -41,7 +41,6 @@ static char	**parse_file(char *file_path)
 {
 	int		i;
 	int		fd;
-	char	*line;
 	char	**file;
 
 	file = alloc_file(file_path);
