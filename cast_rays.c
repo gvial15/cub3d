@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 14:15:01 by mjarry            #+#    #+#             */
-/*   Updated: 2023/04/13 13:36:47 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/17 08:38:14 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ void	draw_wall_texture(t_cub3d *cub3d, int x, float y_start, float y_end, int i,
 		int tex_x = texture_offset * ((float)cub3d->textures[i].width / (float)PIXELS);
 		int tex_y = (int)tex_pos;
 		tex_pos += tex_step;
-		int color = get_color(&cub3d->textures[i], tex_y, tex_x);
+		color = get_color(&cub3d->textures[i], tex_y, tex_x);
 		if (y > 0 && y < HEIGHT)
 			my_mlx_pixel_put(&cub3d->img, x, y, color);
 
