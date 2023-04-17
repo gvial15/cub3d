@@ -11,10 +11,13 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "lib/libft/libft.h"
 
 // functions which exits in case of color error
-void	color_error(void)
+void	color_error(char **split)
 {
+	if (split)
+		free_split((void **)split, split_len((void **)split));
 	printf("there was a problem getting the floor and/or ceiling color\n");
 	exit(1);
 }

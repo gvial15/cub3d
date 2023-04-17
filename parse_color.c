@@ -17,7 +17,7 @@ static void	error(t_cub3d *cub3d, char **split_space, char *line)
 	free(line);
 	close(cub3d->map_fd);
 	free_split((void **)split_space, split_len((void **)split_space));
-	color_error();
+	color_error(NULL);
 }
 
 int	get_index(char *line)
@@ -61,18 +61,26 @@ static int	f_c(t_cub3d *cub3d)
 // fill the int[3] with the rgb values
 static void	fill_color(char *line, int color[3])
 {
-	char	**split_comma;
+	int		i;
+	int		ii;
+	char	**split;
 
-	split_comma = ft_split(line, ',');
-	if (split_len((void **)split_comma) != 3)
+	split = ft_split(line, ',');
+	if (split_len((void **)split) != 3)
+		color_error(split);
+	i = -1;
+	ii = -1;
+	while (split[++i])
 	{
-		free(split_comma);
-		color_error();
+		while (split[i][++ii])
+			if (!ft_isdigit(split[i][ii]) && split[i][ii] != '\n' && split[i][ii + 1] != '\0')
+				color_error(split);
+		ii = -1;
 	}
-	color[0] = ft_atoi(split_comma[0]);
-	color[1] = ft_atoi(split_comma[1]);
-	color[2] = ft_atoi(split_comma[2]);
-	free_split((void **)split_comma, split_len((void **)split_comma));
+	color[0] = ft_atoi(split[0]);
+	color[1] = ft_atoi(split[1]);
+	color[2] = ft_atoi(split[2]);
+	free_split((void **)split, split_len((void **)split));
 }
 
 // parse ceilling and floor color into cub3d->map.<f/c>_color[3];
