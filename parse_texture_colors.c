@@ -12,6 +12,29 @@
 
 #include "cub3d.h"
 
+char	**alloc_file(char *file_path)
+{
+	char	**file;
+	char	*line;
+	int		fd;
+	int		i;
+
+	fd = open(file_path, O_RDONLY);
+	if (fd == -1)
+		return (NULL);
+	line = get_next_line(fd);
+	i = 0;
+	while (line)
+	{
+		i++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	file = ft_calloc(i + 1, sizeof(char *));
+	return (file);
+}
+
 int	nb_color(char **file)
 {
 	int		i;

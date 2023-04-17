@@ -12,29 +12,6 @@
 
 #include "cub3d.h"
 
-static char	**alloc_file(char *file_path)
-{
-	char	**file;
-	char	*line;
-	int		fd;
-	int		i;
-
-	fd = open(file_path, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	line = get_next_line(fd);
-	i = 0;
-	while (line)
-	{
-		i++;
-		free(line);
-		line = get_next_line(fd);
-	}
-	close(fd);
-	file = ft_calloc(i + 1, sizeof(char *));
-	return (file);
-}
-
 /* parse texture file into a char ** so i don't have to use gnl 
 each time i want to read it after */
 static char	**parse_file(char *file_path)
