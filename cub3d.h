@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/04/13 13:30:29 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/17 08:44:13 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,8 @@ float	deg_to_rad(float degrees);
 //raycasting
 void	create_rays(t_cub3d *cub3d);
 void	cast_rays(t_cub3d *cub3d);
+void	fix_sign(t_rays *ray);
+int		ret_zero(t_cub3d * cub3d, t_rays *ray);
 
 // error
 void	arg_error(void);
@@ -150,6 +152,20 @@ void	color_error(void);
 void	map_error(t_cub3d *cub3d);
 void	player_error(t_cub3d *cub3d);
 void	texture_error(char *line, char **file);
+int		check(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking);
+int		check_l(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking);
+void	loop_check_h(t_cub3d *cub3d, t_rays *ray, float theta);
+void	loop_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
+void	first_check_h(t_cub3d *cub3d, t_rays *ray, float theta);
+void	first_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
+void	check_horizontal(t_cub3d *cub3d, t_rays *ray);
+void	check_vertical(t_cub3d *cub3d, t_rays *ray);
+int		horiz_wall(t_cub3d *cub3d, t_rays *ray);
+void	fix_fisheye(t_cub3d *cub3d, t_rays *ray);
+int		get_color(t_texture *text, int y, int x);
+void	draw_wall_texture(t_cub3d *cub3d, int x, float y_start, float y_end, int i, float texture_offset, float tex_step);
+void	print_wall(t_cub3d *cub3d, t_rays *ray, int x, int texture_index);
+void	cast_rays(t_cub3d *cub3d);
 
 //temp
 void	print_info(t_cub3d *cub3d);

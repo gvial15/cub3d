@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 14:15:01 by mjarry            #+#    #+#             */
-/*   Updated: 2023/04/13 13:36:47 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/17 08:38:14 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ int get_color(t_texture *text, int y, int x)
    return(text->texture[y][x]);
 }
 
-void	draw_wall_texture(t_cub3d *cub3d, int x, float y_start, float y_end, int i, float texture_offset, float tex_step, float tex_step_x)
+void	draw_wall_texture(t_cub3d *cub3d, int x, float y_start, float y_end, int i, float texture_offset, float tex_step)
 {
 	int		color;
 	int		y;
@@ -242,7 +242,7 @@ void	draw_wall_texture(t_cub3d *cub3d, int x, float y_start, float y_end, int i,
 		int tex_x = texture_offset * ((float)cub3d->textures[i].width / (float)PIXELS);
 		int tex_y = (int)tex_pos;
 		tex_pos += tex_step;
-		int color = get_color(&cub3d->textures[i], tex_y, tex_x);
+		color = get_color(&cub3d->textures[i], tex_y, tex_x);
 		if (y > 0 && y < HEIGHT)
 			my_mlx_pixel_put(&cub3d->img, x, y, color);
 
@@ -269,8 +269,7 @@ void	print_wall(t_cub3d *cub3d, t_rays *ray, int x, int texture_index)
     wall_top_pixel = ((float)HEIGHT - wall_height) / 2.0f;
     wall_bottom_pixel = wall_top_pixel + wall_height;
 	tex_step = (float)cub3d->textures[texture_index].height / wall_height;
-	tex_step_x = (float)cub3d->textures[texture_index].width / PIXELS;
-    draw_wall_texture(cub3d, x, wall_top_pixel, wall_bottom_pixel, texture_index, texture_offset, tex_step, tex_step_x);
+    draw_wall_texture(cub3d, x, wall_top_pixel, wall_bottom_pixel, texture_index, texture_offset, tex_step);
 }
 
 void	cast_rays(t_cub3d *cub3d)
