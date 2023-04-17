@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/04/17 09:01:28 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/17 09:22:26 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,25 +140,34 @@ void	turn_left(t_cub3d *cub3d);
 void	turn_right(t_cub3d *cub3d);
 float	deg_to_rad(float degrees);
 
-//raycasting
+//cast_rays
 void	create_rays(t_cub3d *cub3d);
 void	cast_rays(t_cub3d *cub3d);
+
+//cast_rays_utils
 void	fix_sign(t_rays *ray);
-int		ret_zero(t_cub3d * cub3d, t_rays *ray);
-int		check(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking);
-int		check_l(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking);
-void	loop_check_h(t_cub3d *cub3d, t_rays *ray, float theta);
-void	loop_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
-void	first_check_h(t_cub3d *cub3d, t_rays *ray, float theta);
-void	first_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
-void	check_horizontal(t_cub3d *cub3d, t_rays *ray);
-void	check_vertical(t_cub3d *cub3d, t_rays *ray);
-int		horiz_wall(t_cub3d *cub3d, t_rays *ray);
+int		ret_zero(t_rays *ray);
 void	fix_fisheye(t_cub3d *cub3d, t_rays *ray);
 int		get_color(t_texture *text, int y, int x);
+
+//check
+int		check(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking);
+int		check_l(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking);
+
+//check_h
+void	check_horizontal(t_cub3d *cub3d, t_rays *ray);
+void	first_check_h(t_cub3d *cub3d, t_rays *ray, float theta);
+void	loop_check_h(t_cub3d *cub3d, t_rays *ray, float theta);
+int		horiz_wall(t_cub3d *cub3d, t_rays *ray);
+
+//check_v
+void	check_vertical(t_cub3d *cub3d, t_rays *ray);
+void	first_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
+void	loop_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
+
+//print_walls
 void	draw_wall_texture(t_cub3d *cub3d, int x, float y_start, float y_end, int i, float texture_offset, float tex_step);
 void	print_wall(t_cub3d *cub3d, t_rays *ray, int x, int texture_index);
-void	cast_rays(t_cub3d *cub3d);
 
 // error
 void	arg_error(void);
