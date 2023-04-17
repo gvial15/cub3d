@@ -30,7 +30,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*ft_itoa(int n);
 char	*ft_ltoa(long n);
 char	*ft_itoa_base(int value, int base);
-int     ft_atoi_base(const char *str, int str_base);
+int		ft_atoi_base(const char *str, int str_base);
 char	*get_next_line(int fd);
 char	*ft_ltox(long n, int caps);
 char	*ft_strdup(const char *s1);
