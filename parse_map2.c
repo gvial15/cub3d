@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:35:04 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/06 16:35:05 by gvial            ###   ########.fr       */
+/*   Updated: 2023/04/17 13:56:47 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	skip_to_map(t_cub3d *cub3d)
 			break ;
 		if (line[get_index(line)] == 'N' || line[get_index(line)] == 'E'
 			|| line[get_index(line)] == 'S' || line[get_index(line)] == 'W'
-				|| line[get_index(line)] == 'C' || line[get_index(line)] == 'F')
+			|| line[get_index(line)] == 'C' || line[get_index(line)] == 'F')
 			count++;
 		free(line);
 	}

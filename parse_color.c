@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:31:41 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/06 16:31:42 by gvial            ###   ########.fr       */
+/*   Updated: 2023/04/17 13:55:58 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int	get_index(char *line)
 {
 	int	i;
 
-	i = -1;
-	while (line[++i] && !ft_isalpha(line[i]));
+	i = 0;
+	while (line[i] && !ft_isalpha(line[i]))
+		i++;
 	return (i);
 }
 
@@ -91,7 +92,8 @@ void	get_colors(t_cub3d *cub3d)
 		if (!line)
 			break ;
 		split_space = ft_split(line, ' ');
-		if ((split_len((void **)split_space) != 2 && (line[get_index(line)] == 'C' || line[get_index(line)] == 'F')))
+		if ((split_len((void **)split_space) != 2 \
+			&& (line[get_index(line)] == 'C' || line[get_index(line)] == 'F')))
 			error(cub3d, split_space, line);
 		if (line[get_index(line)] == 'C')
 			fill_color(split_space[1], cub3d->map.c_color);

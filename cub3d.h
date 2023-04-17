@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/04/17 09:22:26 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/17 14:05:19 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define WIDTH 1980 //WINDOW WIDTH
 # define HEIGHT 1080 //WINDOW HEIGHT
 # define PIXELS 16 //NUMBER OF PIXELS PER SQUARE
-#define FOV 60
-#define NUM_RAYS 2400
+# define FOV 60
+# define NUM_RAYS 2400
 
 # include <stdio.h>
 # include <fcntl.h>
@@ -49,7 +49,7 @@ typedef struct s_map {
 	int		height;
 }	t_map;
 
-typedef struct	s_data {
+typedef struct s_data {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -65,7 +65,6 @@ typedef struct s_display {
 	int		img_width;
 	int		img_height;
 }	t_display;
-
 
 typedef struct s_rays {
 	float	angle;
@@ -92,8 +91,10 @@ typedef struct s_cub3d {
 	int			map_fd;
 	int			norm_bs;
 	float		ang_incr;
-	int			wall_i[4];
-	int			wall_j;
+	int			is_v;
+	float		tex_step;
+	int			i;
+	int			x;
 	t_data		img;
 	t_data		tmp;
 	t_map		map;
@@ -124,7 +125,6 @@ int		display_texture(t_rays *ray);
 void	display_window(t_cub3d *cub3d);
 void	print_ceiling(t_cub3d *cub3d);
 void	print_floor(t_cub3d *cub3d);
-int		rgb_to_int(int *color);
 
 // printing initial position
 void	print_minimap(t_cub3d *cub3d);
@@ -140,19 +140,27 @@ void	turn_left(t_cub3d *cub3d);
 void	turn_right(t_cub3d *cub3d);
 float	deg_to_rad(float degrees);
 
+//move_util
+float	check_collision_y(t_cub3d *cub3d, float y);
+float	check_collision_x(t_cub3d *cub3d, float x);
+float	deg_to_rad(float degrees);
+
 //cast_rays
 void	create_rays(t_cub3d *cub3d);
 void	cast_rays(t_cub3d *cub3d);
+void	dispatch_horiz(t_cub3d *cub3d, int i, int x);
+void	dispatch_vert(t_cub3d *cub3d, int i, int x);
 
 //cast_rays_utils
 void	fix_sign(t_rays *ray);
 int		ret_zero(t_rays *ray);
 void	fix_fisheye(t_cub3d *cub3d, t_rays *ray);
 int		get_color(t_texture *text, int y, int x);
+int		rgb_to_int(int *color);
 
 //check
-int		check(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking);
-int		check_l(t_cub3d *cub3d, t_rays *ray, float x, float y, int checking);
+int		check(t_cub3d *cub3d, t_rays *ray, float x, float y);
+int		check_l(t_cub3d *cub3d, t_rays *ray, float x, float y);
 
 //check_h
 void	check_horizontal(t_cub3d *cub3d, t_rays *ray);
@@ -166,7 +174,8 @@ void	first_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
 void	loop_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
 
 //print_walls
-void	draw_wall_texture(t_cub3d *cub3d, int x, float y_start, float y_end, int i, float texture_offset, float tex_step);
+void	draw_wall_texture(t_cub3d *cub3d, float y_start, \
+float y_end, float tex_off);
 void	print_wall(t_cub3d *cub3d, t_rays *ray, int x, int texture_index);
 
 // error
@@ -175,9 +184,5 @@ void	color_error(void);
 void	map_error(t_cub3d *cub3d);
 void	player_error(t_cub3d *cub3d);
 void	texture_error(char *line, char **file);
-
-//temp
-void	print_info(t_cub3d *cub3d);
-void	draw_line(t_cub3d *cub3d, float x1, float y1, float x2, float y2);
 
 #endif

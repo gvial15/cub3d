@@ -6,21 +6,24 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 14:34:04 by mjarry            #+#    #+#             */
-/*   Updated: 2023/03/22 14:34:18 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/17 14:04:09 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_info(t_cub3d *cub3d)
-{
-	dprintf(2, "texture dimensions?: \nx: %d\ny: %d\n", cub3d->display.img_height, cub3d->display.img_width);
-	dprintf(2, "map dimensions: \nx: %d\ny: %d\n", cub3d->map.height, cub3d->map.width);
-	dprintf(2, "player position: \nx: %d\ny: %d\n", cub3d->player.x, cub3d->player.y);
-	dprintf(2, "total player position: \ncx: %f\ncy: %f\n", cub3d->player.cx, cub3d->player.cy);
-	dprintf(2, "player angle: %f\n", cub3d->player.degrees);
-}
-
+// void	print_info(t_cub3d *cub3d)
+// {
+// 	dprintf(2, "texture dimensions?: \nx: %d\ny: %d\n",
+// cub3d->display.img_height, cub3d->display.img_width);
+// 	dprintf(2, "map dimensions: \nx: %d\ny: %d\n",
+// cub3d->map.height, cub3d->map.width);
+// 	dprintf(2, "player position: \nx: %d\ny: %d\n",
+// cub3d->player.x, cub3d->player.y);
+// 	dprintf(2, "total player position: \ncx: %f\ncy: %f\n",
+// cub3d->player.cx, cub3d->player.cy);
+// 	dprintf(2, "player angle: %f\n", cub3d->player.degrees);
+// }
 void	put_cube(t_cub3d *cub3d, int x, int y, int color)
 {
 	int	i;
@@ -33,9 +36,11 @@ void	put_cube(t_cub3d *cub3d, int x, int y, int color)
 		while (j <= PIXELS)
 		{
 			if (i % PIXELS != 0 || j % PIXELS != 0)
-				my_mlx_pixel_put(&cub3d->img, ((y * PIXELS) + i), ((x * PIXELS) + j), color);
+				my_mlx_pixel_put(&cub3d->img, ((y * PIXELS) + i), \
+					((x * PIXELS) + j), color);
 			if (i % PIXELS == 0 || j % PIXELS == 0)
-				my_mlx_pixel_put(&cub3d->img, ((y * PIXELS) + i), ((x * PIXELS) + j), 0xFFFFFF);
+				my_mlx_pixel_put(&cub3d->img, ((y * PIXELS) + i), \
+					((x * PIXELS) + j), 0xFFFFFF);
 			j++;
 		}
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:22:13 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/06 16:22:16 by gvial            ###   ########.fr       */
+/*   Updated: 2023/04/17 13:50:16 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	map_error(t_cub3d *cub3d)
 	if (cub3d->map.map_c)
 		free(cub3d->map.map_c);
 	if (cub3d->map.map_d)
-		free_split((void **)cub3d->map.map_d, split_len((void **)cub3d->map.map_d));
+		free_split((void **)cub3d->map.map_d, \
+			split_len((void **)cub3d->map.map_d));
 	exit(1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marie-soleiljarry <marie-soleiljarry@st    +#+  +:+       +#+        */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:33:52 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/22 14:37:01 by marie-solei      ###   ########.fr       */
+/*   Updated: 2023/04/17 13:56:28 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	parse_player(t_cub3d *cub3d)
 
 	x = -1;
 	y = -1;
-
 	while (++y < cub3d->map.height)
 	{
 		while (++x < cub3d->map.width)

@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:29:39 by gvial             #+#    #+#             */
-/*   Updated: 2023/03/27 17:18:28 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/17 13:52:42 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,21 @@ static void	init(t_cub3d *cub3d, char *map_path)
 
 int	main(int argc, char **argv)
 {
-	(void)	argc;
 	t_cub3d	cub3d;
 
-	if (!argv[1])
-		arg_error();
-	init(&cub3d, argv[1]);
-	parse(&cub3d);
-	display_window(&cub3d);
-	mlx_hook(cub3d.display.mlx_win, 2, 0, key_hook, &cub3d);
-	mlx_hook(cub3d.display.mlx_win, 17, 0, close_x, &cub3d);
-	mlx_loop(cub3d.display.mlx);
-	free_textures(&cub3d);
-	free_map(&cub3d);
+	if (argc == 2)
+	{
+		if (!argv[1])
+			arg_error();
+		init(&cub3d, argv[1]);
+		parse(&cub3d);
+		display_window(&cub3d);
+		mlx_hook(cub3d.display.mlx_win, 2, 0, key_hook, &cub3d);
+		mlx_hook(cub3d.display.mlx_win, 17, 0, close_x, &cub3d);
+		mlx_loop(cub3d.display.mlx);
+		free_textures(&cub3d);
+		free_map(&cub3d);
+	}
+	else
+		printf("Wrong number or arguments.\n");
 }

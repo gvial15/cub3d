@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gvial <marvin@42quebec.com>                +#+  +:+       +#+        */
+/*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:35:17 by gvial             #+#    #+#             */
-/*   Updated: 2023/02/06 16:35:18 by gvial            ###   ########.fr       */
+/*   Updated: 2023/04/17 14:00:38 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static char	**alloc_file(char *file_path)
 	return (file);
 }
 
-// parse texture file into a char ** so i don't have to use gnl each time i want to read it after
+/* parse texture file into a char ** so i don't have to use gnl 
+each time i want to read it after */
 static char	**parse_file(char *file_path)
 {
 	int		i;
@@ -55,7 +56,8 @@ static char	**parse_file(char *file_path)
 	return (file);
 }
 
-// convert characters into int (colors) and put it into the given cub3d->textures[index].texture[++ii]
+/* convert characters into int (colors) and put it into the given 
+cub3d->textures[index].texture[++ii] */
 int	*get_texture_color(t_texture *texture, char *line)
 {
 	int		i;
@@ -70,7 +72,9 @@ int	*get_texture_color(t_texture *texture, char *line)
 	ii = 0;
 	while (new_line[++i])
 	{
-		while (texture->colors[ii++] != new_line[i]);
+		while (texture->colors[ii++] != new_line[i])
+		{
+		}
 		tab[i] = texture->colors[ii];
 		ii = 0;
 	}
@@ -92,19 +96,21 @@ static void	get_texture(t_texture *texture, char **file, char *line)
 	{
 		if (file[i][0] == '"' && ft_isdigit(file[i][1]))
 		{
-			while (ft_isdigit(file[i][++ii]));
+			while (ft_isdigit(file[i][++ii]))
+			{
+			}
 			file[i][ii] = 0;
 			texture->texture = ft_calloc(ft_atoi(&file[i][ii + 1]) + 1 \
 			, sizeof(char *));
 			texture->height = ft_atoi(&file[i][ii + 1]);
-		};
+		}
 	}
 	ii = -1;
 	while (!ft_strnstr(file[++i], "};", 12))
 		texture->texture[++ii] = get_texture_color(texture, file[i]);
 }
 
-// find the orientation of the texture to parse it into the right t_texture index
+// find the orientation of the texture to parse it into the right t_texture i
 static void	parse_xpm(t_cub3d *cub3d, char **file, char *line)
 {
 	if (ft_strnstr(line, "NO ", 3))
