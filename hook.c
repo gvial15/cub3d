@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:28:14 by gvial             #+#    #+#             */
-/*   Updated: 2023/03/21 11:35:04 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/18 10:32:01 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	close_x(t_cub3d *cub3d)
 {
+	mlx_destroy_image(cub3d->display.mlx, &cub3d->img);
 	mlx_destroy_window(cub3d->display.mlx, cub3d->display.mlx_win);
 	exit(0);
 }
