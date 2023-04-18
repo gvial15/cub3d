@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 09:23:56 by mjarry            #+#    #+#             */
-/*   Updated: 2023/04/17 12:24:37 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/18 10:51:42 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	print_wall(t_cub3d *cub3d, t_rays *ray, int x, int texture_index)
 	else if (texture_index == 2 || texture_index == 3)
 		texture_offset = (int)ray->wall[1] - \
 		((int)ray->wall[1] / PIXELS) * PIXELS;
-	if (ray->dist <= 0.0001f)
-		ray->dist = 0.0001f;
+	if (ray->dist <= 1.0f)
+		ray->dist = 1.0f;
 	wall_height = (5 / ray->dist) * HEIGHT;
 	wall_top_pixel = ((float)HEIGHT - wall_height) / 2.0f;
 	wall_bottom_pixel = wall_top_pixel + wall_height;
