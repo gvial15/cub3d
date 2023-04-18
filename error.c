@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "lib/libft/libft.h"
 
 // functions which exits in case of color error
 void	color_error(char **split)
@@ -47,7 +46,7 @@ void	player_error(t_cub3d *cub3d)
 	if (cub3d->map.map_c)
 		free(cub3d->map.map_c);
 	if (cub3d->map.map_d)
-		free(cub3d->map.map_d);
+		free_split((void **)cub3d->map.map_d, split_len((void **)cub3d->map.map_d));
 	exit(1);
 }
 
