@@ -46,7 +46,8 @@ void	player_error(t_cub3d *cub3d)
 	if (cub3d->map.map_c)
 		free(cub3d->map.map_c);
 	if (cub3d->map.map_d)
-		free_split((void **)cub3d->map.map_d, split_len((void **)cub3d->map.map_d));
+		free_split((void **)cub3d->map.map_d, \
+		split_len((void **)cub3d->map.map_d));
 	exit(1);
 }
 
