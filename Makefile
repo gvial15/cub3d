@@ -1,7 +1,7 @@
 SRCS =	main.c hook.c error.c \
 		parse.c parse_texture.c parse_texture_colors.c parse_color.c parse_map.c parse_map2.c \
 		print.c movement.c cast_rays.c display.c move_util.c\
-		cast_rays_utils.c check.c check_h.c check_v.c print_walls.c \
+		cast_rays_utils.c check.c check_h.c check_v.c print_walls.c strafe.c\
 
 OBJS = $(SRCS:%c=%o)
 

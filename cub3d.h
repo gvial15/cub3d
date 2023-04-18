@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:25:29 by gvial             #+#    #+#             */
-/*   Updated: 2023/04/18 10:40:16 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/18 11:25:15 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,10 @@ int		horiz_wall(t_cub3d *cub3d, t_rays *ray);
 void	check_vertical(t_cub3d *cub3d, t_rays *ray);
 void	first_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
 void	loop_check_v(t_cub3d *cub3d, t_rays *ray, float theta);
+
+//strafe
+void	strafe_left(t_cub3d *cub3d);
+void	strafe_right(t_cub3d *cub3d);
 
 //print_walls
 void	draw_wall_texture(t_cub3d *cub3d, float y_start, \

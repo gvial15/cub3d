@@ -6,7 +6,7 @@
 /*   By: mjarry <mjarry@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 16:28:14 by gvial             #+#    #+#             */
-/*   Updated: 2023/04/18 10:32:01 by mjarry           ###   ########.fr       */
+/*   Updated: 2023/04/18 11:27:10 by mjarry           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ int	key_hook(int keycode, t_cub3d *cub3d)
 		go_forward(cub3d);
 	if (keycode == 1)
 		go_backward(cub3d);
-	if (keycode == 0)
-		turn_left(cub3d);
 	if (keycode == 2)
+		strafe_left(cub3d);
+	if (keycode == 0)
+		strafe_right(cub3d);
+	if (keycode == 123)
+		turn_left(cub3d);
+	if (keycode == 124)
 		turn_right(cub3d);
 	return (0);
 }
