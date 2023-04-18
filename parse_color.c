@@ -73,8 +73,9 @@ static void	fill_color(char *line, int color[3])
 	while (split[++i])
 	{
 		while (split[i][++ii])
-			if (!ft_isdigit(split[i][ii]) && split[i][ii] != '\n'\
-				&& split[i][ii + 1] != '\0')
+			if (ft_strlen(split[i]) < 1 || split[i][0] == '\n' ||\
+				(!ft_isdigit(split[i][ii]) && split[i][ii] != '\n'\
+				&& split[i][ii + 1] != '\0'))
 				color_error(split);
 		ii = -1;
 	}
