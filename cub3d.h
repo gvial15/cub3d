@@ -95,6 +95,7 @@ typedef struct s_cub3d {
 	float		tex_step;
 	int			i;
 	int			x;
+	int			texture;
 	t_data		img;
 	t_data		tmp;
 	t_map		map;

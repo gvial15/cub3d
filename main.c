@@ -37,6 +37,7 @@ static void	init(t_cub3d *cub3d, char *map_path)
 	cub3d->player.y = 0;
 	cub3d->player.dy = PIXELS / 2;
 	cub3d->player.orientation = 0;
+	cub3d->texture = 0;
 }
 
 int	main(int argc, char **argv)
