@@ -56,6 +56,8 @@ char	*fill_map(t_cub3d *cub3d)
 		free(line);
 		line = get_next_line(map_fd);
 	}
+	if (line)
+		free(line);
 	close(map_fd);
 	return (map);
 }
