@@ -30,7 +30,7 @@ int	get_index(char *line)
 	return (i);
 }
 
-// verify if ceiling and floor colors are specified in the .cub file
+// verify if ceiling and floor colors are specified once in the .cub file
 static int	f_c(t_cub3d *cub3d)
 {
 	char	*line;
@@ -72,6 +72,8 @@ static void	fill_color(char *line, int color[3])
 	ii = -1;
 	while (split[++i])
 	{
+		if (ft_atoi(split[i]) > 255 || ft_atoi(split[i]) < 0)
+			color_error(split);
 		while (split[i][++ii])
 			if (ft_strlen(split[i]) < 1 || split[i][0] == '\n' || \
 				(!ft_isdigit(split[i][ii]) && split[i][ii] != '\n'\
