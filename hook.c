@@ -14,7 +14,6 @@
 
 int	close_x(t_cub3d *cub3d)
 {
-	mlx_destroy_image(cub3d->display.mlx, &cub3d->img);
 	mlx_destroy_window(cub3d->display.mlx, cub3d->display.mlx_win);
 	exit(0);
 }
