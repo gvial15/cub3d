@@ -189,6 +189,6 @@ void	arg_error(void);
 void	color_error(char **split);
 void	map_error(t_cub3d *cub3d);
 void	player_error(t_cub3d *cub3d);
-void	texture_error(char *line, char **file);
+void	texture_error(char *line, char **file, char *file_path);
 
 #endif

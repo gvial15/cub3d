@@ -11,11 +11,10 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "lib/libft/libft.h"
 
 /* parse texture file into a char ** so i don't have to use gnl 
 each time i want to read it after */
-static char	**parse_file(char *file_path)
+static char	**parse_file(t_cub3d *cub3d, char *file_path, char *line)
 {
 	int		i;
 	int		fd;
@@ -25,6 +24,11 @@ static char	**parse_file(char *file_path)
 	if (!file)
 		return (NULL);
 	fd = open(file_path, O_RDONLY);
+	if (fd == -1)
+	{
+		close(cub3d->map_fd);
+		texture_error(line, file, file_path);
+	}
 	i = 0;
 	file[i] = get_next_line(fd);
 	while (file[i++])
@@ -127,14 +131,14 @@ void	parse_texture(t_cub3d *cub3d)
 		if (!line)
 			break ;
 		file_path = ft_substr(line, 3, ft_strlen(line) - 4);
-		file = parse_file(file_path);
+		file = parse_file(cub3d, file_path, line);
 		if (file)
 			parse_xpm(cub3d, file, line, &file_path[ft_strlen(file_path) - 3]);
 		free(file_path);
 		free(line);
 		free_split((void **)file, split_len((void **)file));
 	}
-	if (cub3d->texture != 4)
-		texture_error(NULL, NULL);
 	close(cub3d->map_fd);
+	if (cub3d->texture != 4)
+		texture_error(NULL, NULL, NULL);
 }
