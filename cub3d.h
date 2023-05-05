@@ -186,7 +186,7 @@ void	print_wall(t_cub3d *cub3d, t_rays *ray, int x, int texture_index);
 
 // error
 void	arg_error(void);
-void	color_error(char **split);
+void	color_error(t_cub3d *cub3d, char **split, char *fline);
 void	map_error(t_cub3d *cub3d);
 void	player_error(t_cub3d *cub3d);
 void	texture_error(char *line, char **file, char *file_path);

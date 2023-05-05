@@ -14,10 +14,8 @@
 
 static void	error(t_cub3d *cub3d, char **split_space, char *line)
 {
-	free(line);
-	close(cub3d->map_fd);
 	free_split((void **)split_space, split_len((void **)split_space));
-	color_error(NULL);
+	color_error(cub3d, NULL, line);
 }
 
 int	get_index(char *line)
@@ -59,7 +57,7 @@ static int	f_c(t_cub3d *cub3d)
 }
 
 // fill the int[3] with the rgb values
-static void	fill_color(char *line, int color[3])
+static void	fill_color(t_cub3d *cub3d, char *line, int color[3], char *fline)
 {
 	int		i;
 	int		ii;
@@ -67,17 +65,17 @@ static void	fill_color(char *line, int color[3])
 
 	split = ft_split(line, ',');
 	if (split_len((void **)split) != 3)
-		color_error(split);
+		color_error(cub3d, split, fline);
 	i = -1;
 	ii = -1;
 	while (split[++i])
 	{
 		if (ft_atoi(split[i]) > 255 || ft_atoi(split[i]) < 0)
-			color_error(split);
+			color_error(cub3d, split, fline);
 		while (split[i][++ii])
 			if (ft_strlen(split[i]) < 1 || split[i][0] == '\n' || \
 				(!ft_isdigit(split[i][ii]) && split[i][ii] != '\n'))
-				color_error(split);
+				color_error(cub3d, split, fline);
 		ii = -1;
 	}
 	color[0] = ft_atoi(split[0]);
@@ -107,9 +105,9 @@ void	get_colors(t_cub3d *cub3d)
 			&& (line[get_index(line)] == 'C' || line[get_index(line)] == 'F')))
 			error(cub3d, split_space, line);
 		if (line[get_index(line)] == 'C')
-			fill_color(split_space[1], cub3d->map.c_color);
+			fill_color(cub3d, split_space[1], cub3d->map.c_color, line);
 		if (line[get_index(line)] == 'F')
-			fill_color(split_space[1], cub3d->map.f_color);
+			fill_color(cub3d, split_space[1], cub3d->map.f_color, line);
 		free_split((void **)split_space, split_len((void **)split_space));
 		free(line);
 	}

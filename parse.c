@@ -38,7 +38,12 @@ void	free_textures(t_cub3d *cub3d)
 static void	parse_arg(char *map_path)
 {
 	int	i;
+	int	fd;
 
+	fd = open(map_path, O_RDONLY);
+	if (fd == -1)
+		arg_error();
+	close(fd);
 	i = ft_strlen(map_path);
 	while (map_path[--i])
 	{

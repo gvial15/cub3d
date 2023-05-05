@@ -13,8 +13,11 @@
 #include "cub3d.h"
 
 // functions which exits in case of color error
-void	color_error(char **split)
+void	color_error(t_cub3d *cub3d, char **split, char *fline)
 {
+	close(cub3d->map_fd);
+	if (fline)
+		free(fline);
 	if (split)
 		free_split((void **)split, split_len((void **)split));
 	printf("there was a problem getting the floor and/or ceiling color\n");
